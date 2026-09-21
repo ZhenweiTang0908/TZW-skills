@@ -1,0 +1,5 @@
+interface:
+  display_name: "Session Handoff (NIU)"
+  short_description: "Preserve minimal context for reliable continuation"
+  brand_color: "#2563EB"
+  default_prompt: "Use $session-handoff to preserve the minimum verified context needed for another session to continue."

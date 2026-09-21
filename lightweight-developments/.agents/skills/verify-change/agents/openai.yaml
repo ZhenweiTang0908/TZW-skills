@@ -1,0 +1,5 @@
+interface:
+  display_name: "Verify Change (NIU)"
+  short_description: "Verify bounded changes against behavioral contracts"
+  brand_color: "#2563EB"
+  default_prompt: "Use $verify-change to test this bounded change against its Mini Spec or Fix Contract with fresh evidence."

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Verify Spec (NIU)"
+  short_description: "Trace every Spec requirement to fresh evidence"
+  brand_color: "#2563EB"
+  default_prompt: "Use $verify-spec to trace every requirement in this approved Spec to implementation and fresh evidence."

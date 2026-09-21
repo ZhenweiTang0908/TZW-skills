@@ -1,0 +1,5 @@
+interface:
+  display_name: "Diagnose (NIU)"
+  short_description: "Investigate failures before proposing fixes"
+  brand_color: "#2563EB"
+  default_prompt: "Use $diagnose to gather evidence, test hypotheses, and identify the root cause before changing code."

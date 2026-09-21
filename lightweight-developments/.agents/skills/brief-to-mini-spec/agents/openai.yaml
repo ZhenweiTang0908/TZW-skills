@@ -1,0 +1,5 @@
+interface:
+  display_name: "Brief to Mini Spec (NIU)"
+  short_description: "Turn bounded requests into concise Mini Specs"
+  brand_color: "#2563EB"
+  default_prompt: "Use $brief-to-mini-spec to turn this bounded request into a concise behavioral contract before implementation."

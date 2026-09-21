@@ -1,0 +1,5 @@
+interface:
+  display_name: "Brief to Spec (NIU)"
+  short_description: "Turn large feature briefs into formal Specs"
+  brand_color: "#2563EB"
+  default_prompt: "Use $brief-to-spec to research this large feature and produce a formal, reviewable behavioral Spec."

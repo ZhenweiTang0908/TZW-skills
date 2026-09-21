@@ -1,0 +1,5 @@
+interface:
+  display_name: "Spec to Plan (NIU)"
+  short_description: "Turn approved Specs into verifiable implementation tasks"
+  brand_color: "#2563EB"
+  default_prompt: "Use $spec-to-plan to convert this approved Spec into meaningful, independently verifiable implementation tasks."

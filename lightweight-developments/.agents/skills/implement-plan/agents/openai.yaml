@@ -1,0 +1,5 @@
+interface:
+  display_name: "Implement Plan (NIU)"
+  short_description: "Execute approved feature plans with self-checks"
+  brand_color: "#2563EB"
+  default_prompt: "Use $implement-plan to execute this approved plan against its formal Spec with task-level self-checks."

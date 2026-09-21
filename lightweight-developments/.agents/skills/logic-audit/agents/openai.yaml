@@ -1,0 +1,5 @@
+interface:
+  display_name: "Logic Audit (NIU)"
+  short_description: "Find counterexamples and simplify decision logic"
+  brand_color: "#2563EB"
+  default_prompt: "Use $logic-audit to challenge this decision system with assumptions, contradictions, and counterexamples."

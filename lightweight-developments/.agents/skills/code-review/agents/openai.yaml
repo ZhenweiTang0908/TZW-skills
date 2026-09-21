@@ -1,0 +1,5 @@
+interface:
+  display_name: "Code Review (NIU)"
+  short_description: "Review completed code for actionable defects"
+  brand_color: "#2563EB"
+  default_prompt: "Use $code-review to inspect this completed change and report concrete implementation defects by severity."

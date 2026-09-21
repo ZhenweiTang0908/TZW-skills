@@ -1,0 +1,5 @@
+interface:
+  display_name: "Doubt Review (NIU)"
+  short_description: "Challenge important artifacts against contracts"
+  brand_color: "#2563EB"
+  default_prompt: "Use $doubt-review to challenge this artifact independently against the supplied contract."

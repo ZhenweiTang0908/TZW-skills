@@ -1,0 +1,30 @@
+name: "lightweight-developments"
+version: "0.2.0"
+author: "NiuNiu Tang"
+skill_root: ".agents/skills"
+categories:
+  daily:
+    - "brief-to-mini-spec"
+    - "diagnose"
+    - "product-analysis"
+    - "logic-audit"
+    - "verify-change"
+  feature:
+    - "brief-to-spec"
+    - "review-spec"
+    - "spec-to-plan"
+    - "implement-plan"
+    - "verify-spec"
+  cross_cutting:
+    - "engineering-quality"
+  auxiliary:
+    - "doubt-review"
+    - "code-review"
+    - "session-handoff"
+    - "ship-change"
+composition:
+  default: "one primary skill, optionally one cross-cutting skill and one review skill"
+  implementation_quality: "engineering-quality"
+  production_mutation: "ship-change with explicit authorization"
+
+# NiuNiu Tang

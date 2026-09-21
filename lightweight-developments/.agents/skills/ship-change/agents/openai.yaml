@@ -1,0 +1,5 @@
+interface:
+  display_name: "Ship Change (NIU)"
+  short_description: "Ship authorized changes with recovery controls"
+  brand_color: "#2563EB"
+  default_prompt: "Use $ship-change to deliver this explicitly authorized version to the named environment with recovery controls."

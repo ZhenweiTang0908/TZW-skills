@@ -1,0 +1,5 @@
+interface:
+  display_name: "Review Spec (NIU)"
+  short_description: "Find concrete defects in formal feature Specs"
+  brand_color: "#2563EB"
+  default_prompt: "Use $review-spec to compare this draft Spec with the original brief and report concrete ambiguities or omissions."

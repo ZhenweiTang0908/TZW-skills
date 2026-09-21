@@ -1,0 +1,5 @@
+interface:
+  display_name: "Engineering Quality (NIU)"
+  short_description: "Keep implementation clear, scoped, and maintainable"
+  brand_color: "#2563EB"
+  default_prompt: "Use $engineering-quality alongside this implementation to keep the change clear, minimal, and maintainable."
