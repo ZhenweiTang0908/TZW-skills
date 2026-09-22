@@ -52,7 +52,16 @@ Natural-language request
 │      ├─ no change needed → stop
 │      └─ change chosen → $brief-to-mini-spec or $brief-to-spec
 │
-└─ 5. Supporting actions
+├─ 5. Is this a short-lived data backfill or reprocessing job?
+│    $backfill-task
+│      → compact job contract
+│      → doubt/discussion
+│      → isolated API-driven worker
+│      → pause/resume + durable idempotency
+│      → focused verification
+│      ✕ no normal X API/JWT, no automatic production run
+│
+└─ 6. Supporting actions
      $session-handoff  → preserve minimal continuation context at any stage
      $doubt-review     → independently challenge an important artifact
      $code-review      → review completed implementation quality
@@ -67,6 +76,7 @@ Natural-language request
 | Design a substantial feature or subsystem | `$brief-to-spec` | Formal Spec |
 | Explain an observed bug or failure | `$diagnose` | Root cause or ranked hypotheses |
 | Analyze production records or operations | `$product-analysis` | Read-only analysis report |
+| Design or implement a bounded backfill job | `$backfill-task` | Restartable API-driven job contract and implementation guidance |
 | Challenge business or decision logic | `$logic-audit` | Counterexamples and simplification assessment |
 | Verify a local fix or small feature | `$verify-change` | Passed, Failed, and Not Verified results |
 | Verify an entire formal feature | `$verify-spec` | Requirement-to-evidence acceptance matrix |
@@ -154,15 +164,17 @@ Purpose: answer business and operational questions without making production mut
 ```text
 $product-analysis
   1. Confirm the named production profile and database identity.
-  2. Confirm a server-enforced read-only account and read-only session.
-  3. Set timeouts and bounded result limits.
-  4. Define time range, timezone, counting unit, deduplication, null handling,
+  2. If needed, inspect repository-local .local_only_data for the minimum
+     credential fields without executing, echoing, modifying, or committing it.
+  3. Confirm a server-enforced read-only account and read-only session.
+  4. Set timeouts and bounded result limits.
+  5. Define time range, timezone, counting unit, deduplication, null handling,
      and soft-delete treatment.
-  5. Run safe aggregates, bounded samples, and independent cross-checks.
-  6. Report queries, findings, anomalies, explanations, and limitations.
+  6. Run safe aggregates, bounded samples, and independent cross-checks.
+  7. Report queries, findings, anomalies, explanations, and limitations.
 ```
 
-The bundled SQL checker is only a conservative static preflight. Passing it does not replace database-enforced controls.
+The bundled SQL checker is only a conservative static preflight. Passing it does not replace database-enforced controls. Credentials discovered in `.local_only_data` likewise do not prove that an account is read-only.
 
 ## Branch 4: logic audit
 

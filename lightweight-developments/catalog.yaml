@@ -1,5 +1,5 @@
 name: "lightweight-developments"
-version: "0.2.0"
+version: "0.2.1"
 author: "NiuNiu Tang"
 skill_root: ".agents/skills"
 categories:
@@ -9,6 +9,7 @@ categories:
     - "product-analysis"
     - "logic-audit"
     - "verify-change"
+    - "backfill-task"
   feature:
     - "brief-to-spec"
     - "review-spec"

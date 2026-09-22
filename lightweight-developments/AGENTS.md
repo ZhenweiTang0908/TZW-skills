@@ -12,5 +12,6 @@
 - Never treat implementation or passing tests as permission to merge, deploy, migrate, or modify production data.
 - Use production data sources only through explicitly selected read-only profiles and server-enforced read-only sessions with timeouts and bounded results.
 - Do not place credentials, secrets, customer data, or company-sensitive details in reusable skills or documentation.
+- Product-analysis tasks may inspect a repository-local `.local_only_data` file only as secret-bearing data for an explicitly named profile. Never execute, echo, modify, stage, commit, or redistribute it, and independently verify that the selected database identity is server-enforced read-only.
 
 — NiuNiu Tang

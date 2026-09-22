@@ -5,6 +5,7 @@
 | Clarify a small behavior change before coding | `brief-to-mini-spec` | Not debugging or architecture |
 | Investigate unexpected behavior or a failure | `diagnose` | No speculative fix before evidence |
 | Analyze production business data | `product-analysis` | No production mutation |
+| Design or implement a short-lived API-driven backfill | `backfill-task` | Not ordinary synchronous APIs or long-running migrations |
 | Challenge rules, states, or decisions | `logic-audit` | Not implementation quality review |
 | Verify a local fix or bounded change | `verify-change` | Not whole-feature acceptance |
 | Define a large feature or subsystem | `brief-to-spec` | Not implementation planning |
@@ -26,6 +27,7 @@
 - `review-spec` versus `doubt-review`: review-spec has a domain-specific checklist and compares the draft to the original brief; doubt-review challenges any artifact using only its contract when independence matters.
 - `verify-spec` versus `code-review`: verify-spec asks whether the promised feature exists; code-review asks whether the implementation is sound and maintainable.
 - `implement-plan` versus `ship-change`: implementation authority never implies merge, deployment, migration, or production rollout authority.
+- `backfill-task` versus `ship-change`: a backfill design may expose a control API, but it never authorizes starting a production job, deploying it, or mutating production data.
 
 ## Composition examples
 
@@ -33,6 +35,14 @@
 diagnose
 implement authorized fix + engineering-quality
 verify-change
+```
+
+```text
+backfill-task
+discussion + doubt pass
+authorized implementation
+focused verification
+explicit run authorization
 ```
 
 ```text

@@ -116,6 +116,10 @@ def main() -> int:
         if f'"{skill.name}"' not in catalog:
             errors.append(f"catalog.yaml: missing {skill.name}")
 
+    gitignore = (root / ".gitignore").read_text(encoding="utf-8") if (root / ".gitignore").exists() else ""
+    if ".local_only_data" not in {line.strip() for line in gitignore.splitlines()}:
+        errors.append(".gitignore: missing .local_only_data secret-file protection")
+
     if errors:
         for error in errors:
             print(f"ERROR: {error}")

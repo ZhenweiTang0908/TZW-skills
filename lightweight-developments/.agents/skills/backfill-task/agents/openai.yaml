@@ -1,0 +1,5 @@
+interface:
+  display_name: "Backfill Task (NIU)"
+  short_description: "Design short-lived, restartable API-driven backfills"
+  brand_color: "#7C3AED"
+  default_prompt: "Use $backfill-task to design a bounded backfill with graceful pause/resume, durable idempotency, isolated HMAC authentication, and external monitoring. Challenge the design before implementation."
