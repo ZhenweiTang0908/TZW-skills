@@ -3,7 +3,7 @@ name: tutorial-video-generator
 description: Create reproducible narrated tutorial videos for web applications from real UI screenshots, scripted UI interactions, optional click cues, scene-level TTS, subtitles, and deterministic Remotion rendering. Invoke only when the user explicitly asks for this skill or explicitly asks for a narrated product walkthrough; never select it on your own initiative. Running it authorizes the paid text-to-speech calls it needs.
 metadata:
   author: NiuNiu Tang
-  version: "0.9.0"
+  version: "0.9.1"
 ---
 
 # Tutorial Video Generator
