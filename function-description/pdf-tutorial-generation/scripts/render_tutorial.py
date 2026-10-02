@@ -225,7 +225,10 @@ def annotate_image(source: Path, annotations: list[dict[str, Any]], destination:
 
 
 def escape(value: Any) -> str:
-    return str(value).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    text = str(value).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    text = text.replace("portal.azure.com", '<a href="https://portal.azure.com" color="#0066CC"><u>portal.azure.com</u></a>')
+    text = text.replace("（ ", "（").replace(" ）", "）")
+    return text
 
 
 def labels_for(manifest: dict[str, Any]) -> dict[str, str]:

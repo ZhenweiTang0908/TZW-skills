@@ -3,7 +3,7 @@ name: tutorial-video-generator
 description: Create reproducible narrated tutorial videos for web applications from real UI screenshots, scripted UI interactions, optional click cues, scene-level TTS, subtitles, and deterministic Remotion rendering. Invoke only when the user explicitly asks for this skill or explicitly asks for a narrated product walkthrough; never select it on your own initiative. Running it authorizes the paid text-to-speech calls it needs.
 metadata:
   author: NiuNiu Tang
-  version: "0.9.1"
+  version: "0.9.2"
 ---
 
 # Tutorial Video Generator
@@ -15,6 +15,10 @@ Build a tutorial as a deterministic artifact from a JSON storyboard. Use real ap
 Invoke this skill only on an explicit request: the user names it, or the user asks for a narrated walkthrough of their own product. Never start it on your own initiative, and never read a passing mention of demo videos, screenshots, or product tours as a request for it.
 
 That explicit request is also the authorization for the paid narration calls. While the skill runs, generate the text-to-speech audio without asking for separate approval. It is still not a licence to retry endlessly: one fallback attempt per segment, then stop with a precise error.
+
+## Output isolation and Git tracking policy
+
+Never let Git track generated video artifacts unless the user explicitly specifies that the resulting video belongs under version control for an exact project purpose. By default, always place all produced assets (rendered MP4s, poster frames, recorded UI screenshots, TTS audio segments, build caches, and test logs) in a disposable temporary directory such as `Temp/` or `Temporary/`, and ensure it is covered by `.gitignore` to prevent accidental commits.
 
 ## Defaults
 

@@ -20,7 +20,7 @@ Enter **capture mode** only when the user explicitly asks this skill to collect 
 
 ## Generated-output location
 
-Keep generated artifacts out of version control. When the project has a Git-ignored `Temp/` or `Temporary/` directory, place all copied source images, redacted variants, manifests, annotated images, rendered previews, and final PDFs beneath that directory. Otherwise follow the project's existing ignored temporary-output convention. Do not place generated artifacts inside the skill folder.
+Never let Git track generated tutorial artifacts unless the user explicitly specifies that the PDF belongs under version control for an exact project purpose. Place all copied source images, redacted variants, manifests, annotated images, rendered previews, and final PDFs in a disposable directory such as `Temp/` or `Temporary/`, and ensure it is covered by `.gitignore` to prevent accidental commits. Do not place generated artifacts inside the skill folder.
 
 ## Required authoring standard
 
