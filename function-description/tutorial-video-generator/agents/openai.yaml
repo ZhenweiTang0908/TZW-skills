@@ -1,0 +1,8 @@
+interface:
+  display_name: "Tutorial Video Generator"
+  short_description: "Create narrated web tutorials with real UI motion"
+  brand_color: "#7C3AED"
+  default_prompt: "Use $tutorial-video-generator to create a narrated tutorial video from this web workflow."
+
+policy:
+  allow_implicit_invocation: false
