@@ -1,0 +1,27 @@
+# Generated deliverables, previews, and temporary build resources
+/Temp/
+
+# Legacy generated-output location
+/output/
+
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
+
+# Python caches and local virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+
+# Tool and build caches
+/.cache/
+
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# Temporary editor and tool files
+*.tmp
+*.temp
+*.log
