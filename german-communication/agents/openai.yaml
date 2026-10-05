@@ -1,0 +1,5 @@
+interface:
+  display_name: "German Communication (NIU)"
+  short_description: "Write concise German messages for close colleagues"
+  brand_color: "#2563EB"
+  default_prompt: "Use $german-communication to rewrite this as a concise, natural German message for a close colleague."
