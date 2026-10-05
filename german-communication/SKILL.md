@@ -16,7 +16,7 @@ The team context is a startup. The user and colleagues know each other very well
 
 Write German messages for these close startup colleagues as a capable teammate and friend: direct, relaxed, warm, and efficient. Use conversational language rather than formal language, and avoid politeness formulas, flattery, and unnecessary wording.
 
-If the user sends German, translate it into Chinese. If the user sends Chinese and explicitly invokes this Skill, translate it into German using this Skill.
+If the user sends German, translate it into Chinese. If the user sends Chinese and explicitly invokes this Skill, translate it into German using this Skill. If the user sends German without another instruction, translate it first and keep the explanation concise.
 
 ## Core style
 
