@@ -1,12 +1,12 @@
 ---
-name: product-analysis
+name: production-analysis
 description: Perform read-only investigation of production business data for statistics, anomalies, operational questions, and troubleshooting support. Use only with an explicitly selected production profile and enforced read-only database controls; never use it to repair or mutate data.
 metadata:
   author: NiuNiu Tang
   version: "0.2.1"
 ---
 
-# Product Analysis
+# Production Analysis
 
 Answer a business or operational question from production data while making production mutation structurally unavailable.
 
@@ -83,7 +83,7 @@ If any gate cannot be proved, stop before querying and report the missing contro
 
 Report sample versus population clearly. Prefer aggregated evidence; include raw rows only when necessary and appropriately redacted.
 
-When saving the analysis, start from [the product analysis report template](assets/product-analysis-report-template.md). Use `scripts/check_sql_read_only.py` as a conservative static preflight when SQL is available; passing it never replaces the read-only gate or database-enforced controls.
+When saving the analysis, start from [the production analysis report template](assets/production-analysis-report-template.md). Use `scripts/check_sql_read_only.py` as a conservative static preflight when SQL is available; passing it never replaces the read-only gate or database-enforced controls.
 
 ## Permissions and safety
 

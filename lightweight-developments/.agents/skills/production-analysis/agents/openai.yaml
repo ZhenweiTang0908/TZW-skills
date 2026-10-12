@@ -1,0 +1,5 @@
+interface:
+  display_name: "Production Analysis"
+  short_description: "Analyze production data with read-only safeguards"
+  brand_color: "#2563EB"
+  default_prompt: "Use $production-analysis to answer this production-data question through bounded, enforced read-only investigation."
