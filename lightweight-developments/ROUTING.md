@@ -4,7 +4,7 @@
 |---|---|---|
 | Clarify a small behavior change before coding | `brief-to-mini-spec` | Not debugging or architecture |
 | Investigate unexpected behavior or a failure | `diagnose` | No speculative fix before evidence |
-| Analyze production business data | `product-analysis` | No production mutation |
+| Analyze production business data | `production-analysis` | No production mutation |
 | Design or implement a short-lived API-driven backfill | `backfill-task` | Not ordinary synchronous APIs or long-running migrations |
 | Challenge rules, states, or decisions | `logic-audit` | Not implementation quality review |
 | Verify a local fix or bounded change | `verify-change` | Not whole-feature acceptance |

@@ -6,7 +6,7 @@ categories:
   daily:
     - "brief-to-mini-spec"
     - "diagnose"
-    - "product-analysis"
+    - "production-analysis"
     - "logic-audit"
     - "verify-change"
     - "backfill-task"

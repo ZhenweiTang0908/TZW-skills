@@ -46,7 +46,7 @@ Use the feature workflow, then add `doubt-review`, `code-review`, and explicitly
 ### Investigation paths
 
 - Unexpected behavior: `diagnose`, then create a Mini Fix Contract before any authorized fix.
-- Production business data: `product-analysis`, with read-only controls and no data repair.
+- Production business data: `production-analysis`, with read-only controls and no data repair.
 - Rules or decision logic: `logic-audit`; if a change is chosen, route the decision into `brief-to-mini-spec` or `brief-to-spec`.
 
 ## Composition
@@ -68,7 +68,7 @@ Work may escalate from the small path when investigation reveals new states, per
     └── skills/
         ├── brief-to-mini-spec/
         ├── diagnose/
-        ├── product-analysis/
+        ├── production-analysis/
         ├── logic-audit/
         ├── verify-change/
         ├── brief-to-spec/

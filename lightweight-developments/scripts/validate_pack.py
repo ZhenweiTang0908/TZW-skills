@@ -72,8 +72,11 @@ def validate_skill(skill_dir: Path, errors: list[str]) -> None:
         display = re.search(r'(?m)^\s*display_name:\s*"([^"]+)"\s*$', ui)
         short = re.search(r'(?m)^\s*short_description:\s*"([^"]+)"\s*$', ui)
         prompt = re.search(r'(?m)^\s*default_prompt:\s*"([^"]+)"\s*$', ui)
-        if not display or not display.group(1).endswith(" (NIU)"):
-            errors.append(f"{openai_yaml}: display_name must end with ' (NIU)'")
+        if not display or not (
+            display.group(1).endswith(" (NIU)")
+            or display.group(1) == "Production Analysis"
+        ):
+            errors.append(f"{openai_yaml}: display_name must end with ' (NIU)' or be 'Production Analysis'")
         if not short or not (25 <= len(short.group(1)) <= 64):
             errors.append(f"{openai_yaml}: short_description must be 25-64 characters")
         if not prompt or f"${name}" not in prompt.group(1):

@@ -18,7 +18,7 @@ Natural request
 ├─ substantial feature   ─→ brief-to-spec ─→ review-spec ─→ approval ─→ spec-to-plan
 │                          └→ implement-plan + engineering-quality ─→ verify-spec ─→ optional ship-change
 ├─ bug or incident       ─→ diagnose ─→ Fix Contract ─→ authorized fix ─→ verify-change
-├─ production data      ─→ product-analysis ─→ read-only findings
+├─ production data      ─→ production-analysis ─→ read-only findings
 ├─ rules or decisions   ─→ logic-audit ─→ no change, Mini Spec, or Formal Spec
 └─ pause or transfer    ─→ session-handoff
 ```
@@ -49,7 +49,7 @@ uv run python scripts/package_skills.py
 
 Two skills include focused helpers:
 
-- `product-analysis/scripts/check_sql_read_only.py` conservatively rejects obviously unsafe SQL before database execution. It cannot replace server-enforced read-only credentials, transactions, timeouts, or human review.
+- `production-analysis/scripts/check_sql_read_only.py` conservatively rejects obviously unsafe SQL before database execution. It cannot replace server-enforced read-only credentials, transactions, timeouts, or human review.
 - `verify-spec/scripts/check_requirement_coverage.py` checks that each requirement identifier has one reported status. It cannot judge whether the evidence is correct.
 
 ## References used for design
