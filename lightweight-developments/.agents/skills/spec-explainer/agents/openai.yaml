@@ -1,0 +1,5 @@
+interface:
+  display_name: "Spec Explainer (NIU)"
+  short_description: "Explain complex Specs with prose and diagrams"
+  brand_color: "#7C3AED"
+  default_prompt: "Use $spec-explainer to enrich this Spec with detailed walkthroughs, edge cases, and the Mermaid diagrams needed to make complex logic reviewable."

@@ -1,13 +1,17 @@
 {
   "name": "tutorial-video-generator-skill-runtime",
   "private": true,
-  "version": "0.9.2",
+  "version": "0.12.1",
   "type": "module",
   "description": "Self-contained runtime for the tutorial-video-generator Codex skill",
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
     "setup": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
     "validate": "node scripts/validate-storyboard.mjs",
     "doctor": "node scripts/doctor-storyboard.mjs",
+    "window": "node scripts/capture-window.mjs",
+    "new-window": "node scripts/open-browser-window.mjs",
+    "close-window": "node scripts/close-browser-window.mjs",
     "tutorial": "node scripts/tutorial-video.mjs"
   },
   "dependencies": {

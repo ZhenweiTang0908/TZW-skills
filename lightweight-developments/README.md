@@ -15,9 +15,10 @@ Start with natural language. Codex should select one primary skill, optionally `
 ```text
 Natural request
 ├─ small behavior change ─→ brief-to-mini-spec ─→ implement + engineering-quality ─→ verify-change
-├─ substantial feature   ─→ brief-to-spec ─→ review-spec ─→ approval ─→ spec-to-plan
+├─ substantial feature   ─→ brief-to-spec ─→ spec-explainer ─→ approval ─→ spec-to-plan
 │                          └→ implement-plan + engineering-quality ─→ verify-spec ─→ optional ship-change
 ├─ bug or incident       ─→ diagnose ─→ Fix Contract ─→ authorized fix ─→ verify-change
+├─ system understanding ─→ observation / code-reading / feature-tracing / state-and-data-modeling
 ├─ production data      ─→ production-analysis ─→ read-only findings
 ├─ rules or decisions   ─→ logic-audit ─→ no change, Mini Spec, or Formal Spec
 └─ pause or transfer    ─→ session-handoff
@@ -32,7 +33,9 @@ See the [complete user guide](docs/USER-GUIDE.md) for branch purposes, steps, ex
 - `ROUTING.md` is the compact selection guide and overlap audit.
 - `AGENTS.md` supplies a minimal engineering baseline for repositories using the pack.
 
-The `brief-to-spec` skill also contains on-demand reference modules for data modeling, Pipeline and State Machine design, failure recovery, permissions, integrations, concurrency, observability, compatibility, and scale. They are loaded only when the feature needs that dimension.
+The `brief-to-spec` skill also contains on-demand reference modules for data modeling, Pipeline and State Machine design, failure recovery, permissions, integrations, concurrency, observability, compatibility, and scale. They are loaded only when the feature needs that dimension. `spec-explainer` builds on that Pipeline guidance and the explanatory style of `code-reading`, then enriches the draft with stage-by-stage walkthroughs, checkpoints, edge cases, and Mermaid diagrams without turning requirements into an implementation plan.
+
+`review-spec` is retained in the repository for now, but is temporarily not used in the lightweight workflow and is not installed as a global GPT Skill.
 
 ## Project tooling
 

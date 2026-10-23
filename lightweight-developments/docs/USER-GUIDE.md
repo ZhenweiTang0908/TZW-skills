@@ -20,7 +20,7 @@ Natural-language request
 │       $brief-to-spec
 │         → load only relevant modeling references
 │         → Formal Spec
-│       $review-spec [optionally + $doubt-review]
+│       review step temporarily omitted for the lightweight workflow
 │         → human approval
 │       $spec-to-plan
 │         → Implementation Plan
@@ -118,9 +118,9 @@ $brief-to-spec
   2. Select only relevant modeling references.
   3. Define requirements, boundaries, examples, exclusions, and open questions.
 
-$review-spec
-  4. Find concrete ambiguity, omissions, contradictions, and unverifiable rules.
-  5. Resolve blocking issues and obtain human approval.
+Review step (temporarily omitted)
+  4. This review step is temporarily omitted to keep the workflow lightweight.
+  5. Obtain human approval for the Spec.
 
 $spec-to-plan
   6. Map requirements to meaningful implementation tasks and verification.

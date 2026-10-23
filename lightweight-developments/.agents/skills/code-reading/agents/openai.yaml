@@ -1,0 +1,5 @@
+interface:
+  display_name: "Code Reading (NIU)"
+  short_description: "Build a clear mental model of existing code"
+  brand_color: "#2563EB"
+  default_prompt: "Use $code-reading to explain this code area with a reading path, diagram, evidence, and unknowns."

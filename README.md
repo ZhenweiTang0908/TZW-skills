@@ -12,6 +12,7 @@ TZW-skills/
 ├── lightweight-developments/           # Modular engineering skills for the full development lifecycle
 │   └── .agents/skills/                 # Core development, review, planning, and delivery skills
 ├── german-communication/               # Informal German workplace communication assistant
+├── web-troubleshoot/                    # Broad and deep web research for difficult problems
 ├── Temp/                               # Disposable artifacts and build cache (git-ignored)
 └── .gitignore
 ```
@@ -75,6 +76,17 @@ An internal communication skill designed for drafting and polishing German messa
   - Tone and style: adopts an authentic, collegial tone (`du`) that is direct, friendly, and free of bureaucratic fluff.
   - Precision and clarity: leads with the main outcome or question, preserving exact numbers, timelines, and technical facts without unneeded small talk.
   - Anti-patterns: actively eliminates artificial closing formulas, passive phrasing, and excessive filler words.
+
+### 4. Web Troubleshoot (`web-troubleshoot/`)
+
+Investigates difficult production, cloud, integration, and other problems through broad web discovery, deep primary-source tracing, and comparison with local evidence.
+
+- Searches competing explanations, firsthand cases, failed remedies, and version-specific behavior.
+- Separates reported experience from verified mechanisms and checks whether solutions apply to our actual environment.
+- Produces an evidence-backed comparison, ranked hypotheses, discriminating checks, and an ordered action path.
+- Includes on-demand search and cloud-comparison guides plus a report template; responds in Chinese by default.
+
+Invoke with `$web-troubleshoot`, for example: “Research similar cases broadly and deeply, compare them with our environment, and identify missing prerequisites and the next checks.”
 
 ## Conventions & Guidelines
 

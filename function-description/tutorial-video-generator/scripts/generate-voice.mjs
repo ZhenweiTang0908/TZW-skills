@@ -7,7 +7,7 @@ import { copyEnsured, hash, loadSkillEnv, speechEndpoint, narrationSegments, par
 const args=parseArgs(process.argv.slice(2));if(!args._[0]){console.error('Usage: node generate-voice.mjs <storyboard.json> [--output dir] [--language de] [--mock] [--force]');process.exit(2);}
 const envKeys=loadSkillEnv(import.meta.url);if(envKeys.length)console.log(`Loaded ${envKeys.join(', ')} from the skill ENV file`);
 const storyboard=await loadAndValidate(resolve(args._[0]));const output=resolve(args.output??join(process.cwd(),'tutorial-output'));const language=(args.language??storyboard.language??'de')==='auto'?'de':(args.language??storyboard.language??'de');
-const ttsSpeed=speedValue(args['tts-speed']??storyboard.ttsSpeed??1.2);
+const ttsSpeed=speedValue(args['tts-speed']??storyboard.ttsSpeed??1.0);
 const audioDir=join(output,'audio'),segmentDir=join(audioDir,'segments'),cacheDir=join(output,'.cache','audio');await Promise.all([mkdir(segmentDir,{recursive:true}),mkdir(cacheDir,{recursive:true})]);
 const manifest={storyboardVersion:storyboard.version??1,title:storyboard.title,language,scenes:[],cache:{audioHits:0,audioMisses:0},tts:{characters:0,requests:0,fallbacks:0,speed:ttsSpeed}};let cursor=0,cue=1;const cues=[];
 for(const[index,scene]of storyboard.scenes.entries()){

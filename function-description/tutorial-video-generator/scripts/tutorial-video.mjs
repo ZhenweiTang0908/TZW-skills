@@ -3,10 +3,13 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readJson, writeJson, run } from './lib.mjs';
 
-const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),scripts=join(root,'scripts'),[command,input,...rest]=process.argv.slice(2),commands=new Set(['validate','doctor','capture','voice','render','inspect','build']);if(!commands.has(command)||(!input&&command!=='inspect'))usage();
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),scripts=join(root,'scripts'),[command,input,...rest]=process.argv.slice(2),commands=new Set(['validate','doctor','capture','window','new-window','close-window','voice','render','inspect','build']);if(!commands.has(command)||(!input&&!['inspect','window','new-window','close-window'].includes(command)))usage();
 if(command==='validate')await node('validate-storyboard.mjs',[input,...rest]);
 if(command==='doctor')await node('doctor-storyboard.mjs',[input,...rest]);
 if(command==='capture')await node('capture-scenes.mjs',[input,...rest]);
+if(command==='window')await node('capture-window.mjs',[input,...rest]);
+if(command==='new-window')await node('open-browser-window.mjs',[...(input?[input]:[]),...rest]);
+if(command==='close-window')await node('close-browser-window.mjs',[...(input?[input]:[]),...rest]);
 if(command==='voice')await node('generate-voice.mjs',[input,...rest]);
 if(command==='render')await node('render-tutorial.mjs',[input,...rest]);
 if(command==='inspect')await node('inspect-output.mjs',[input??'tutorial-output',...rest]);
@@ -16,6 +19,8 @@ if(command==='build'){
   for(const language of languages){const output=languages.length===1?baseOutput:join(baseOutput,language),stageArgs=setArg(setArg(removeArg(rest,'--languages'),'--output',output),'--language',language),timings={};
     timings.doctor=await timed(()=>node('doctor-storyboard.mjs',[input,'--output',join(output,'quality-report.json')]));
     timings.capture=await timed(()=>node('capture-scenes.mjs',[input,...stageArgs]));
+    timings.captureReadiness=await timed(()=>node('doctor-storyboard.mjs',[input,'--stage','captured','--output',join(output,'capture-readiness-report.json')]));
+    timings.runtime=await timed(()=>node('check-render-runtime.mjs',[...stageArgs,'--output',join(output,'runtime-report.json')]));
     timings.voice=await timed(()=>node('generate-voice.mjs',[input,...stageArgs]));
     timings.render=await timed(()=>node('render-tutorial.mjs',[join(output,'storyboard.resolved.json'),...stageArgs]));
     timings.inspect=await timed(()=>node('inspect-output.mjs',[output]));
@@ -28,4 +33,8 @@ function value(args,name){const i=args.indexOf(name);return i>=0?args[i+1]:undef
 function usage(){console.error(`Usage:
   node scripts/tutorial-video.mjs build <storyboard.json> --base-url <url> [--output dir] [--language de|--languages de,en,zh] [--mock]
   node scripts/tutorial-video.mjs validate|doctor|capture|voice|render <input> [options]
+  node scripts/tutorial-video.mjs window list --app "Google Chrome"
+  node scripts/tutorial-video.mjs window capture --window-id 123 --output shot.png
+  node scripts/tutorial-video.mjs new-window --url https://app.example.com
+  node scripts/tutorial-video.mjs close-window --chrome-window-id 123
   node scripts/tutorial-video.mjs inspect <tutorial-output>`);process.exit(2);}
