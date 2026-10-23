@@ -90,7 +90,11 @@ class PackIntegrationTests(unittest.TestCase):
             )
             self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
             archives = sorted(Path(directory).glob("*.zip"))
-            self.assertEqual(len(archives), 16)
+            skill_count = sum(
+                path.is_dir()
+                for path in (ROOT / ".agents" / "skills").iterdir()
+            )
+            self.assertEqual(len(archives), skill_count + 1)
             self.assertTrue((Path(directory) / "SHA256SUMS").is_file())
 
 

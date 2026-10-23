@@ -1,0 +1,5 @@
+interface:
+  display_name: "Feature Tracing (NIU)"
+  short_description: "Trace a feature across code and system boundaries"
+  brand_color: "#7C3AED"
+  default_prompt: "Use $feature-tracing to explain this feature end to end with a Mermaid trace, relevant state/data models, evidence, and unknowns."

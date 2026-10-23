@@ -57,7 +57,11 @@ Starting the job must return quickly with a job identifier. The request handler 
 
 Do not use the application's X API, S Key, JWT, user token, or any other existing authentication mechanism. Do not add a second authentication layer for this backfill control API.
 
-For each backfill job, generate a high-entropy one-time password locally, derive its hash once, and inject only the resulting target hash into the dedicated backfill code/configuration. The API request presents the original one-time password, never the hash. The cloud endpoint hashes the received password with the agreed algorithm and performs one constant-time comparison against the injected target hash. The original password must not be committed, logged, returned, or placed in the Skill. Keep the target hash in a Git-ignored local/temp file or ignored deployment configuration when the repository's runtime cannot safely hold it directly in source.
+For each backfill job, generate a high-entropy one-time password locally, derive its hash once, and inject only the resulting target hash into the dedicated backfill code/configuration. The API request presents the original one-time password, never the hash. The cloud endpoint hashes the received password with the agreed algorithm and performs one constant-time comparison against the injected target hash.
+
+Before creating the password file, inspect the repository's existing `.gitignore`. Use an already ignored temporary directory for the password file, such as `temp/`, `codes_temp/`, or `local_temp/`, when that directory is present and its ignore rule covers the directory contents. Do not scatter the password in the repository, home directory, source tree, or an arbitrary system temp location. Do not automatically create a new directory or edit `.gitignore` just to make the workflow pass. If none of the existing ignored directories is available, stop and ask the user to choose or authorize a repository-specific location. The original password must not be committed, logged, returned, or placed in the Skill.
+
+The password file should have restrictive permissions, a clear job-specific name, and a short lifecycle. Record only the file path and cleanup action in the job contract; never record the password value. Keep the target hash in the intended dedicated backfill code/configuration, not the password file, when the runtime requires the hash to be embedded.
 
 The target hash alone must not be accepted as the request credential. Protect the original password in transit with the existing deployment's TLS, avoid exposing it in URLs and logs, restrict the endpoint to the backfill control surface, and delete or invalidate the target hash when the job completes, is cancelled, expires, or is abandoned. “One-time” means one backfill job lifecycle, not a new verification scheme per request.
 
@@ -99,7 +103,7 @@ The worker must not block unrelated application traffic. Prefer a separate worke
 
 ## Stop conditions
 
-Stop and ask for a decision if the target environment, data scope, source of truth, item idempotency key, password/hash injection or invalidation path, external side-effect safety, or maximum runtime is unclear. Stop if the job cannot persist progress, cannot distinguish completed from in-progress work, or would require the normal JWT, X API, S Key, or another authentication system.
+Stop and ask for a decision if the target environment, data scope, source of truth, item idempotency key, an existing ignored password directory, password/hash injection or invalidation path, external side-effect safety, or maximum runtime is unclear. Stop if the job cannot persist progress, cannot distinguish completed from in-progress work, or would require the normal JWT, X API, S Key, or another authentication system.
 
 ## Output
 

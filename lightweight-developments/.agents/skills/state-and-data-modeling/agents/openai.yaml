@@ -1,0 +1,5 @@
+interface:
+  display_name: "State and Data Modeling (NIU)"
+  short_description: "Explain entity states and data relationships"
+  brand_color: "#D97706"
+  default_prompt: "Use $state-and-data-modeling to explain this entity lifecycle and data model with concise Mermaid diagrams and evidence."

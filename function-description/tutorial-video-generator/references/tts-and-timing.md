@@ -8,11 +8,13 @@ Read `AI_HUB_BASEURL` and `AI_HUB_APIKEY` from the `ENV` file in this skill dire
 
 Generate one WAV per narration segment, measure it with `ffprobe`, then concatenate segments into a scene WAV. Segment measurements control subtitle cues and `syncWith` actions. Cache segments by language, text, model, voice, mock state, and processing version.
 
+Quantize cumulative scene start/end times to video frames. Rounding every scene duration up separately accumulates silent frames and makes longer tutorials drift beyond the measured narration. Keep the manifest truthful to the audio rather than stretching its timestamps to match a faulty render.
+
 The manifest records characters, requests, fallbacks, cache hits, and actual models. Estimate cost only when a pricing JSON supplies `models.<model>.perMillionCharacters`; otherwise leave cost unknown.
 
 ## Speaking rate
 
-The default rate is `1.2`, exposed as root `ttsSpeed` in the storyboard and `--tts-speed` on the CLI, valid from `0.5` through `3`. This keeps the narration efficient while leaving enough time for viewers to follow the highlighted interface.
+The default rate is `1.0` (normal speed), exposed as root `ttsSpeed` in the storyboard and `--tts-speed` on the CLI, valid from `0.5` through `3`. Raise it only when the user asks for a faster walkthrough; a continuous cursor demonstration needs enough listening time to follow each action.
 
 Apply the rate locally with ffmpeg `atempo` rather than trusting a provider `speed` field, so every model and gateway behaves the same and the pitch is preserved; chain `atempo=2` segments above 2x. Rate changes happen before duration measurement, so subtitle cues and `syncWith` windows already reflect the final pace. Include the rate in the audio cache key and record it as `tts.speed` in the manifest.
 
