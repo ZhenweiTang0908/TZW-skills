@@ -1,0 +1,4 @@
+interface:
+  display_name: "Computer Health Check (NIU)"
+  short_description: "Read-only macOS checkup: CPU, memory, heat, battery, disk, threats"
+  default_prompt: "Use $computer-health-check to give my Mac a read-only health check, explain why it is hot or slow if it is, triage anything that looks like malware, and report ranked findings with evidence and safe next steps in Chinese. Do not kill or change anything without asking."

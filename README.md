@@ -13,6 +13,7 @@ TZW-skills/
 │   └── .agents/skills/                 # Core development, review, planning, and delivery skills
 ├── german-communication/               # Informal German workplace communication assistant
 ├── web-troubleshoot/                    # Broad and deep web research for difficult problems
+├── computer-health-check/              # Read-only macOS checkup: CPU, memory, heat, battery, disk, threats
 ├── Temp/                               # Disposable artifacts and build cache (git-ignored)
 └── .gitignore
 ```
@@ -87,6 +88,17 @@ Investigates difficult production, cloud, integration, and other problems throug
 - Includes on-demand search and cloud-comparison guides plus a report template; responds in Chinese by default.
 
 Invoke with `$web-troubleshoot`, for example: “Research similar cases broadly and deeply, compare them with our environment, and identify missing prerequisites and the next checks.”
+
+### 5. Computer Health Check (`computer-health-check`)
+
+A read-only checkup of the Mac's live state, complementing `computer-software-audit` (which inventories installed software).
+
+- Snapshot script (`scripts/snapshot.sh`, ~10 s, no sudo): CPU and runaway processes, memory pressure and swap, thermal signals, battery and sleep blockers, disk space and I/O, third-party background jobs, running dev services (port, project folder, uptime, orphaned or not) and other developer processes, scheduled tasks (crontab, at, launchd timers and login jobs, jobs loaded from elsewhere, Codex/Claude automations), FileVault/SIP/Gatekeeper/firewall, recent panics and crashes.
+- Heat diagnosis guide that names one primary cause with evidence and separates causes from symptoms such as `kernel_task`.
+- Threat triage for suspected malware: launchd persistence with signature and payload checks, unsigned binaries in odd locations, kernel/system extensions, authorization plugins, configuration profiles, proxy/DNS/hosts redirection, shell-startup hooks, browser extensions and XProtect version, rated 可疑 / 需确认 / 正常 without running, uploading or removing anything.
+- Threshold table and a fixed Chinese report shape; any fix (for example killing an orphaned test runner) happens only after per-item confirmation, followed by a re-check.
+
+Invoke with `$computer-health-check`, for example: “我的电脑很烫，帮我体检一下。”
 
 ## Conventions & Guidelines
 
