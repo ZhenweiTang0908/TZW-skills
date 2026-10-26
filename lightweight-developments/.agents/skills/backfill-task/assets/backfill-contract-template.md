@@ -30,7 +30,9 @@
 - Pause: <method and path>
 - Resume: <method and path>
 - Cancel: <method and path, if supported>
-- Authentication: one-time raw backfill password; cloud hashes it and compares against the embedded target hash; never normal JWT, X API, or S Key
+- Authentication: one-time raw backfill password (at least 256 random bits); cloud hashes it with SHA-256 and compares in constant time against the embedded target hash; never existing application credentials (JWT, user tokens, X API, S Key)
+- Password expiry: <absolute timestamp, at most one day after start>
+- Failed-attempt limit: <attempts and cooling-off period>
 - Existing ignored password directory: <for example `temp/`, `codes_temp/`, or `local_temp/`; must already be covered by `.gitignore`>
 - Password file: <job-specific path under the existing ignored directory; restrictive permissions; cleanup action>
 - Target hash lifecycle: <injected location, invalidation trigger, and deletion procedure>
@@ -51,11 +53,13 @@
 
 ## Verification
 
-- [ ] Raw password is hashed server-side and compared without JWT, X API, S Key, or another auth layer
+- [ ] Raw password is hashed server-side and compared without existing application credentials or another credential check
 - [ ] Existing `.gitignore` was inspected before creating the password file
 - [ ] Password file is under an already ignored `temp/`, `codes_temp/`, or `local_temp/` directory
 - [ ] No new directory or `.gitignore` rule was added automatically
 - [ ] A request containing the target hash itself is rejected
+- [ ] The password is rejected after its expiry
+- [ ] Repeated failed attempts are limited and logged without the presented value
 - [ ] Password and target hash are not exposed in URLs, logs, responses, or Git
 - [ ] Target hash is invalidated after completion, cancellation, expiry, or abandonment
 - [ ] Start returns a job ID without waiting for completion

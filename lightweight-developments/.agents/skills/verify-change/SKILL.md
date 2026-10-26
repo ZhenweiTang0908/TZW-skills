@@ -33,7 +33,7 @@ Read the contract before the plan or implementation notes. Inspect the diff, aff
 1. Convert each target behavior and preservation constraint into an observable check.
 2. Inspect implementation only to identify test surfaces and regression risk, not to redefine success.
 3. Run the narrowest meaningful checks, then broader existing checks proportional to risk.
-4. Add a focused verification test when authorized and necessary to observe the contract. Do not alter business logic silently.
+4. Add a focused verification test when it is necessary to observe the contract, within the requested code scope. Do not alter business logic silently.
 5. Reproduce the original failure for a fix when practical, then verify it is absent under the same conditions.
 6. Record command, environment, result, and relevant output. Distinguish not run from failed.
 

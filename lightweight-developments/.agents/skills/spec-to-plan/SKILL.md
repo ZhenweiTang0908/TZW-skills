@@ -73,7 +73,7 @@ Stop if the spec is not approved, a requirement cannot be uniquely implemented, 
 ## Routing examples
 
 - Use: Plan an approved multi-service response feature with `R1` through `R12`.
-- Do not use: Decide what `R4` should mean. Return to `review-spec` or the user.
+- Do not use: Decide what `R4` should mean. Return the question to Spec drafting or the user.
 - Borderline: A plan has one meaningful task; recommend direct implementation instead of manufacturing subtasks.
 
 — NiuNiu Tang

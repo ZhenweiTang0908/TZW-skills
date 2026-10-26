@@ -10,13 +10,18 @@ from pathlib import Path
 
 
 FIXED_TIME = (2026, 1, 1, 0, 0, 0)
-EXCLUDED_PARTS = {"dist", "__pycache__", ".git", ".DS_Store"}
+EXCLUDED_PARTS = {"dist", "__pycache__", ".git", ".DS_Store", ".pytest_cache", ".venv"}
+# Secret-bearing files must never enter a distributable archive.
+SECRET_NAMES = {".local_only_data", ".env", "ENV"}
 
 
 def included_files(root: Path) -> list[Path]:
     return sorted(
         path for path in root.rglob("*")
-        if path.is_file() and not any(part in EXCLUDED_PARTS for part in path.parts)
+        if path.is_file()
+        and not any(part in EXCLUDED_PARTS for part in path.parts)
+        and path.name not in SECRET_NAMES
+        and not path.name.startswith(".env.")
     )
 
 

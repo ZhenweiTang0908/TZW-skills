@@ -22,9 +22,10 @@ def report_statuses(text: str) -> dict[str, set[str]]:
     statuses: dict[str, set[str]] = defaultdict(set)
     for line in text.splitlines():
         ids = requirement_ids(line)
-        status = STATUS_RE.search(line)
-        if status:
-            normalized = re.sub(r"\s+", " ", status.group(1).upper())
+        # Every status on the line counts, so an unfilled template row such as
+        # "PASS / FAIL / NOT VERIFIED" is reported as conflicting, not as PASS.
+        for status in STATUS_RE.findall(line):
+            normalized = re.sub(r"\s+", " ", status.upper())
             for requirement in ids:
                 statuses[requirement].add(normalized)
     return dict(statuses)

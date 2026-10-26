@@ -32,7 +32,8 @@ free-form brief
 ```text
 free-form brief
   -> brief-to-spec
-  -> review-spec
+  -> spec-explainer when the workflow needs it
+  -> doubt-review (review-spec is temporarily disabled)
   -> human approval
   -> spec-to-plan
   -> implement-plan + engineering-quality
@@ -45,7 +46,7 @@ Use the feature workflow, then add `doubt-review`, `code-review`, and explicitly
 
 ### Investigation paths
 
-- Unexpected behavior: `diagnose`, then create a Mini Fix Contract before any authorized fix.
+- Unexpected behavior: `diagnose`, then create a Fix Contract before any authorized fix.
 - Production business data: `production-analysis`, with read-only controls and no data repair.
 - Rules or decision logic: `logic-audit`; if a change is chosen, route the decision into `brief-to-mini-spec` or `brief-to-spec`.
 

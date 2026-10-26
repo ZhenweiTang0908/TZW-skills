@@ -14,16 +14,34 @@ import sys
 from pathlib import Path
 
 
+# Statement-only keywords such as COMMENT, LOCK, SET, RESET, RELEASE, or
+# SAVEPOINT are deliberately absent: the single statement must start with
+# SELECT, WITH, or EXPLAIN, so they cannot run, and they are common column names.
 FORBIDDEN = {
-    "alter", "analyze", "call", "cluster", "comment", "commit", "copy", "create",
-    "delete", "discard", "do", "drop", "execute", "grant", "insert", "listen",
-    "lock", "merge", "notify", "prepare", "refresh", "reindex", "release", "reset",
-    "revoke", "rollback", "savepoint", "security", "set", "truncate", "unlisten",
-    "update", "vacuum",
+    "alter", "call", "cluster", "copy", "create", "delete", "do", "drop",
+    "execute", "grant", "insert", "merge", "refresh", "reindex", "revoke",
+    "truncate", "update", "vacuum",
 }
 SIDE_EFFECT_FUNCTIONS = {
-    "dblink_exec", "lo_export", "lo_import", "nextval", "pg_advisory_lock",
-    "pg_advisory_xact_lock", "pg_notify", "set_config", "setval",
+    # Writes, sequences, settings, and locks.
+    "lo_create", "lo_export", "lo_from_bytea", "lo_import", "lo_put", "lo_unlink",
+    "nextval", "pg_advisory_lock", "pg_advisory_lock_shared", "pg_advisory_xact_lock",
+    "pg_advisory_xact_lock_shared", "pg_try_advisory_lock", "pg_try_advisory_xact_lock",
+    "pg_logical_emit_message", "pg_notify", "set_config", "setval",
+    # Server administration and other sessions.
+    "pg_cancel_backend", "pg_create_restore_point", "pg_reload_conf",
+    "pg_rotate_logfile", "pg_switch_wal", "pg_terminate_backend",
+    # Executes SQL text that this checker cannot inspect, possibly on another
+    # server with different credentials.
+    "cursor_to_xml", "dblink", "dblink_connect", "dblink_exec", "dblink_open",
+    "dblink_send_query", "query_to_xml", "query_to_xml_and_xmlschema",
+    "query_to_xmlschema",
+    # Reads server files outside the queried data.
+    "pg_ls_dir", "pg_read_binary_file", "pg_read_file", "pg_stat_file",
+    # Holds connections or burns database time.
+    "pg_sleep", "pg_sleep_for", "pg_sleep_until",
+    # MySQL equivalents.
+    "benchmark", "get_lock", "load_file", "release_lock", "sleep",
 }
 
 
@@ -48,7 +66,7 @@ def mask_literals(sql: str) -> tuple[str, list[str]]:
         if pair in {"--", "/*"}:
             errors.append("SQL comments are rejected by this conservative preflight")
             break
-        if char in {"'", '"'}:
+        if char in {"'", '"', "`"}:
             quote = char
             output.append(" ")
         else:
@@ -77,7 +95,10 @@ def check(sql: str) -> list[str]:
         errors.append(f"forbidden SQL keyword(s): {', '.join(present)}")
     if re.search(r"\bselect\b[\s\S]*?\binto\b", statement):
         errors.append("SELECT INTO is not read-only")
-    if re.search(r"\bfor\s+(update|share|no\s+key\s+update|key\s+share)\b", statement):
+    if re.search(
+        r"\bfor\s+(update|share|no\s+key\s+update|key\s+share)\b|\block\s+in\s+share\s+mode\b",
+        statement,
+    ):
         errors.append("row-locking SELECT is not allowed")
     if tokens and tokens[0] == "explain" and re.search(r"\b(analyze|analyse)\b", statement):
         errors.append("EXPLAIN ANALYZE is rejected; use plain EXPLAIN")

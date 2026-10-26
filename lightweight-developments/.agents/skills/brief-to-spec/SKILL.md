@@ -18,7 +18,7 @@ The feature spans several modules or workflows, introduces meaningful entities o
 
 - A short Mini Spec can uniquely define a bounded change: use `brief-to-mini-spec`.
 - The task is investigating a failure: use `diagnose`.
-- A formal spec already exists and needs critique: use `review-spec`.
+- A formal spec already exists and needs critique: use `doubt-review` with the Spec as ARTIFACT and the original brief as CONTRACT.
 
 ## Expected input
 

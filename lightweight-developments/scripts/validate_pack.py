@@ -12,6 +12,15 @@ from pathlib import Path
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LINK_RE = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
+# Generated and tool-cache directories are not authored pack content.
+EXCLUDED_PARTS = {"dist", "__pycache__", ".git", ".pytest_cache", ".venv", "node_modules"}
+
+
+def authored_markdown(root: Path) -> list[Path]:
+    return sorted(
+        path for path in root.rglob("*.md")
+        if not any(part in EXCLUDED_PARTS for part in path.relative_to(root).parts)
+    )
 
 
 def scalar(frontmatter: str, key: str) -> str | None:
@@ -109,7 +118,8 @@ def main() -> int:
     for skill in skills:
         validate_skill(skill, errors)
 
-    for markdown in sorted(root.rglob("*.md")):
+    markdown_files = authored_markdown(root)
+    for markdown in markdown_files:
         if "— NiuNiu Tang" not in markdown.read_text(encoding="utf-8"):
             errors.append(f"{markdown}: missing NiuNiu Tang signature")
         validate_markdown_links(markdown, errors)
@@ -129,7 +139,7 @@ def main() -> int:
         print(f"Validation failed with {len(errors)} error(s).")
         return 1
 
-    print(f"Validated {len(skills)} skills and {sum(1 for _ in root.rglob('*.md'))} Markdown files.")
+    print(f"Validated {len(skills)} skills and {len(markdown_files)} Markdown files.")
     return 0
 
 

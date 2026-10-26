@@ -58,7 +58,7 @@ A comprehensive pack of 22 specialized engineering skills covering day-to-day co
 - **Large Feature Planning & Implementation**:
   - `brief-to-spec`: Structures complex feature requirements into formal behavioral specifications.
   - `spec-explainer`: Enriches specifications with detailed workflow pipelines and Mermaid process diagrams.
-  - `review-spec` & `doubt-review`: Conducts independent, adversarial reviews to expose unstated assumptions and edge-case risks.
+  - `doubt-review`: Conducts independent, adversarial reviews (including draft Spec review) to expose unstated assumptions and edge-case risks. `review-spec` is retained but temporarily disabled.
   - `spec-to-plan` & `implement-plan`: Breaks approved specifications into discrete tasks and executes them systematically.
   - `verify-spec`: Verifies full end-to-end spec conformance against production-ready acceptance criteria.
 
