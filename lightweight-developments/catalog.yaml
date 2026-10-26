@@ -17,12 +17,13 @@ categories:
   feature:
     - "brief-to-spec"
     - "spec-explainer"
-    - "review-spec"
     - "spec-to-plan"
     - "implement-plan"
     - "verify-spec"
   cross_cutting:
     - "engineering-quality"
+  disabled:
+    - "review-spec"
   auxiliary:
     - "doubt-review"
     - "code-review"

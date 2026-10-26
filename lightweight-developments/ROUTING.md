@@ -14,7 +14,7 @@
 | Verify a local fix or bounded change | `verify-change` | Not whole-feature acceptance |
 | Define a large feature or subsystem | `brief-to-spec` | Not implementation planning |
 | Explain a Spec's Pipeline or Workflow in detail | `spec-explainer` | Supplements Spec writing; does not create an implementation plan |
-| Review a draft formal specification | `review-spec` | Not drafting or code review |
+| Review a draft formal specification | `doubt-review` (Spec as artifact, brief as contract) | Not drafting or code review; `review-spec` is temporarily disabled |
 | Turn an approved spec into implementation tasks | `spec-to-plan` | Must not redefine requirements |
 | Execute an approved implementation plan | `implement-plan` | Not for discovery or unapproved scope |
 | Accept a completed feature against its spec | `verify-spec` | Not code-style review alone |
@@ -32,7 +32,7 @@
 - `code-reading` versus `feature-tracing`: code-reading explains a bounded code area; feature-tracing follows a user-visible behavior across boundaries.
 - `feature-tracing` composes state and data modeling when lifecycle or persistence is needed to explain the flow.
 - `verify-change` versus `verify-spec`: the former tests a Mini Spec or Fix Contract; the latter traces every formal requirement to implementation and evidence.
-- `review-spec` versus `doubt-review`: review-spec has a domain-specific checklist and compares the draft to the original brief; doubt-review challenges any artifact using only its contract when independence matters.
+- `review-spec` is temporarily disabled and not installed. Route draft-Spec review to `doubt-review`, passing the original brief as the contract.
 - `verify-spec` versus `code-review`: verify-spec asks whether the promised feature exists; code-review asks whether the implementation is sound and maintainable.
 - `implement-plan` versus `ship-change`: implementation authority never implies merge, deployment, migration, or production rollout authority.
 - `backfill-task` versus `ship-change`: a backfill design may expose a control API, but it never authorizes starting a production job, deploying it, or mutating production data.
@@ -56,7 +56,7 @@ explicit run authorization
 ```text
 brief-to-spec
 spec-explainer
-review-spec + doubt-review
+doubt-review
 human approval
 spec-to-plan
 implement-plan + engineering-quality

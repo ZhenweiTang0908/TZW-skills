@@ -34,7 +34,7 @@ Natural-language request
 ├─ 2. Something is broken or unexpected?
 │    $diagnose
 │      → facts → localization → hypotheses → root cause
-│      → Mini Fix Contract
+│      → Fix Contract
 │      → authorized fix + $engineering-quality
 │      → $verify-change
 │
@@ -148,7 +148,7 @@ $diagnose
   3. Localize the earliest supported divergence.
   4. Test explicit hypotheses one cause at a time.
   5. Report the root cause or ranked remaining hypotheses.
-  6. Write a Mini Fix Contract.
+  6. Write a Fix Contract.
 
 If the user authorized a fix
   7. Implement the smallest causal fix with $engineering-quality.

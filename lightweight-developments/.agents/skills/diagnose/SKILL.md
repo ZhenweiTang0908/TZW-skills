@@ -36,7 +36,7 @@ Read repository instructions, errors and stack traces in full, relevant code and
 4. Form explicit hypotheses with predicted evidence.
 5. Test the cheapest discriminating hypothesis first; vary one cause at a time.
 6. State a root cause only when evidence explains both the symptom and the mechanism. Otherwise rank remaining hypotheses and name the missing evidence.
-7. Propose the smallest fix that addresses the cause, plus a regression check. Create a concise Mini Fix Contract before any implementation.
+7. Propose the smallest fix that addresses the cause, plus a regression check. Write the Fix Contract before any implementation.
 
 ## Output
 
@@ -50,8 +50,12 @@ Read repository instructions, errors and stack traces in full, relevant code and
 
 ## Suggested Minimal Fix
 
+## Fix Contract
+
 ## Verification
 ```
+
+A Fix Contract is the Mini Spec for a defect. It states the confirmed cause it addresses, the expected behavior after the fix, the behavior that must remain unchanged, and the regression check, which must fail on the unfixed code and pass after the fix. Write it once the root cause is supported, even when no fix is authorized yet; omit it while only ranked hypotheses remain. `verify-change` verifies the fix against this contract.
 
 Separate facts, inferences, and unknowns. Include reproduction or query details that another engineer can repeat safely.
 
@@ -61,7 +65,7 @@ When saving the investigation, start from [the diagnosis report template](assets
 
 - Investigation is read-only by default. Do not modify business code, production data, configuration, or external state.
 - A request to "look into" or "find out why" is not authorization to fix.
-- If the user explicitly authorized a fix, implement only after the cause and Mini Fix Contract are clear; apply `engineering-quality` and verify the regression.
+- If the user explicitly authorized a fix, implement only after the cause and Fix Contract are clear; apply `engineering-quality` and verify the regression.
 - Never weaken a test or requirement merely to remove a failure.
 
 ## Stop or escalate
