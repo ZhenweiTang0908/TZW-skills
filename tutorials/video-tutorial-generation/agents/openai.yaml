@@ -1,0 +1,8 @@
+interface:
+  display_name: "Video Tutorial Generation (NIU)"
+  short_description: "Create full-window, single-take narrated UI tutorials"
+  brand_color: "#7C3AED"
+  default_prompt: "Use $video-tutorial-generation to create a full-window, single-take narrated tutorial from this web workflow."
+
+policy:
+  allow_implicit_invocation: false

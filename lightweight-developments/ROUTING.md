@@ -4,8 +4,8 @@
 |---|---|---|
 | Clarify a small behavior change before coding | `brief-to-mini-spec` | Not debugging or architecture |
 | Investigate unexpected behavior or a failure | `diagnose` | No speculative fix before evidence |
-| Analyze production business data | `production-analysis` | No production mutation |
-| Understand an existing system or feature | `observation` | Read-only explanation; route to a focused observation skill |
+| Analyze production business data | `production-database-analysis` | No production mutation |
+| Understand an existing system or feature | `explain-system` | Read-only explanation; route to a focused observation skill |
 | Understand a module or repository area | `code-reading` | Not an end-to-end feature trace |
 | Trace a feature from trigger to outcome | `feature-tracing` | Describes current behavior; no implementation plan |
 | Explain entity states or data relationships | `state-and-data-modeling` | Not production data analysis or future design |
@@ -28,7 +28,7 @@
 
 - `brief-to-mini-spec` versus `brief-to-spec`: choose based on behavioral and operational complexity, not word count. New states, meaningful schema changes, permissions, external systems, or difficult rollback favor the formal spec.
 - `diagnose` versus `logic-audit`: diagnose explains an observed failure; logic-audit tries to falsify a rule system even when no incident has occurred.
-- `observation` versus `diagnose`: observation explains current behavior; diagnose investigates an unexpected failure.
+- `explain-system` versus `diagnose`: explain-system explains current behavior; diagnose investigates an unexpected failure.
 - `code-reading` versus `feature-tracing`: code-reading explains a bounded code area; feature-tracing follows a user-visible behavior across boundaries.
 - `feature-tracing` composes state and data modeling when lifecycle or persistence is needed to explain the flow.
 - `verify-change` versus `verify-spec`: the former tests a Mini Spec or Fix Contract; the latter traces every formal requirement to implementation and evidence.

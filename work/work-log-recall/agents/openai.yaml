@@ -1,0 +1,5 @@
+interface:
+  display_name: "Work Log Recall (NIU)"
+  short_description: "Answer what I did from the daily work log"
+  brand_color: "#059669"
+  default_prompt: "Use $work-log-recall to tell me what I did this week."
