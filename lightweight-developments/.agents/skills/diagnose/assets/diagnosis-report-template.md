@@ -12,13 +12,18 @@
 
 - <Repeatable command, trace, query, log, or code path>
 
-## Mini Fix Contract
-
-- <Smallest authorized behavior change; omit if no fix is authorized>
-
 ## Suggested Minimal Fix
 
 <Fix direction without unrelated scope.>
+
+## Fix Contract
+
+<Omit while only ranked hypotheses remain.>
+
+- Cause addressed: <confirmed mechanism>
+- Expected behavior after the fix: <observable behavior>
+- Must remain unchanged: <preserved behavior>
+- Regression check: <check that fails before the fix and passes after it>
 
 ## Verification
 

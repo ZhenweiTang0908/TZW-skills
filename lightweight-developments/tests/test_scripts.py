@@ -24,12 +24,13 @@ def load_module(name: str, path: Path):
 
 sql_checker = load_module(
     "sql_checker",
-    ROOT / ".agents/skills/production-analysis/scripts/check_sql_read_only.py",
+    ROOT / ".agents/skills/production-database-analysis/scripts/check_sql_read_only.py",
 )
 coverage_checker = load_module(
     "coverage_checker",
     ROOT / ".agents/skills/verify-spec/scripts/check_requirement_coverage.py",
 )
+packager = load_module("packager", ROOT / "scripts/package_skills.py")
 
 
 class SqlReadOnlyTests(unittest.TestCase):
@@ -51,6 +52,25 @@ class SqlReadOnlyTests(unittest.TestCase):
         self.assertTrue(sql_checker.check("SELECT 1 -- hidden text"))
         self.assertTrue(sql_checker.check("SELECT nextval('sequence_name')"))
 
+    def test_accepts_common_column_names(self):
+        self.assertEqual(sql_checker.check("SELECT id, comment, release, security, lock FROM tickets LIMIT 10"), [])
+        self.assertEqual(sql_checker.check("SELECT `comment` FROM `tickets` LIMIT 10"), [])
+
+    def test_rejects_functions_that_execute_sql_text_or_affect_the_server(self):
+        for statement in (
+            "SELECT * FROM dblink('remote', 'DELETE FROM t') AS t(a int)",
+            "SELECT query_to_xml('DELETE FROM t', true, true, '')",
+            "SELECT pg_terminate_backend(1234)",
+            "SELECT pg_catalog.pg_sleep(600)",
+            "SELECT pg_read_file('/etc/passwd')",
+            "SELECT SLEEP(10)",
+        ):
+            with self.subTest(statement=statement):
+                self.assertTrue(sql_checker.check(statement))
+
+    def test_rejects_mysql_share_lock(self):
+        self.assertTrue(sql_checker.check("SELECT id FROM contacts LOCK IN SHARE MODE"))
+
 
 class RequirementCoverageTests(unittest.TestCase):
     def test_extracts_unique_requirements(self):
@@ -62,6 +82,25 @@ class RequirementCoverageTests(unittest.TestCase):
             coverage_checker.report_statuses(report),
             {"R1": {"PASS"}, "R2": {"NOT VERIFIED"}},
         )
+
+    def test_unfilled_template_row_is_conflicting(self):
+        report = "| R1 | PASS / FAIL / NOT VERIFIED | <location> |"
+        self.assertEqual(
+            coverage_checker.report_statuses(report),
+            {"R1": {"PASS", "FAIL", "NOT VERIFIED"}},
+        )
+
+
+class PackagerExclusionTests(unittest.TestCase):
+    def test_excludes_secret_and_cache_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name in ("SKILL.md", ".local_only_data", ".env", ".env.production", "ENV", ".pytest_cache/README.md"):
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("x", encoding="utf-8")
+            included = [path.relative_to(root).as_posix() for path in packager.included_files(root)]
+            self.assertEqual(included, ["SKILL.md"])
 
 
 class PackIntegrationTests(unittest.TestCase):

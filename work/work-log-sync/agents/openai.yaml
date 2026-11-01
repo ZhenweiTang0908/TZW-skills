@@ -1,0 +1,5 @@
+interface:
+  display_name: "Work Log Sync (NIU)"
+  short_description: "Record, update, or delete entries in the daily work log"
+  brand_color: "#059669"
+  default_prompt: "Use $work-log-sync to log what I just did in today's work log."

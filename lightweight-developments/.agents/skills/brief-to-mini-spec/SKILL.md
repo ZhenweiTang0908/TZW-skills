@@ -18,7 +18,7 @@ Turn informal input into the smallest useful behavioral contract. Stop after the
 ## Do not use when
 
 - An observed bug or failure needs root-cause investigation: use `diagnose`.
-- The request primarily asks questions of production data: use `production-analysis`.
+- The request primarily asks questions of production data: use `production-database-analysis`.
 - The change introduces multiple states, modules, permissions, external integrations, or meaningful data-model changes: use `brief-to-spec`.
 
 ## Expected input

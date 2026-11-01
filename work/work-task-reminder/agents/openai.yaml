@@ -1,0 +1,5 @@
+interface:
+  display_name: "Work Task Reminder (NIU)"
+  short_description: "Turn a work request into an Apple Reminders task"
+  brand_color: "#F59E0B"
+  default_prompt: "Use $work-task-reminder to turn this request into a task in my Reminders."

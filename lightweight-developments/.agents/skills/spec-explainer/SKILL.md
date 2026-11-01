@@ -22,7 +22,7 @@ Make a Spec easy to review by explaining not only what the system must do, but a
 
 - The task is only a bounded, obvious behavior change and prose is sufficient.
 - The user wants an implementation plan; use `spec-to-plan` after the Spec is approved.
-- The task is explaining current behavior only; use `observation`, `feature-tracing`, or `state-and-data-modeling`.
+- The task is explaining current behavior only; use `explain-system`, `feature-tracing`, or `state-and-data-modeling`.
 
 ## Process
 
@@ -77,6 +77,6 @@ Do not modify code, data, infrastructure, or external systems. Do not silently r
 
 - Use with `brief-to-spec`: design a multi-stage approval flow and explain it with a stage model, flowchart, state diagram, sequence diagram, and rejection/retry examples.
 - Use with `brief-to-mini-spec`: document a small but branching UI behavior where a decision tree prevents misunderstanding.
-- Do not use for a codebase walkthrough with no future behavior change; use `feature-tracing` or `observation`.
+- Do not use for a codebase walkthrough with no future behavior change; use `feature-tracing` or `explain-system`.
 
 — NiuNiu Tang

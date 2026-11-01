@@ -1,4 +1,0 @@
-interface:
-  display_name: "Computer Software Audit"
-  short_description: "Read-only audit of tools, packages, duplicates, and leftovers"
-  default_prompt: "Use $computer-software-audit to deeply inspect my computer for potentially unused tools, packages, duplicate installations, and leftovers. Report evidence and review priorities in Chinese; do not clean up or modify anything."

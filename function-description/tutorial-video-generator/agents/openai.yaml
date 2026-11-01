@@ -1,8 +1,0 @@
-interface:
-  display_name: "Tutorial Video Generator"
-  short_description: "Create full-window, single-take narrated UI tutorials"
-  brand_color: "#7C3AED"
-  default_prompt: "Use $tutorial-video-generator to create a full-window, single-take narrated tutorial from this web workflow."
-
-policy:
-  allow_implicit_invocation: false
