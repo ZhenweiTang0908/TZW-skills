@@ -17,7 +17,7 @@ The user asks whether rules are too strict, inconsistent, unnecessarily complex,
 ## Do not use when
 
 - The primary task is to explain an observed incident: use `diagnose`.
-- The primary artifact is a formal feature specification: use `review-spec`.
+- The primary artifact is a formal feature specification: use `doubt-review` with the Spec as ARTIFACT and the original brief as CONTRACT.
 - The user wants implementation-quality review of a completed diff: use `code-review`.
 
 ## Expected input

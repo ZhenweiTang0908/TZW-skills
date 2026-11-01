@@ -37,13 +37,13 @@ First restate the backfill contract and challenge it with `doubt-review` behavio
 - sensitive fields and log redaction;
 - the exact environment and authorization to mutate it.
 
-Do not implement while a material ambiguity remains. A short backfill still needs a Mini Fix Contract or equivalent job contract.
+Do not implement while a material ambiguity remains. A short backfill still needs a written job contract.
 
 ## Required design
 
 ### 1. API-driven asynchronous control
 
-Expose a dedicated backfill control API. Do not reuse the application's normal X API, JWT, user token, middleware, routes, or scopes. Keep the control surface minimal, for example:
+Expose a dedicated backfill control API. Do not reuse the application's existing credentials (defined in the next section), middleware, routes, or scopes. Keep the control surface minimal, for example:
 
 - create/start a job;
 - get job status and counters;
@@ -55,17 +55,19 @@ Starting the job must return quickly with a job identifier. The request handler 
 
 ### 2. One-time password with embedded hash verification
 
-Do not use the application's X API, S Key, JWT, user token, or any other existing authentication mechanism. Do not add a second authentication layer for this backfill control API.
+"Existing application credentials" means JWTs, user tokens, sessions, and the application's API or service keys (for example the project's X API or S Key). Do not use any of them for the backfill control API. Do not add a second application-level credential check either; network controls the platform already enforces in front of every endpoint, such as a private network, IP allowlist, or gateway, may stay in place.
 
-For each backfill job, generate a high-entropy one-time password locally, derive its hash once, and inject only the resulting target hash into the dedicated backfill code/configuration. The API request presents the original one-time password, never the hash. The cloud endpoint hashes the received password with the agreed algorithm and performs one constant-time comparison against the injected target hash.
+For each backfill job, generate a one-time password locally from a cryptographically secure random source with at least 256 bits of entropy (for example 32 random bytes, hex- or base64url-encoded). Never use a human-chosen or short password. Derive its SHA-256 hash once and inject only the resulting target hash into the dedicated backfill code/configuration; because the password is random and long, a fast hash is sufficient and a slow password hash is unnecessary. The API request presents the original one-time password, never the hash. The cloud endpoint hashes the received password with SHA-256 and performs one constant-time comparison against the injected target hash.
 
 Before creating the password file, inspect the repository's existing `.gitignore`. Use an already ignored temporary directory for the password file, such as `temp/`, `codes_temp/`, or `local_temp/`, when that directory is present and its ignore rule covers the directory contents. Do not scatter the password in the repository, home directory, source tree, or an arbitrary system temp location. Do not automatically create a new directory or edit `.gitignore` just to make the workflow pass. If none of the existing ignored directories is available, stop and ask the user to choose or authorize a repository-specific location. The original password must not be committed, logged, returned, or placed in the Skill.
 
 The password file should have restrictive permissions, a clear job-specific name, and a short lifecycle. Record only the file path and cleanup action in the job contract; never record the password value. Keep the target hash in the intended dedicated backfill code/configuration, not the password file, when the runtime requires the hash to be embedded.
 
-The target hash alone must not be accepted as the request credential. Protect the original password in transit with the existing deployment's TLS, avoid exposing it in URLs and logs, restrict the endpoint to the backfill control surface, and delete or invalidate the target hash when the job completes, is cancelled, expires, or is abandoned. “One-time” means one backfill job lifecycle, not a new verification scheme per request.
+The target hash alone must not be accepted as the request credential. Protect the original password in transit with the existing deployment's TLS, avoid exposing it in URLs and logs, restrict the endpoint to the backfill control surface, and delete or invalidate the target hash when the job completes, is cancelled, expires, or is abandoned. “One-time” means one backfill job lifecycle, not a new verification scheme per request: the same password is presented on every control request of that job, so treat it as a short-lived bearer secret.
 
-The cloud-side verifier must receive the target hash through the explicitly chosen deployment path and must hash the request password before comparison. Do not silently fall back to JWT, X API, S Key, HMAC, nonce, timestamp, or another credential check.
+Bound that lifetime explicitly. Record an absolute expiry in the job contract, normally the maximum job duration plus a short margin and never more than one day, after which the verifier rejects the password even if the hash was not yet removed. Limit failed verification attempts per source and per job, for example with the platform's rate limiting or a small in-process counter that rejects further attempts for a cooling-off period, and log failures without the presented value.
+
+The cloud-side verifier must receive the target hash through the explicitly chosen deployment path and must hash the request password before comparison. Do not silently fall back to existing application credentials, HMAC, nonce, timestamp, or another credential check.
 
 ### 3. Graceful pause and recovery
 
@@ -97,13 +99,13 @@ The worker must not block unrelated application traffic. Prefer a separate worke
 2. Inspect repository instructions, existing job/worker patterns, data model, relevant writes, API routing, configuration, and tests.
 3. Write a compact job contract: scope, item key, states, checkpoint, success criteria, retry policy, limits, API surface, authentication, and verification.
 4. Conduct an adversarial doubt/discussion pass. Look for duplicate writes, partial failures, replayed requests, stale leases, concurrent runs, empty scope, changing source data, sensitive logs, and pause races.
-5. Implement the smallest isolated design that satisfies the contract. Do not reuse X API or JWT infrastructure.
-6. Verify with focused tests for password-to-hash acceptance/rejection, rejection of a raw target-hash request, password/hash non-disclosure, idempotent resume, pause at a checkpoint, crash/lease recovery, retry classification, status visibility, redaction, hash invalidation, and bounded failure.
+5. Implement the smallest isolated design that satisfies the contract. Do not reuse existing application credentials or their infrastructure.
+6. Verify with focused tests for password-to-hash acceptance/rejection, rejection of a raw target-hash request, rejection after expiry, failed-attempt limiting, password/hash non-disclosure, idempotent resume, pause at a checkpoint, crash/lease recovery, retry classification, status visibility, redaction, hash invalidation, and bounded failure.
 7. Report the job ID/control API, operational commands, evidence, remaining risks, and whether the task is ready to run. Do not start a production backfill, deploy, migrate, or modify production data without separate explicit authorization.
 
 ## Stop conditions
 
-Stop and ask for a decision if the target environment, data scope, source of truth, item idempotency key, an existing ignored password directory, password/hash injection or invalidation path, external side-effect safety, or maximum runtime is unclear. Stop if the job cannot persist progress, cannot distinguish completed from in-progress work, or would require the normal JWT, X API, S Key, or another authentication system.
+Stop and ask for a decision if the target environment, data scope, source of truth, item idempotency key, an existing ignored password directory, password/hash injection or invalidation path, external side-effect safety, or maximum runtime is unclear. Stop if the job cannot persist progress, cannot distinguish completed from in-progress work, or would require existing application credentials or another authentication system.
 
 ## Output
 
@@ -124,5 +126,7 @@ Stop and ask for a decision if the target environment, data scope, source of tru
 
 ## Run Instructions and Authorization Boundary
 ```
+
+When saving the job contract, start from [the backfill contract template](assets/backfill-contract-template.md).
 
 — NiuNiu Tang

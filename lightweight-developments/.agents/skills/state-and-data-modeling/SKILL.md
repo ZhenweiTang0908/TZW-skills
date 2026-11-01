@@ -24,7 +24,7 @@ Explain the model in plain language first. Use a Mermaid `stateDiagram-v2` for l
 
 ## Boundaries
 
-This skill describes the current model. Use `logic-audit` to challenge it, `production-analysis` to inspect production records, and specification skills to define a desired future model.
+This skill describes the current model. Use `logic-audit` to challenge it, `production-database-analysis` to inspect production records, and specification skills to define a desired future model.
 
 Use [the state-and-data brief template](assets/state-and-data-brief-template.md) when saving the result.
 

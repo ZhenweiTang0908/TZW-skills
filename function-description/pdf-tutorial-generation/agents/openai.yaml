@@ -1,6 +1,0 @@
-interface:
-  display_name: "PDF Tutorial Generation"
-  short_description: "Create polished step-by-step PDF tutorials"
-  default_prompt: "Use $pdf-tutorial-generation to create a German PDF tutorial from my screenshots."
-policy:
-  allow_implicit_invocation: false

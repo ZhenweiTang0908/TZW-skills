@@ -75,6 +75,6 @@ State when the contract is too vague to judge the artifact. Do not resolve produ
 
 - Use: Challenge a high-risk migration plan against zero-data-loss and rollback contracts.
 - Do not use: Create the migration plan. (`spec-to-plan` or a project-specific workflow)
-- Borderline: A spec review can compose with this skill after `review-spec`; keep the adversarial input minimal and independent.
+- Borderline: Reviewing a draft formal Spec before approval; pass the Spec as ARTIFACT and the original brief as CONTRACT, and judge fidelity to the brief, ambiguity, contradictions, and verifiability of each requirement.
 
 — NiuNiu Tang

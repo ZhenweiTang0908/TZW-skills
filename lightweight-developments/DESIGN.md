@@ -32,7 +32,8 @@ free-form brief
 ```text
 free-form brief
   -> brief-to-spec
-  -> review-spec
+  -> spec-explainer when the workflow needs it
+  -> doubt-review (review-spec is temporarily disabled)
   -> human approval
   -> spec-to-plan
   -> implement-plan + engineering-quality
@@ -45,8 +46,8 @@ Use the feature workflow, then add `doubt-review`, `code-review`, and explicitly
 
 ### Investigation paths
 
-- Unexpected behavior: `diagnose`, then create a Mini Fix Contract before any authorized fix.
-- Production business data: `production-analysis`, with read-only controls and no data repair.
+- Unexpected behavior: `diagnose`, then create a Fix Contract before any authorized fix.
+- Production business data: `production-database-analysis`, with read-only controls and no data repair.
 - Rules or decision logic: `logic-audit`; if a change is chosen, route the decision into `brief-to-mini-spec` or `brief-to-spec`.
 
 ## Composition
@@ -68,8 +69,8 @@ Work may escalate from the small path when investigation reveals new states, per
     └── skills/
         ├── brief-to-mini-spec/
         ├── diagnose/
-        ├── production-analysis/
-        ├── observation/
+        ├── production-database-analysis/
+        ├── explain-system/
         ├── code-reading/
         ├── feature-tracing/
         ├── state-and-data-modeling/
@@ -100,7 +101,7 @@ Work may escalate from the small path when investigation reveals new states, per
 
 Every skill includes usage boundaries, expected inputs, self-inspection, process, output, safety constraints, stop conditions, and routing examples. The descriptions are intentionally narrow because they are the discovery interface.
 
-The observation family is read-only and explanation-first. `observation` is the general entry point; `code-reading` explains bounded code areas, `feature-tracing` reconstructs end-to-end behavior, and `state-and-data-modeling` explains lifecycles and relationships. Feature tracing composes state/data modeling when those models are needed to make the flow understandable. These skills favor concise prose plus Mermaid diagrams and distinguish facts, inferences, and unknowns.
+The observation family is read-only and explanation-first. `explain-system` is the general entry point; `code-reading` explains bounded code areas, `feature-tracing` reconstructs end-to-end behavior, and `state-and-data-modeling` explains lifecycles and relationships. Feature tracing composes state/data modeling when those models are needed to make the flow understandable. These skills favor concise prose plus Mermaid diagrams and distinguish facts, inferences, and unknowns.
 
 `spec-explainer` is the visual/detail layer for future behavior: it follows the explanatory discipline of `code-reading` and the Pipeline/State Machine reference used by `brief-to-spec`, with special emphasis on stage-by-stage workflow diagrams, checkpoints, retries, and state transitions.
 

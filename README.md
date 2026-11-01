@@ -1,107 +1,133 @@
 # TZW Skills
 
-A unified collection of personal Codex and agent skills designed for workflow automation, visual documentation, software engineering, and internal communication.
+English | [简体中文](README.zh-CN.md)
 
-## Directory Structure
+NiuNiu Tang's personal agent skills, shared by Claude Code and Codex. They cover daily work records, the full software development lifecycle, computer maintenance, hard-problem research, and product tutorial production.
+
+Every skill's display name ends with `(NIU)` to distinguish it from third-party skills.
+
+## Directory structure
 
 ```text
 TZW-skills/
-├── function-description/               # Product walkthroughs and tutorial generation
-│   ├── pdf-tutorial-generation/        # Step-by-step annotated PDF tutorial generation
-│   └── tutorial-video-generator/       # Automated scripted video tutorials with Remotion and TTS
-├── lightweight-developments/           # Modular engineering skills for the full development lifecycle
-│   └── .agents/skills/                 # Core development, review, planning, and delivery skills
-├── german-communication/               # Informal German workplace communication assistant
-├── web-troubleshoot/                    # Broad and deep web research for difficult problems
-├── computer-health-check/              # Read-only macOS checkup: CPU, memory, heat, battery, disk, threats
-├── Temp/                               # Disposable artifacts and build cache (git-ignored)
-└── .gitignore
+├── work/                               # Daily work
+│   ├── german-communication/           # Draft and polish German messages to colleagues
+│   ├── work-log-sync/                  # Write, update, or delete daily work log entries
+│   ├── work-log-recall/                # Answer "what did I do" from the work log
+│   └── work-task-reminder/             # Turn a work request into an Apple Reminders task
+├── lightweight-developments/           # Software development skill pack (21 skills)
+│   ├── .agents/skills/                 # The individual development skills
+│   ├── catalog.yaml                    # Category catalog
+│   ├── ROUTING.md / DESIGN.md          # Routing rules and design notes
+│   ├── docs/USER-GUIDE.md              # User guide
+│   ├── scripts/                        # Validation and packaging scripts
+│   └── tests/
+├── computer/                           # Computer maintenance (read-only checks)
+│   ├── computer-health-check/          # Checkup: heat, slowness, battery, suspicious programs
+│   └── computer-software-audit/        # Installed-software inventory and cleanup candidates
+├── research/
+│   └── web-troubleshoot/               # Deep web research for hard problems
+├── tutorials/                          # Product tutorials
+│   ├── pdf-tutorial-generation/        # Annotated, screenshot-based PDF tutorials
+│   └── video-tutorial-generation/      # Narrated, subtitled product walkthrough videos
+├── Temp/                               # Generated artifacts and temporary files (git-ignored)
+└── output/                             # Legacy artifact folder (git-ignored)
 ```
 
-## Skill Packages & Modules
+## Skills
 
-### 1. Function Description (`function-description/`)
+### Daily work (`work/`)
 
-Tools for generating production-ready educational materials and product demonstrations from real user interfaces.
+| Skill | Purpose |
+| --- | --- |
+| `german-communication` | Write German messages to familiar colleagues in a natural, informal `du` tone, and translate German into Chinese. Not for customer, legal, HR, or other formal communication. |
+| `work-log-sync` | Record what you did in a daily Markdown work log (one folder per month), with update and delete support. Entries are always in English. |
+| `work-log-recall` | Read the work log and answer "what did I do today / this week / on a project". Read-only. |
+| `work-task-reminder` | Turn a request from a colleague or boss (Teams message, email, or text) into one Reminders task: a short title, with the original text, Chinese translation, AI breakdown, and steps in the notes. Attachments and links are saved in the skill's `temp/` folder. |
 
-- **PDF Tutorial Generation (`pdf-tutorial-generation`)**
-  - **Role**: Transforms UI screenshots (user-provided or captured) into structured, sequential PDF manuals.
-  - **Core Highlights**:
-    - Precision UI callouts: draws red highlight frames and numbered badges matched to written step cards.
-    - Redundant guidance prevention: recognizes existing on-screen markers and inputs to avoid double-annotation.
-    - Multilingual flexibility: defaults to German while respecting custom target languages (e.g., English, Chinese).
-    - Layout and formatting: built on ReportLab and Pillow for balanced margins, readable typography, and clean step separations without excessive whitespace.
-    - Workspace safety: strictly outputs temporary assets, manifests, and compiled PDFs to `Temp/`.
+### Software development (`lightweight-developments/`)
 
-- **Tutorial Video Generator (`tutorial-video-generator`)**
-  - **Role**: Produces deterministic, narrated video walkthroughs of web applications driven by a declarative JSON storyboard.
-  - **Core Highlights**:
-    - Stable browser capture: uses Playwright to navigate, settle asynchronous UI states, and record interactions with mock fixtures.
-    - Programmatic rendering: leverages Remotion and React for precise timing, animations, and transitions.
-    - Audio and subtitles: integrates external TTS narration (AIHubMix / InferEra) with per-scene timing and word-level subtitle alignment.
-    - Self-contained runtime: includes isolated dependencies and pre-render validation checks.
+A pack covering requirements, design, implementation, verification, and release. See [ROUTING.md](lightweight-developments/ROUTING.md) for routing rules and [USER-GUIDE.md](lightweight-developments/docs/USER-GUIDE.md) for usage.
 
-### 2. Lightweight Developments (`lightweight-developments/`)
+**Daily development and analysis**
 
-A comprehensive pack of 22 specialized engineering skills covering day-to-day coding, deep architecture, feature delivery, and verification.
+| Skill | Purpose |
+| --- | --- |
+| `brief-to-mini-spec` | Turn a small request into a short Mini Spec before coding. |
+| `diagnose` | Gather evidence and test hypotheses before proposing a minimal fix. |
+| `production-database-analysis` | Query production databases under enforced read-only controls to answer statistics, anomaly, and operations questions. |
+| `explain-system` | Entry point for explaining an existing system; routes to the three skills below. |
+| `code-reading` | Explain a module, class, or function: responsibilities and reading order. |
+| `feature-tracing` | Trace a feature end to end through UI, APIs, services, and data writes. |
+| `state-and-data-modeling` | Map entity lifecycles, state transitions, data relationships, and invariants. |
+| `logic-audit` | Find counterexamples, contradictions, and dead ends in business rules, branches, and state transitions. |
+| `verify-change` | Verify a small change or fix with fresh evidence. |
+| `backfill-task` | Design pausable, resumable, idempotent data backfill jobs. |
 
-- **Daily Engineering & Analysis**:
-  - `brief-to-mini-spec`: Translates ad-hoc feature requests into concise, bounded Mini Specs before writing code.
-  - `diagnose`: Formulates hypotheses, examines logs, and identifies root causes before applying targeted bug fixes.
-  - `product-analysis`: Conducts safe, read-only investigations on live business data and operational patterns.
-  - `code-reading` & `feature-tracing`: Explains code logic, execution order, API flows, and side-effects across components.
-  - `state-and-data-modeling`: Reconstructs entity lifecycles, schemas, persistence models, and invariant rules.
-  - `logic-audit`: Examines branching logic, boundary conditions, and state transitions to uncover subtle bugs.
-  - `verify-change`: Validates small patches and fixes against fresh runtime evidence and regression baselines.
-  - `backfill-task`: Implements idempotent, observable, and recoverable data backfill pipelines.
+**Large features**
 
-- **Large Feature Planning & Implementation**:
-  - `brief-to-spec`: Structures complex feature requirements into formal behavioral specifications.
-  - `spec-explainer`: Enriches specifications with detailed workflow pipelines and Mermaid process diagrams.
-  - `review-spec` & `doubt-review`: Conducts independent, adversarial reviews to expose unstated assumptions and edge-case risks.
-  - `spec-to-plan` & `implement-plan`: Breaks approved specifications into discrete tasks and executes them systematically.
-  - `verify-spec`: Verifies full end-to-end spec conformance against production-ready acceptance criteria.
+| Skill | Purpose |
+| --- | --- |
+| `brief-to-spec` | Turn a large request into a formal behavioral specification. |
+| `spec-explainer` | Add workflow explanations, concrete scenarios, and Mermaid diagrams to a spec. |
+| `spec-to-plan` | Break an approved spec into a verifiable implementation plan. |
+| `implement-plan` | Implement an approved plan task by task. |
+| `verify-spec` | Run final acceptance against every requirement in the spec. |
 
-- **Quality, Review & Delivery Operations**:
-  - `engineering-quality`: Enforces clear code structure, minimal scope, strong type safety, and maintainability across changes.
-  - `code-review`: Reviews diffs for correctness, security, architectural consistency, and error handling.
-  - `session-handoff`: Summarizes critical context, decisions, and blockers when switching agent sessions.
-  - `ship-change`: Safeguards production release actions with explicit user authorization, pre-flight checks, and rollback plans.
+**Quality and delivery**
 
-### 3. German Communication (`german-communication/`)
+| Skill | Purpose |
+| --- | --- |
+| `engineering-quality` | General quality constraints to follow while writing code. |
+| `doubt-review` | Independent, adversarial review of a spec, plan, or change. |
+| `code-review` | Review code changes (linked to Codex only, to avoid clashing with Claude Code's built-in `/code-review`). |
+| `session-handoff` | Leave a compact handoff record when switching sessions or agents. |
+| `ship-change` | Require explicit authorization before merging, deploying, or migrating, with pre/post checks and a rollback plan. |
+| `review-spec` | Disabled; replaced by `doubt-review` and kept for now. |
 
-An internal communication skill designed for drafting and polishing German messages within agile, close-knit startup teams.
+### Computer maintenance (`computer/`)
 
-- **Role**: Assists in writing status reports, team updates, blockers, and inquiries in natural, spoken German.
-- **Core Highlights**:
-  - Tone and style: adopts an authentic, collegial tone (`du`) that is direct, friendly, and free of bureaucratic fluff.
-  - Precision and clarity: leads with the main outcome or question, preserving exact numbers, timelines, and technical facts without unneeded small talk.
-  - Anti-patterns: actively eliminates artificial closing formulas, passive phrasing, and excessive filler words.
+| Skill | Purpose |
+| --- | --- |
+| `computer-health-check` | macOS checkup: CPU, memory, heat, battery, disk, background jobs, dev processes, security settings, suspicious programs. Read-only; any fix needs per-item confirmation. |
+| `computer-software-audit` | Inventory installed apps, CLI tools, runtimes, and leftover data to find cleanup candidates. Read-only; never uninstalls anything. |
 
-### 4. Web Troubleshoot (`web-troubleshoot/`)
+### Research (`research/`)
 
-Investigates difficult production, cloud, integration, and other problems through broad web discovery, deep primary-source tracing, and comparison with local evidence.
+| Skill | Purpose |
+| --- | --- |
+| `web-troubleshoot` | For hard production, cloud, or integration problems: gather cases and primary sources broadly, compare them with local evidence, and produce ranked hypotheses and next checks. Replies in Chinese by default. |
 
-- Searches competing explanations, firsthand cases, failed remedies, and version-specific behavior.
-- Separates reported experience from verified mechanisms and checks whether solutions apply to our actual environment.
-- Produces an evidence-backed comparison, ranked hypotheses, discriminating checks, and an ordered action path.
-- Includes on-demand search and cloud-comparison guides plus a report template; responds in Chinese by default.
+### Tutorials (`tutorials/`)
 
-Invoke with `$web-troubleshoot`, for example: “Research similar cases broadly and deeply, compare them with our environment, and identify missing prerequisites and the next checks.”
+Both skills run only when explicitly named.
 
-### 5. Computer Health Check (`computer-health-check`)
+| Skill | Purpose |
+| --- | --- |
+| `pdf-tutorial-generation` | Build step-by-step PDF tutorials from UI screenshots, with red frames and numbered badges. German by default. |
+| `video-tutorial-generation` | Record real browser-window interactions, add TTS narration and subtitles, and render a walkthrough video with Remotion. Uses a paid text-to-speech API. |
 
-A read-only checkup of the Mac's live state, complementing `computer-software-audit` (which inventories installed software).
+## Installation
 
-- Snapshot script (`scripts/snapshot.sh`, ~10 s, no sudo): CPU and runaway processes, memory pressure and swap, thermal signals, battery and sleep blockers, disk space and I/O, third-party background jobs, running dev services (port, project folder, uptime, orphaned or not) and other developer processes, scheduled tasks (crontab, at, launchd timers and login jobs, jobs loaded from elsewhere, Codex/Claude automations), FileVault/SIP/Gatekeeper/firewall, recent panics and crashes.
-- Heat diagnosis guide that names one primary cause with evidence and separates causes from symptoms such as `kernel_task`.
-- Threat triage for suspected malware: launchd persistence with signature and payload checks, unsigned binaries in odd locations, kernel/system extensions, authorization plugins, configuration profiles, proxy/DNS/hosts redirection, shell-startup hooks, browser extensions and XProtect version, rated 可疑 / 需确认 / 正常 without running, uploading or removing anything.
-- Threshold table and a fixed Chinese report shape; any fix (for example killing an orphaned test runner) happens only after per-item confirmation, followed by a re-check.
+Each skill is installed by symlinking it into the global skill directories, one for Claude Code and one for Codex:
 
-Invoke with `$computer-health-check`, for example: “我的电脑很烫，帮我体检一下。”
+```bash
+ln -s "$PWD/work/work-task-reminder" ~/.claude/skills/work-task-reminder
+ln -s "$PWD/work/work-task-reminder" ~/.codex/skills/work-task-reminder
+```
 
-## Conventions & Guidelines
+The link name must match the `name` in SKILL.md. After moving or renaming a skill, update the links in both directories.
 
-1. **Artifact Isolation**: Generated files, rendered PDFs, video outputs, audio files, and test screenshots must strictly reside within `Temp/` and remain excluded from version control.
-2. **Credential Protection**: API tokens, TTS keys, and secret configurations must be stored in local `ENV` files within the respective skill directories or in the repository root `.env`.
-3. **Global Skill Linkage**: Individual skills can be linked to `~/.codex/skills/<skill-name>` via symbolic links for global activation across all Codex environments.
+## Conventions
+
+1. **Naming**: The folder name matches `name`; all lowercase, words joined by hyphens, never underscores.
+2. **Metadata**: Every SKILL.md frontmatter has `metadata.author` and `metadata.version`. Every skill has `agents/openai.yaml` with a display name ending in `(NIU)`.
+3. **Artifact isolation**: Generated PDFs, videos, audio, and screenshots go to `Temp/` or the skill's own temporary folder, never into version control.
+4. **Secrets**: API keys and TTS keys live only in local `ENV` or `.env` files and are never committed.
+5. **Development pack**: After changing `lightweight-developments`, validate with:
+
+```bash
+cd lightweight-developments && python3 scripts/validate_pack.py && python3 -m unittest discover -s tests
+```
+
+Keep [README.zh-CN.md](README.zh-CN.md) in sync when this file changes.

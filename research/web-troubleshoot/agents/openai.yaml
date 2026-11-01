@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Troubleshoot (NIU)"
+  short_description: "Broad and deep web research for difficult real-world problems"
+  default_prompt: "Use $web-troubleshoot to research this problem broadly and deeply, trace firsthand successes and failures, compare them with our environment, and recommend evidence-backed checks and actions."
