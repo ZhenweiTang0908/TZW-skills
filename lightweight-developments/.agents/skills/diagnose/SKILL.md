@@ -17,7 +17,7 @@ There is an observed failure, anomaly, regression, performance problem, integrat
 ## Do not use when
 
 - The user is requesting a known behavior change rather than reporting unexpected behavior.
-- The task is solely a production-data question with no application fault to localize; use `production-analysis`.
+- The task is solely a production-data question with no application fault to localize; use `production-database-analysis`.
 - The artifact is a rule system being challenged without an observed incident; use `logic-audit`.
 
 ## Expected input
@@ -76,6 +76,6 @@ Stop when required evidence needs unavailable access, unsafe production experime
 
 - Use: "The same contact was created twice. Find out why before changing anything."
 - Do not use: "Add a deduplication option to the import screen." (`brief-to-mini-spec`)
-- Borderline: "Why are 30,000 contacts waiting?" starts with `production-analysis` if the question is about population state; add `diagnose` only if evidence points to a system fault.
+- Borderline: "Why are 30,000 contacts waiting?" starts with `production-database-analysis` if the question is about population state; add `diagnose` only if evidence points to a system fault.
 
 — NiuNiu Tang

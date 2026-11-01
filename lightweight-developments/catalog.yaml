@@ -6,8 +6,8 @@ categories:
   daily:
     - "brief-to-mini-spec"
     - "diagnose"
-    - "production-analysis"
-    - "observation"
+    - "production-database-analysis"
+    - "explain-system"
     - "code-reading"
     - "feature-tracing"
     - "state-and-data-modeling"

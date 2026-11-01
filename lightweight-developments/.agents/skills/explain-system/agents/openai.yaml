@@ -1,0 +1,5 @@
+interface:
+  display_name: "Explain System (NIU)"
+  short_description: "Explain existing systems with evidence and diagrams"
+  brand_color: "#0F766E"
+  default_prompt: "Use $explain-system to explain the current system behavior with concise prose, evidence, and a useful diagram."

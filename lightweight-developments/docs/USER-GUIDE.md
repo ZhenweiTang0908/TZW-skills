@@ -39,7 +39,7 @@ Natural-language request
 │      → $verify-change
 │
 ├─ 3. Question about production business data?
-│    $production-analysis
+│    $production-database-analysis
 │      → verify production profile and read-only controls
 │      → bounded queries and cross-checks
 │      → findings, anomalies, explanations, limitations
@@ -75,7 +75,7 @@ Natural-language request
 | Change one bounded behavior | `$brief-to-mini-spec` | Mini Spec |
 | Design a substantial feature or subsystem | `$brief-to-spec` | Formal Spec |
 | Explain an observed bug or failure | `$diagnose` | Root cause or ranked hypotheses |
-| Analyze production records or operations | `$production-analysis` | Read-only analysis report |
+| Analyze production records or operations | `$production-database-analysis` | Read-only analysis report |
 | Design or implement a bounded backfill job | `$backfill-task` | Restartable API-driven job contract and implementation guidance |
 | Challenge business or decision logic | `$logic-audit` | Counterexamples and simplification assessment |
 | Verify a local fix or small feature | `$verify-change` | Passed, Failed, and Not Verified results |
@@ -162,7 +162,7 @@ If the user authorized a fix
 Purpose: answer business and operational questions without making production mutation available.
 
 ```text
-$production-analysis
+$production-database-analysis
   1. Confirm the named production profile and database identity.
   2. If needed, inspect repository-local .local_only_data for the minimum
      credential fields without executing, echoing, modifying, or committing it.

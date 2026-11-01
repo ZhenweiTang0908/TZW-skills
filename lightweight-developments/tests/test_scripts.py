@@ -24,7 +24,7 @@ def load_module(name: str, path: Path):
 
 sql_checker = load_module(
     "sql_checker",
-    ROOT / ".agents/skills/production-analysis/scripts/check_sql_read_only.py",
+    ROOT / ".agents/skills/production-database-analysis/scripts/check_sql_read_only.py",
 )
 coverage_checker = load_module(
     "coverage_checker",
