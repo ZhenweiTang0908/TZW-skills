@@ -2,7 +2,7 @@
 //
 // Usage:
 //   swift add-reminder.swift --title "Short title" --notes-file notes.md \
-//     [--list Tasks] [--due 2026-11-05 | --due "2026-11-05 14:00"] [--priority high|medium|low]
+//     [--list InterimAid] [--due 2026-11-05 | --due "2026-11-05 14:00"] [--priority high|medium|low]
 //
 // Prints one JSON line: {"ok":true,"id":...,"list":...,"title":...,"due":...}
 import EventKit
@@ -24,7 +24,7 @@ while let key = it.next() {
 guard let title = args["title"], !title.trimmingCharacters(in: .whitespaces).isEmpty else { fail("--title is required") }
 guard let notesPath = args["notes-file"] else { fail("--notes-file is required") }
 guard let notes = try? String(contentsOfFile: notesPath, encoding: .utf8) else { fail("cannot read notes file: \(notesPath)") }
-let listName = args["list"] ?? "Tasks"
+let listName = args["list"] ?? "InterimAid"
 
 let store = EKEventStore()
 let sem = DispatchSemaphore(value: 0)
