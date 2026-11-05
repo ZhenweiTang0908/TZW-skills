@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Verify Spec
+# Verify Spec (NIU)
 
 Independently determine whether the implemented feature satisfies the complete approved specification.
 

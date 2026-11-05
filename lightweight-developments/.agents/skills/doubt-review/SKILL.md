@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Doubt Review
+# Doubt Review (NIU)
 
 Try to show that an important artifact is wrong, incomplete, unsafe, or unsupported. Independence is more valuable than agreement.
 

@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Spec to Plan
+# Spec to Plan (NIU)
 
 Describe how this repository should implement an approved specification. The spec remains the authority on behavior.
 

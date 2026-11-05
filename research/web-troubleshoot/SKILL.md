@@ -6,7 +6,7 @@ metadata:
   version: "0.1.0"
 ---
 
-# Web Troubleshoot
+# Web Troubleshoot (NIU)
 
 Turn online experience into an evidence-backed explanation of what may be happening here, how our situation differs, and what to check or change next. **Respond in Chinese by default unless the user requests another language.** These English instructions do not change that default.
 

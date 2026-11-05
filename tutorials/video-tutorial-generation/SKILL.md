@@ -6,7 +6,7 @@ metadata:
   version: "0.12.3"
 ---
 
-# Video Tutorial Generation
+# Video Tutorial Generation (NIU)
 
 Build a tutorial as a deterministic artifact from a JSON storyboard. Use real application states and repeatable motion; never synthesize the product UI with a video model.
 

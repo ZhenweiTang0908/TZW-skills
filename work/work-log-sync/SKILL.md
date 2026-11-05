@@ -6,15 +6,19 @@ metadata:
   version: "0.1.1"
 ---
 
-# Work Log Sync
+# Work Log Sync (NIU)
 
 Write work items into the user's daily Markdown log. This skill records facts only. Do not generate daily reports, weekly reports, or boss-facing summaries.
 
 ## Log location
 
-Use `WORK_LOG_DIR` when it is set. Otherwise use:
+Get the log root from the shared repo config by running, from this skill directory:
 
-`/Users/niuniutang/Projects/InterimAid-Logs`
+```bash
+bash ../../config.sh WORK_LOG_DIR
+```
+
+It returns the `WORK_LOG_DIR` environment variable when set, otherwise the value in `config.local.env` at the repo root. If it prints nothing or fails, stop and ask the user for the log folder instead of guessing; do not write anywhere else.
 
 Store each day in a monthly folder:
 

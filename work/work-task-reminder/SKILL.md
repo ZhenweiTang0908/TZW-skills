@@ -1,12 +1,12 @@
 ---
 name: work-task-reminder
-description: Turn a work request (a Teams message, an email, or a short description from a colleague or boss, plus the user's own notes and attachments) into one Apple Reminders task with a short title and detailed notes, and archive the source material locally. Use when the user wants to record, capture, or add a work to-do or task to Reminders; do not use for reading, completing, or editing existing reminders.
+description: Turn a work, study, or personal errand request (a Teams message, an email, or a short description from a colleague or boss, plus the user's own notes and attachments) into one Apple Reminders task in the matching list (work → InterimAid, study → RWTH Tasks, errands → Groceries) with a short title and detailed notes, and archive the source material locally. Use when the user wants to record, capture, or add a work, study, or errand to-do or task to Reminders; do not use for reading, completing, or editing existing reminders.
 metadata:
   author: NiuNiu Tang
   version: "0.1.0"
 ---
 
-# Work Task Reminder
+# Work Task Reminder (NIU)
 
 Capture one work request as one Apple Reminders task so the user does not forget it. Analyze the request like a product manager, write a reminder with a short title and detailed notes, and save every related file, link, and text in this skill's `temp/` folder.
 
@@ -92,10 +92,18 @@ Title rules: Chinese by default, at most about 15 characters, verb first, with a
 Run from this skill directory:
 
 ```bash
-swift scripts/add-reminder.swift --title "<title>" --notes-file "temp/<folder>/notes.md" [--due YYYY-MM-DD | --due "YYYY-MM-DD HH:MM"] [--priority high] > "temp/<folder>/reminder.json"
+swift scripts/add-reminder.swift --title "<title>" --category <work|study|errands> --notes-file "temp/<folder>/notes.md" [--due YYYY-MM-DD | --due "YYYY-MM-DD HH:MM"] [--priority high] > "temp/<folder>/reminder.json"
 ```
 
-- `--list` defaults to `Tasks`. Use another list only when the user names it.
+- Always pass `--category` (`work`, `study`, or `errands`). The script maps it to the Reminders list set in the repo's `config.local.env` (`REMINDER_LIST_WORK`, `REMINDER_LIST_STUDY`, `REMINDER_LIST_ERRANDS`). When the user names a specific list, pass `--list "<name>"` instead; it overrides the category. Run `bash ../../config.sh` to see the current mapping.
+
+  | Category | Examples | `--category` |
+  | --- | --- | --- |
+  | 工作 | requests from colleagues or the boss, Teams/email work, the user's company projects | `work` |
+  | 学习 | university courses, homework, exams, German study | `study` |
+  | 杂事 | repairs (e.g. 修电脑), errands, looking up sports info, personal admin | `errands` |
+
+  If a task fits none clearly, pick the closest category and say so in the report.
 - Set `--due` only when the source or the user states a deadline. Resolve relative dates ("bis Freitag", "next week") against the message date when known, otherwise today. Use a time only when one is stated.
 - Set `--priority high` only when the source says it is urgent or blocking.
 - The script uses EventKit and does not open the Reminders app. The first run may show a macOS permission prompt for Reminders.
@@ -106,7 +114,7 @@ swift scripts/add-reminder.swift --title "<title>" --notes-file "temp/<folder>/n
 Reply in Chinese with:
 
 1. The brief analysis from step 2.
-2. The reminder title, list, and due date (or `无截止时间`).
+2. The category (工作/学习/杂事), reminder title, list, and due date (or `无截止时间`).
 3. The `【步骤】` list.
 4. The task folder path and a list of saved files.
 
