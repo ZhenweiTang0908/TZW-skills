@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Brief to Spec
+# Brief to Spec (NIU)
 
 Turn natural-language product intent into a formal description of what the system should do, without prematurely deciding how to implement it.
 

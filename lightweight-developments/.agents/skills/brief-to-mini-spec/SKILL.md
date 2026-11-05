@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Brief to Mini Spec
+# Brief to Mini Spec (NIU)
 
 Turn informal input into the smallest useful behavioral contract. Stop after the Mini Spec; do not implement the change under this skill.
 

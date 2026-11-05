@@ -6,7 +6,7 @@ metadata:
   version: "0.1.0"
 ---
 
-# PDF Tutorial Generation
+# PDF Tutorial Generation (NIU)
 
 Create a finished, visually verified PDF that teaches a user how to complete one workflow. Default to German unless the user specifies another language.
 
