@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Verify Change
+# Verify Change (NIU)
 
 Determine whether a bounded change works against its behavioral contract. The contract—not the implementation plan—is authoritative.
 

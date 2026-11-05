@@ -6,7 +6,7 @@ metadata:
   version: "0.1.0"
 ---
 
-# Explain System
+# Explain System (NIU)
 
 Build an evidence-based explanation of the current system. This is a read-only understanding workflow: do not implement fixes, redesign the system, or treat inferred behavior as confirmed fact.
 

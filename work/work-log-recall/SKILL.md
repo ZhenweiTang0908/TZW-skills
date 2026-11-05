@@ -6,15 +6,19 @@ metadata:
   version: "0.1.1"
 ---
 
-# Work Log Recall
+# Work Log Recall (NIU)
 
 Read the user's daily Markdown work log and answer recall questions. This skill is read-only. Do not modify log files and do not save generated summaries.
 
 ## Log location
 
-Use `WORK_LOG_DIR` when it is set. Otherwise use:
+Get the log root from the shared repo config by running, from this skill directory:
 
-`/Users/niuniutang/Projects/InterimAid-Logs`
+```bash
+bash ../../config.sh WORK_LOG_DIR
+```
+
+It returns the `WORK_LOG_DIR` environment variable when set, otherwise the value in `config.local.env` at the repo root. If it prints nothing or fails, stop and ask the user for the log folder instead of guessing; do not read anywhere else.
 
 Daily files live at:
 

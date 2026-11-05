@@ -6,7 +6,7 @@ metadata:
   version: "0.1.0"
 ---
 
-# State and Data Modeling
+# State and Data Modeling (NIU)
 
 Build the smallest model that explains how an entity changes and how its data is represented.
 

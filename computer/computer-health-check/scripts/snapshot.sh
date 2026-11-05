@@ -9,6 +9,12 @@ limit() { # limit <seconds> <cmd...>: run with a time cap when timeout is availa
 	local s=$1; shift
 	if command -v timeout >/dev/null 2>&1; then timeout "$s" "$@"; else "$@"; fi
 }
+# Project folders come from the shared repo config (PROJECT_DIRS); fall back to common defaults.
+_cfg="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../../.." && pwd)/config.sh"
+[[ -f "$_cfg" ]] && source "$_cfg" >/dev/null 2>&1
+read -r -a PROJECT_DIR_LIST <<< "${PROJECT_DIRS:-$HOME/Code $HOME/Projects $HOME/Documents}"
+in_project_dir() { local d; for d in "${PROJECT_DIR_LIST[@]}"; do [[ "$1" == "${d%/}/"* ]] && return 0; done; return 1; }
+
 hr() { printf '\n## %s\n' "$1"; }
 
 basics() {
@@ -113,7 +119,7 @@ dev() {
 		comm=$(ps -o comm= -p "$pid" 2>/dev/null) || continue
 		cwd=$(cwd_of "$pid")
 		# 开发工具，或者工作目录在项目文件夹里的任何监听进程
-		if is_dev "$comm" || [[ "$cwd" == "~/Code/"* || "$cwd" == "~/Projects/"* || "$cwd" == "~/Documents/"* ]]; then
+		if is_dev "$comm" || in_project_dir "${cwd/#\~/$HOME}"; then
 			listed+="$pid "
 			printf '%s | %s | %s | %s | %s | %s\n' "$ports" "$pid" "$(ps -o ppid= -p "$pid" | tr -d ' ')" \
 				"$(ps -o etime= -p "$pid" | tr -d ' ')" "${cwd:-?}" "$(ps -o args= -p "$pid" | redact | cut -c1-140)"
@@ -219,9 +225,9 @@ dev_path() { # toolchains and project folders where unsigned/ad-hoc binaries are
 	case "$1" in
 		*/.venv/*|*/venv/*|*/node_modules/*|*/target/debug/*|*/target/release/*|*/builds/*|*/DerivedData/*) return 0;;
 		"$HOME"/.cache/*|"$HOME"/.cargo/*|"$HOME"/.rustup/*|"$HOME"/.pyenv/*|"$HOME"/.nvm/*|"$HOME"/.local/*|"$HOME"/.bun/*|"$HOME"/.deno/*|"$HOME"/.go/*|"$HOME"/go/*) return 0;;
-		"$HOME"/Code/*|"$HOME"/Projects/*|/opt/homebrew/*|/usr/local/Cellar/*|/usr/local/bin/*) return 0;;
+		/opt/homebrew/*|/usr/local/Cellar/*|/usr/local/bin/*) return 0;;
 	esac
-	return 1
+	in_project_dir "$1"
 }
 ext_name() { # ext_name <manifest.json>: resolve __MSG_key__ names through _locales
 	local m=$1 n key loc d

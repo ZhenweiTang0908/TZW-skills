@@ -6,7 +6,7 @@ metadata:
   version: "0.1.0"
 ---
 
-# Work Task Reminder
+# Work Task Reminder (NIU)
 
 Capture one work request as one Apple Reminders task so the user does not forget it. Analyze the request like a product manager, write a reminder with a short title and detailed notes, and save every related file, link, and text in this skill's `temp/` folder.
 
@@ -92,16 +92,16 @@ Title rules: Chinese by default, at most about 15 characters, verb first, with a
 Run from this skill directory:
 
 ```bash
-swift scripts/add-reminder.swift --title "<title>" --list <list> --notes-file "temp/<folder>/notes.md" [--due YYYY-MM-DD | --due "YYYY-MM-DD HH:MM"] [--priority high] > "temp/<folder>/reminder.json"
+swift scripts/add-reminder.swift --title "<title>" --category <work|study|errands> --notes-file "temp/<folder>/notes.md" [--due YYYY-MM-DD | --due "YYYY-MM-DD HH:MM"] [--priority high] > "temp/<folder>/reminder.json"
 ```
 
-- Always pass `--list` chosen by category (use the list the user names if they name one):
+- Always pass `--category` (`work`, `study`, or `errands`). The script maps it to the Reminders list set in the repo's `config.local.env` (`REMINDER_LIST_WORK`, `REMINDER_LIST_STUDY`, `REMINDER_LIST_ERRANDS`). When the user names a specific list, pass `--list "<name>"` instead; it overrides the category. Run `bash ../../config.sh` to see the current mapping.
 
-  | Category | Examples | `--list` |
+  | Category | Examples | `--category` |
   | --- | --- | --- |
-  | 工作 | requests from colleagues or the boss, Teams/email work, EVALYTE/InterimAid projects | `InterimAid` |
-  | 学习 | RWTH courses, homework, exams, German study | `Tasks` (in the RWTH account) |
-  | 杂事 | repairs (e.g. 修电脑), errands, looking up sports info, personal admin | `Groceries` |
+  | 工作 | requests from colleagues or the boss, Teams/email work, the user's company projects | `work` |
+  | 学习 | university courses, homework, exams, German study | `study` |
+  | 杂事 | repairs (e.g. 修电脑), errands, looking up sports info, personal admin | `errands` |
 
   If a task fits none clearly, pick the closest category and say so in the report.
 - Set `--due` only when the source or the user states a deadline. Resolve relative dates ("bis Freitag", "next week") against the message date when known, otherwise today. Use a time only when one is stated.

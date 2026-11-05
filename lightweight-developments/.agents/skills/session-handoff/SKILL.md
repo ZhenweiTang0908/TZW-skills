@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Session Handoff
+# Session Handoff (NIU)
 
 Leave the next agent enough verified context to continue without replaying the full conversation.
 

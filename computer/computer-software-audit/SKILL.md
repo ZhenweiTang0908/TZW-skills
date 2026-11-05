@@ -6,7 +6,7 @@ metadata:
   version: "0.1.0"
 ---
 
-# Computer Software Audit (Read Only)
+# Computer Software Audit (NIU)
 
 Explain what is installed, its installation sources, which copy is selected, available usage evidence, dependencies, leftovers, and candidates worth reviewing. **Write user-facing audit results in Chinese by default, unless the user explicitly requests another language.** These English instructions do not change that output default. Focus on macOS; adapt other systems using the references.
 

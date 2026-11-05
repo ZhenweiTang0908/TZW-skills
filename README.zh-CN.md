@@ -118,16 +118,33 @@ ln -s "$PWD/work/work-task-reminder" ~/.codex/skills/work-task-reminder
 
 链接名必须和 SKILL.md 里的 `name` 一致。移动或改名 Skill 后，要同时更新这两个目录里的链接。
 
+### 个人配置
+
+因人、因机器而异的值（工作日志目录、提醒事项列表名、项目文件夹）统一放在仓库根目录的 `config.local.env`，该文件被 Git 忽略。换新电脑时：
+
+```bash
+cp config.example.env config.local.env
+```
+
+然后改成自己的值。运行 `bash config.sh` 可以查看最终生效的配置。同名环境变量优先于文件；用 `NIU_SKILLS_CONFIG` 可以指定放在别处的配置文件。
+
+| 配置项 | 使用者 |
+| --- | --- |
+| `WORK_LOG_DIR` | `work-log-sync`、`work-log-recall` |
+| `REMINDER_LIST_WORK` / `_STUDY` / `_ERRANDS` | `work-task-reminder` |
+| `PROJECT_DIRS` | `computer-health-check` |
+
 ## 约定
 
 1. **命名**：文件夹名和 `name` 一致，全部小写，单词之间用短杠，不用下划线。
-2. **元信息**：每个 SKILL.md 的 frontmatter 都写 `metadata.author` 和 `metadata.version`；每个 Skill 都带 `agents/openai.yaml`，显示名以 `(NIU)` 结尾。
+2. **元信息**：每个 SKILL.md 的 frontmatter 都写 `metadata.author` 和 `metadata.version`；SKILL.md 的标题和 `agents/openai.yaml` 的显示名都以 `(NIU)` 结尾。
 3. **产物隔离**：生成的 PDF、视频、音频、截图等一律放在 `Temp/` 或对应 Skill 自己的临时目录，不进版本库。
 4. **密钥**：API Key、TTS Key 等只放在本地的 `ENV` 或 `.env` 文件里，不提交。
-5. **开发 Skill 包**：改动 `lightweight-developments` 后，运行下面的命令校验：
+5. **不写个人路径**：Skill 里不要出现 `/Users/<用户名>/...`，改用 `~`、`$HOME` 或 `config.local.env` 里的配置项。
+6. **校验**：改动任何 Skill 后运行下面的命令。它会检查全部 Skill，同时运行开发包自己的校验：
 
 ```bash
-cd lightweight-developments && python3 scripts/validate_pack.py && python3 -m unittest discover -s tests
+python3 scripts/validate_repo.py && python3 -m unittest discover -s lightweight-developments/tests
 ```
 
 修改本文件时，请同步更新英文版 [README.md](README.md)。
