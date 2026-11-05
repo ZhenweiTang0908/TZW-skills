@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Implement Plan
+# Implement Plan (NIU)
 
 Implement the approved plan while preserving the approved spec and repository reality. Compose with `engineering-quality`.
 

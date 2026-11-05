@@ -6,7 +6,7 @@ metadata:
   version: "0.1.0"
 ---
 
-# Code Reading
+# Code Reading (NIU)
 
 Turn a code area into a usable mental model for someone who does not want to read every file.
 

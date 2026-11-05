@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Review Spec
+# Review Spec (NIU)
 
 Find concrete defects that would cause two reasonable implementers to build different systems or make the result impossible to verify.
 

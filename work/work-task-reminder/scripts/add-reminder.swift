@@ -2,7 +2,11 @@
 //
 // Usage:
 //   swift add-reminder.swift --title "Short title" --notes-file notes.md \
-//     [--list Tasks] [--due 2026-11-05 | --due "2026-11-05 14:00"] [--priority high|medium|low]
+//     (--category work|study|errands | --list "List name") [--due 2026-11-05 | --due "2026-11-05 14:00"] [--priority high|medium|low]
+//
+// --category looks up REMINDER_LIST_<WORK|STUDY|ERRANDS> in the environment, then in
+// config.local.env at the repo root (or the file named by NIU_SKILLS_CONFIG).
+// --list overrides the category.
 //
 // Prints one JSON line: {"ok":true,"id":...,"list":...,"title":...,"due":...}
 import EventKit
@@ -24,7 +28,39 @@ while let key = it.next() {
 guard let title = args["title"], !title.trimmingCharacters(in: .whitespaces).isEmpty else { fail("--title is required") }
 guard let notesPath = args["notes-file"] else { fail("--notes-file is required") }
 guard let notes = try? String(contentsOfFile: notesPath, encoding: .utf8) else { fail("cannot read notes file: \(notesPath)") }
-let listName = args["list"] ?? "Tasks"
+func configValue(_ key: String) -> String? {
+    if let v = ProcessInfo.processInfo.environment[key], !v.isEmpty { return v }
+    let env = ProcessInfo.processInfo.environment
+    let path: String
+    if let custom = env["NIU_SKILLS_CONFIG"], !custom.isEmpty {
+        path = custom
+    } else {
+        // scripts/ -> work-task-reminder/ -> work/ -> repo root (symlinks resolved)
+        let script = URL(fileURLWithPath: CommandLine.arguments[0]).resolvingSymlinksInPath()
+        path = script.deletingLastPathComponent().deletingLastPathComponent()
+            .deletingLastPathComponent().deletingLastPathComponent()
+            .appendingPathComponent("config.local.env").path
+    }
+    guard let text = try? String(contentsOfFile: path, encoding: .utf8) else { return nil }
+    for raw in text.split(separator: "\n") {
+        let line = raw.trimmingCharacters(in: .whitespaces)
+        guard !line.hasPrefix("#"), let eq = line.firstIndex(of: "=") else { continue }
+        if line[..<eq] == key { return String(line[line.index(after: eq)...]) }
+    }
+    return nil
+}
+
+let listName: String
+if let explicit = args["list"], !explicit.isEmpty {
+    listName = explicit
+} else if let category = args["category"] {
+    let key = "REMINDER_LIST_" + category.uppercased()
+    guard ["work", "study", "errands"].contains(category.lowercased()) else { fail("unknown --category: \(category)") }
+    guard let value = configValue(key), !value.isEmpty else { fail("\(key) is not set; add it to config.local.env at the repo root") }
+    listName = value
+} else {
+    fail("pass --category work|study|errands or --list <name>")
+}
 
 let store = EKEventStore()
 let sem = DispatchSemaphore(value: 0)

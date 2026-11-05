@@ -6,7 +6,7 @@ metadata:
   version: "0.1.0"
 ---
 
-# Spec Explainer
+# Spec Explainer (NIU)
 
 Make a Spec easy to review by explaining not only what the system must do, but also how a Pipeline or Workflow unfolds from a user's, service's, or operator's perspective. This skill supplements `brief-to-mini-spec` or `brief-to-spec`; it does not turn requirements into an implementation plan.
 

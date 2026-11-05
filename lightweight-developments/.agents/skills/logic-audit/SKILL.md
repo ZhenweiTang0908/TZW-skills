@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Logic Audit
+# Logic Audit (NIU)
 
 Try to falsify a decision system before recommending that it change.
 

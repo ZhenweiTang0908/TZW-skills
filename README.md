@@ -118,16 +118,33 @@ ln -s "$PWD/work/work-task-reminder" ~/.codex/skills/work-task-reminder
 
 The link name must match the `name` in SKILL.md. After moving or renaming a skill, update the links in both directories.
 
+### Personal settings
+
+Values that differ per person or machine (work-log folder, Reminders list names, project folders) live in one file, `config.local.env`, at the repo root. It is git-ignored. On a new machine:
+
+```bash
+cp config.example.env config.local.env
+```
+
+Then edit the values. Run `bash config.sh` to print the resolved settings. An environment variable with the same name overrides the file; `NIU_SKILLS_CONFIG` points to a config file elsewhere.
+
+| Key | Used by |
+| --- | --- |
+| `WORK_LOG_DIR` | `work-log-sync`, `work-log-recall` |
+| `REMINDER_LIST_WORK` / `_STUDY` / `_ERRANDS` | `work-task-reminder` |
+| `PROJECT_DIRS` | `computer-health-check` |
+
 ## Conventions
 
 1. **Naming**: The folder name matches `name`; all lowercase, words joined by hyphens, never underscores.
-2. **Metadata**: Every SKILL.md frontmatter has `metadata.author` and `metadata.version`. Every skill has `agents/openai.yaml` with a display name ending in `(NIU)`.
+2. **Metadata**: Every SKILL.md frontmatter has `metadata.author` and `metadata.version`. The SKILL.md title and the `agents/openai.yaml` display name both end in `(NIU)`.
 3. **Artifact isolation**: Generated PDFs, videos, audio, and screenshots go to `Temp/` or the skill's own temporary folder, never into version control.
 4. **Secrets**: API keys and TTS keys live only in local `ENV` or `.env` files and are never committed.
-5. **Development pack**: After changing `lightweight-developments`, validate with:
+5. **No personal paths**: Never write `/Users/<name>/...` into a skill; use `~`, `$HOME`, or a key in `config.local.env`.
+6. **Validation**: After changing any skill, run the following. It checks every skill and also runs the development pack's validator:
 
 ```bash
-cd lightweight-developments && python3 scripts/validate_pack.py && python3 -m unittest discover -s tests
+python3 scripts/validate_repo.py && python3 -m unittest discover -s lightweight-developments/tests
 ```
 
 Keep [README.zh-CN.md](README.zh-CN.md) in sync when this file changes.

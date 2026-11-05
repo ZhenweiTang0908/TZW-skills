@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Diagnose
+# Diagnose (NIU)
 
 Explain what happened and why before changing business behavior.
 

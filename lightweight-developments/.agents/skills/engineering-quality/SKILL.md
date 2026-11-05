@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Engineering Quality
+# Engineering Quality (NIU)
 
 Use this cross-cutting skill during code changes. Correctness and clarity outrank performative sophistication.
 

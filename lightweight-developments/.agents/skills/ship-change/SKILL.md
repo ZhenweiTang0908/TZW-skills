@@ -6,7 +6,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Ship Change
+# Ship Change (NIU)
 
 Deliver an already implemented and appropriately verified change to an explicitly authorized target while preserving a recovery path.
 
