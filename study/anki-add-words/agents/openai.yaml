@@ -1,0 +1,5 @@
+interface:
+  display_name: "Anki Add Words (NIU)"
+  short_description: "Add German words to Anki with audio and example sentences"
+  brand_color: "#2563EB"
+  default_prompt: "Use $anki-add-words to add these German words to my Anki deck AI-German-Words."
