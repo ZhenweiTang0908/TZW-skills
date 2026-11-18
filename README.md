@@ -14,7 +14,7 @@ TZW-skills/
 │   ├── german-communication/           # Draft and polish German messages to colleagues
 │   ├── work-log-sync/                  # Write, update, or delete daily work log entries
 │   ├── work-log-recall/                # Answer "what did I do" from the work log
-│   └── work-task-reminder/             # Turn a work request into an Apple Reminders task
+│   └── write-todo-reminder/            # Turn a work request into an Apple Reminders task
 ├── lightweight-developments/           # Software development skill pack (21 skills)
 │   ├── .agents/skills/                 # The individual development skills
 │   ├── catalog.yaml                    # Category catalog
@@ -43,7 +43,7 @@ TZW-skills/
 | `german-communication` | Write German messages to familiar colleagues in a natural, informal `du` tone, and translate German into Chinese. Not for customer, legal, HR, or other formal communication. |
 | `work-log-sync` | Record what you did in a daily Markdown work log (one folder per month), with update and delete support. Entries are always in English. |
 | `work-log-recall` | Read the work log and answer "what did I do today / this week / on a project". Read-only. |
-| `work-task-reminder` | Turn a request from a colleague or boss (Teams message, email, or text) into one Reminders task: a short title, with the original text, Chinese translation, AI breakdown, and steps in the notes. Attachments and links are saved in the skill's `temp/` folder. |
+| `write-todo-reminder` | Turn a request from a colleague or boss (Teams message, email, or text) into one Reminders task: a short title, with the original text, a Chinese translation when needed, and an AI explanation in the notes. Attachments and links are saved in the skill's `temp/` folder. |
 
 ### Software development (`lightweight-developments/`)
 
@@ -112,8 +112,8 @@ Both skills run only when explicitly named.
 Each skill is installed by symlinking it into the global skill directories, one for Claude Code and one for Codex:
 
 ```bash
-ln -s "$PWD/work/work-task-reminder" ~/.claude/skills/work-task-reminder
-ln -s "$PWD/work/work-task-reminder" ~/.codex/skills/work-task-reminder
+ln -s "$PWD/work/write-todo-reminder" ~/.claude/skills/write-todo-reminder
+ln -s "$PWD/work/write-todo-reminder" ~/.codex/skills/write-todo-reminder
 ```
 
 The link name must match the `name` in SKILL.md. After moving or renaming a skill, update the links in both directories.
@@ -131,7 +131,7 @@ Then edit the values. Run `bash config.sh` to print the resolved settings. An en
 | Key | Used by |
 | --- | --- |
 | `WORK_LOG_DIR` | `work-log-sync`, `work-log-recall` |
-| `REMINDER_LIST_WORK` / `_STUDY` / `_ERRANDS` | `work-task-reminder` |
+| `REMINDER_LIST_WORK` / `_STUDY` / `_ERRANDS` | `write-todo-reminder` |
 | `PROJECT_DIRS` | `computer-health-check` |
 
 ## Conventions

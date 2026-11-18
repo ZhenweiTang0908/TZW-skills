@@ -37,7 +37,9 @@ function actionWindows(actions, segments, frames) {
     }
     const related = actions.slice(0, index).filter((item) => item.syncWith === action.syncWith);
     const earlier = related.reduce((sum, item) => sum + actionSeconds(item) * fps, 0);
-    const start = segment.start * fps + fps * 0.12 + earlier;
+    const rawOffset = action.offset;
+    const offsetSeconds = rawOffset && typeof rawOffset === 'object' ? (rawOffset[manifest.language] ?? rawOffset.de ?? 0.12) : (rawOffset ?? 0.12);
+    const start = segment.start * fps + fps * offsetSeconds + earlier;
     const duration = actionSeconds(action) * fps;
     const end = Math.min(segment.end * fps, start + duration);
     return { action, index, start: Math.min(start, end), end: Math.max(start + 1, end) };
@@ -109,8 +111,8 @@ function clickCues(scene, meta, frames) {
 }
 
 const PointerSvg = ({ x, y, opacity = 0.98 }) => (
-  <svg width="30" height="38" viewBox="0 0 30 38" style={{ position: 'absolute', left: x - 4, top: y - 3, opacity, zIndex: 9, filter: 'drop-shadow(0 3px 5px rgba(0,0,0,.55))' }}>
-    <path d="M2 1v29l8-7 5 13 5-2-5-13h11z" fill="white" stroke="#07111f" strokeWidth="2.4" strokeLinejoin="round" />
+  <svg width={34 * uiScale} height={43 * uiScale} viewBox="0 0 30 38" style={{ position: 'absolute', left: x - 4 * uiScale, top: y - 3 * uiScale, opacity, zIndex: 9, filter: 'drop-shadow(0 4px 8px rgba(0,0,0,.6))' }}>
+    <path d="M2 1v29l8-7 5 13 5-2-5-13h11z" fill="white" stroke="#07111f" strokeWidth="2.6" strokeLinejoin="round" />
   </svg>
 );
 
@@ -144,7 +146,7 @@ const globalEvents = (() => {
       if (!Number.isFinite(point.x) || !Number.isFinite(point.y)) continue;
       const start = offsets[sceneIndex] + window.start;
       const end = offsets[sceneIndex] + window.end;
-      events.push({ action: window.action, start, end, from: previous, to: point });
+      events.push({ action: window.action, start, end, sceneEnd: offsets[sceneIndex] + sceneFrames[sceneIndex], from: previous, to: point });
       previous = point;
     }
   }
@@ -164,10 +166,10 @@ const ContinuousPointer = () => {
   return <>
     {visible ? <PointerSvg x={x} y={y} /> : null}
     {globalEvents.filter((item) => item.action.type === 'click').map((item, index) => {
-      const age = frame - item.end;
-      if (age < 0 || age > fps * 0.46) return null;
-      const ripple = clamp(age / (fps * 0.46), 0, 1);
-      return <div key={index} style={{ position: 'absolute', left: item.to.x - 12, top: item.to.y - 12, width: 24, height: 24, borderRadius: '50%', border: `3px solid ${theme.accent}`, opacity: 0.88 * (1 - ripple), transform: `scale(${0.7 + ripple * 2.1})`, boxShadow: `0 0 22px ${theme.accent}aa`, zIndex: 8 }} />;
+      const ring = frame >= item.end && frame - item.end <= fps * 0.6 ? clamp((frame - item.end) / (fps * 0.6), 0, 1) : null;
+      return <React.Fragment key={index}>
+        {ring !== null ? <div style={{ position: 'absolute', left: item.to.x - 20 * uiScale, top: item.to.y - 20 * uiScale, width: 40 * uiScale, height: 40 * uiScale, borderRadius: '50%', border: `${5 * uiScale}px solid ${theme.accent}`, opacity: 0.9 * (1 - ring), transform: `scale(${0.7 + ring * 2.4})`, zIndex: 8 }} /> : null}
+      </React.Fragment>;
     })}
   </>;
 };
@@ -201,7 +203,7 @@ const MethodCard = () => {
   </div>;
 };
 
-const Caption = ({ meta }) => {
+const Caption = ({ meta, scene }) => {
   const frame = useCurrentFrame();
   const time = frame / fps;
   const segment = (meta.segments || []).find((item) => time >= item.start && time <= item.end);
@@ -213,7 +215,8 @@ const Caption = ({ meta }) => {
   const joinedAfter = segmentIndex < segments.length - 1 ? segments[segmentIndex + 1].start - segment.end < 0.1 : meta.end < manifest.duration - 0.05;
   const fadeIn = joinedBefore ? 1 : clamp((time - segment.start) / 0.16, 0, 1);
   const fadeOut = joinedAfter ? 1 : clamp((segment.end - time) / 0.14, 0, 1);
-  const position = theme.captionPosition === 'top' ? { top: 24 * uiScale } : { bottom: 24 * uiScale };
+  const where = scene?.captionPosition || theme.captionPosition;
+  const position = where === 'top' ? { top: (scene?.captionPosition === 'top' ? 120 : 24) * uiScale } : { bottom: 24 * uiScale };
   return <div style={{ position: 'absolute', left: '6%', right: '6%', ...position, textAlign: 'center', opacity: Math.min(fadeIn, fadeOut) }}>
     <div style={{ display: 'inline-block', maxWidth: 1260 * uiScale, padding: `${10 * uiScale}px ${18 * uiScale}px`, borderRadius: 10 * uiScale, background: 'rgba(0,0,0,.8)', color: 'white', fontFamily, fontSize: 34 * uiScale, fontWeight: 500, lineHeight: 1.35, textShadow: '0 2px 7px #000' }}>{segment.text}</div>
   </div>;
@@ -243,7 +246,7 @@ const SceneVisual = ({ scene, meta, index, frames }) => {
     <Audio src={staticFile(meta.audio)} />
     {presentation === 'stepwise' ? <FocusLayer scene={scene} meta={meta} frames={frames} /> : null}
     {presentation === 'stepwise' ? <StepClickLayer scene={scene} meta={meta} frames={frames} /> : null}
-    <Caption meta={meta} />
+    <Caption meta={meta} scene={scene} />
   </AbsoluteFill>;
 };
 

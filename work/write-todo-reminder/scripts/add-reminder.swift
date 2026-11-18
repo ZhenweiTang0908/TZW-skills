@@ -35,7 +35,7 @@ func configValue(_ key: String) -> String? {
     if let custom = env["NIU_SKILLS_CONFIG"], !custom.isEmpty {
         path = custom
     } else {
-        // scripts/ -> work-task-reminder/ -> work/ -> repo root (symlinks resolved)
+        // scripts/ -> write-todo-reminder/ -> work/ -> repo root (symlinks resolved)
         let script = URL(fileURLWithPath: CommandLine.arguments[0]).resolvingSymlinksInPath()
         path = script.deletingLastPathComponent().deletingLastPathComponent()
             .deletingLastPathComponent().deletingLastPathComponent()

@@ -14,7 +14,7 @@ TZW-skills/
 │   ├── german-communication/           # 起草、润色给同事的德语消息
 │   ├── work-log-sync/                  # 写入、修改、删除每日工作日志
 │   ├── work-log-recall/                # 根据工作日志回答"我做了什么"
-│   └── work-task-reminder/             # 把工作需求变成 Apple 提醒事项任务
+│   └── write-todo-reminder/            # 把工作需求变成 Apple 提醒事项任务
 ├── lightweight-developments/           # 软件开发 Skill 包（21 个）
 │   ├── .agents/skills/                 # 各个开发 Skill
 │   ├── catalog.yaml                    # 分类清单
@@ -43,7 +43,7 @@ TZW-skills/
 | `german-communication` | 用自然、随意的 `du` 口吻写给熟悉同事的德语消息，也把德语翻成中文。不用于客户、法务、人事等正式场合。 |
 | `work-log-sync` | 把做过的事记进每日 Markdown 工作日志（按月分文件夹），支持修改和删除，条目统一用英文。 |
 | `work-log-recall` | 读取工作日志，回答"今天 / 本周 / 某个项目我做了什么"，只读不写。 |
-| `work-task-reminder` | 把同事或老板的需求（Teams 消息、邮件、文字）整理成一条提醒事项任务：标题简短，备注里放原文、中文翻译、AI 拆解和步骤；附件和链接存到本 Skill 的 `temp/` 里。 |
+| `write-todo-reminder` | 把同事或老板的需求（Teams 消息、邮件、文字）整理成一条提醒事项任务：标题简短，备注里放原文、需要时加中文翻译，以及 AI 解析；附件和链接存到本 Skill 的 `temp/` 里。 |
 
 ### 软件开发（`lightweight-developments/`）
 
@@ -112,8 +112,8 @@ TZW-skills/
 每个 Skill 通过软链接安装到全局目录，Claude Code 和 Codex 各一份：
 
 ```bash
-ln -s "$PWD/work/work-task-reminder" ~/.claude/skills/work-task-reminder
-ln -s "$PWD/work/work-task-reminder" ~/.codex/skills/work-task-reminder
+ln -s "$PWD/work/write-todo-reminder" ~/.claude/skills/write-todo-reminder
+ln -s "$PWD/work/write-todo-reminder" ~/.codex/skills/write-todo-reminder
 ```
 
 链接名必须和 SKILL.md 里的 `name` 一致。移动或改名 Skill 后，要同时更新这两个目录里的链接。
@@ -131,7 +131,7 @@ cp config.example.env config.local.env
 | 配置项 | 使用者 |
 | --- | --- |
 | `WORK_LOG_DIR` | `work-log-sync`、`work-log-recall` |
-| `REMINDER_LIST_WORK` / `_STUDY` / `_ERRANDS` | `work-task-reminder` |
+| `REMINDER_LIST_WORK` / `_STUDY` / `_ERRANDS` | `write-todo-reminder` |
 | `PROJECT_DIRS` | `computer-health-check` |
 
 ## 约定

@@ -4,7 +4,7 @@ Default to German unless another language is explicitly requested. Describe the 
 
 ## Opening greeting
 
-Every narrated tutorial begins with a brief host greeting before the workflow explanation. For Chinese output, use Lily and adapt this template to the actual topic: “你好，我是 Lily。在这一份教程中，我会带你使用【产品或功能】完成【教程目标】，并说明如何将结果导出为【目标格式或去向】。” Replace all bracketed text for each video. For other explicitly requested languages, translate the same greeting and retain Lily as the host. Put the greeting at the start of the first scene; keep the browser visible and continuous, with no title card.
+Every narrated tutorial begins with a brief host greeting before the workflow explanation. For Chinese output, use Lena and adapt this template to the actual topic: “你好，我是 Lena。在这一份教程中，我会带你使用【产品或功能】完成【教程目标】，并说明如何将结果导出为【目标格式或去向】。” Replace all bracketed text for each video. For other explicitly requested languages, translate the same greeting and retain Lena as the host. Put the greeting at the start of the first scene; keep the browser visible and continuous, with no title card.
 
 ## Continuous presentation
 
