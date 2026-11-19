@@ -1,12 +1,12 @@
 ---
 name: write-todo-reminder
-description: Turn a work, study, or personal errand request (a Teams message, an email, or a short description from a colleague or boss, plus the user's own notes and attachments) into one Apple Reminders task in the matching list (work → YourCompany, study → RWTH Tasks, errands → Groceries) with a short title and notes holding the original text, a Chinese translation, and an AI explanation, and archive the source material locally. Use when the user wants to record, capture, or add a work, study, or errand to-do or task to Reminders; do not use for reading, completing, or editing existing reminders.
+description: Turn a work, study, or personal errand request (a Teams message, an email, or a short description from a colleague or boss, plus the user's own notes and attachments) into one Apple Reminders task in the matching list (the work, study, or errands list configured in `config.local.env`) with a short title and notes holding the original text, a Chinese translation, and an AI explanation, and archive the source material locally. Use when the user wants to record, capture, or add a work, study, or errand to-do or task to Reminders; do not use for reading, completing, or editing existing reminders.
 metadata:
   author: NiuNiu Tang
   version: "0.2.0"
 ---
 
-# Work Task Reminder (NIU)
+# Write To-Do Reminder (NIU)
 
 Capture one work request as one Apple Reminders task so the user does not forget it. Keep the reminder notes short and faithful: the original words, a translation when needed, and a clear AI explanation. Save every related file, link, and text in this skill's `temp/` folder.
 
@@ -43,28 +43,28 @@ Copy files; never move or modify the user's originals. When the user points to a
 The notes contain exactly three parts, in this order. Use plain text that reads well in Reminders: no Markdown tables, no headings with `#`.
 
 ```text
-【原文】
+[Original]
 <every source text exactly as given, unchanged, including the German or English original>
 
-【翻译】
+[Translation]
 <faithful Chinese translation of each German or English text, in the same order>
 
-【AI 解析】
+[AI Explanation]
 <one to three paragraphs in Chinese explaining what the request really asks for, the intended outcome, and any context the user needs to act on it>
 ```
 
 Rules:
 
-- Keep every original text verbatim. Never shorten, correct, or merge it. Do not include file contents in `【原文】`; only the text the user typed or pasted, or the email body.
-- When the user adds their own description or requirements, append it verbatim under `【原文】` after the source text, marked with `（我的说明）`.
-- Include `【翻译】` only when some source text is German or English. Chinese text is not translated.
-- `【AI 解析】`: think like a product manager. State the actual deliverable, separate it from background, and name the people, dependencies, or decisions involved. Where there is useful context, say where to look and what to look at — a document, folder, email, meeting, or linked page. Do not invent requirements, deadlines, people, or sources.
+- Keep every original text verbatim. Never shorten, correct, or merge it. Do not include file contents in `[Original]`; only the text the user typed or pasted, or the email body.
+- When the user adds their own description or requirements, append it verbatim under `[Original]` after the source text, marked with `(My note)`.
+- Include `[Translation]` only when some source text is German or English. Chinese text is not translated.
+- `[AI Explanation]`: think like a product manager. State the actual deliverable, separate it from background, and name the people, dependencies, or decisions involved. Where there is useful context, say where to look and what to look at — a document, folder, email, meeting, or linked page. Do not invent requirements, deadlines, people, or sources.
 - Do not add steps, checklists, task breakdowns, or work stages.
 - Write the translation and the explanation in Chinese. Keep product names, code identifiers, names, numbers, and links unchanged.
 
 ### 3. Create the reminder
 
-Title rules: Chinese by default, at most about 15 characters, verb first, with a project or person tag only when it helps, for example `修复 OCR 上传超时` or `给 Boss 发报价对比`.
+Title rules: Chinese by default, at most about 15 characters, verb first, with a project or person tag only when it helps, for example "Fix OCR upload timeout" or "Send quote comparison to <colleague>" (written in Chinese).
 
 Run from this skill directory:
 
@@ -76,9 +76,9 @@ swift scripts/add-reminder.swift --title "<title>" --category <work|study|errand
 
   | Category | Examples | `--category` |
   | --- | --- | --- |
-  | 工作 | requests from colleagues or the boss, Teams/email work, the user's company projects | `work` |
-  | 学习 | university courses, homework, exams, German study | `study` |
-  | 杂事 | repairs (e.g. 修电脑), errands, looking up sports info, personal admin | `errands` |
+  | Work | requests from colleagues or the boss, Teams/email work, the user's company projects | `work` |
+  | Study | university courses, homework, exams, German study | `study` |
+  | Errands | repairs (e.g. fixing a computer), errands, looking up sports info, personal admin | `errands` |
 
   If a task fits none clearly, pick the closest category and say so in the report.
 - Set `--due` only when the source or the user states a deadline. Resolve relative dates ("bis Freitag", "next week") against the message date when known, otherwise today. Use a time only when one is stated.
@@ -90,8 +90,8 @@ swift scripts/add-reminder.swift --title "<title>" --category <work|study|errand
 
 Reply in Chinese with:
 
-1. The category (工作/学习/杂事), reminder title, list, and due date (or `无截止时间`).
-2. A short version of the `【AI 解析】` so the user can see what was understood.
+1. The category (work/study/errands), reminder title, list, and due date (or `no due date`).
+2. A short version of the `[AI Explanation]` so the user can see what was understood.
 3. The task folder path and a list of saved files.
 
 Do not repeat the full original text or translation in chat.

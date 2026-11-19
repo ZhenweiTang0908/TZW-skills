@@ -65,7 +65,7 @@ In `continuous` presentation, every `move` and `click` contributes to one persis
 
 Capture assets from the run-owned new Chrome window. Keep only tabs created for this Skill run, hide the bookmarks bar, and avoid personal profile information or unused pinned extensions. Capture the whole native browser window directly. Drawn, cloned, or composited browser tabs, address bars, and toolbars are not valid browser assets.
 
-Keep narration and `scene.task` generic across realistic data. Use operational phrases such as "选择候选人名单" and avoid example shortlist names, candidate names, fixed record counts, dates, or business identifiers unless the walkthrough is explicitly about that exact record.
+Keep narration and `scene.task` generic across realistic data. Use operational phrases such as "Select the candidate list" and avoid example shortlist names, candidate names, fixed record counts, dates, or business identifiers unless the walkthrough is explicitly about that exact record.
 
 The user profile, login state, website, browser chrome, extensions, and interaction target must all come from the same captured live window. Never route, embed, or replay a screenshot inside another browser for capture.
 

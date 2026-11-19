@@ -30,7 +30,7 @@ basics() {
 
 cpu() {
 	hr cpu
-	# 第二次采样才是真实的瞬时 CPU 占用
+	# The second sample gives the real instantaneous CPU usage
 	limit 15 top -l 2 -s 2 -o cpu -n 20 -stats pid,ppid,command,cpu,mem,time,state | awk '/^PID/{n++} n==2'
 	echo
 	echo "# long-running CPU hogs (cpu time > 1h, %cpu > 20), with start time and command"
@@ -98,7 +98,7 @@ background() {
 	ls /Library/LaunchAgents /Library/LaunchDaemons 2>/dev/null
 }
 
-# 只按可执行文件名匹配，避免参数里的 bundle、container 之类的词误中
+# Match on the executable name only, so words like bundle or container in the arguments do not cause false hits
 DEV_RE='^(godot.*|node|python[0-9.]*|ruby|java|gradle.*|deno|bun(\.exe)?|esbuild|tsc|chrome-headless-shell|qemu.*|cargo|rustc|xcodebuild|simctl|uvicorn|gunicorn|php|dotnet|go|air|hugo|jekyll|redis-server|postgres|mysqld|mongod|nginx|caddy)$'
 is_dev() { # is_dev <comm path>
 	local base=${1##*/}
@@ -118,7 +118,7 @@ dev() {
 	while read -r pid ports; do
 		comm=$(ps -o comm= -p "$pid" 2>/dev/null) || continue
 		cwd=$(cwd_of "$pid")
-		# 开发工具，或者工作目录在项目文件夹里的任何监听进程
+		# Development tools, or any listening process whose working directory is inside a project folder
 		if is_dev "$comm" || in_project_dir "${cwd/#\~/$HOME}"; then
 			listed+="$pid "
 			printf '%s | %s | %s | %s | %s | %s\n' "$ports" "$pid" "$(ps -o ppid= -p "$pid" | tr -d ' ')" \
@@ -168,7 +168,7 @@ schedules() {
 		plutil -extract KeepAlive raw "$f" >/dev/null 2>&1 && [[ "$(plutil -extract KeepAlive raw "$f" 2>/dev/null)" != false ]] && t+="keep alive; "
 		t=${t%; }
 		if [[ "$f" == /Library/LaunchDaemons/* ]]; then
-			# 系统域的任务普通用户用 launchctl 看不到，改为看它的程序是否在运行
+			# System-domain jobs are not visible to a normal user through launchctl, so check whether their program is running instead
 			prog=$(plutil -extract Program raw "$f" 2>/dev/null || plutil -extract ProgramArguments.0 raw "$f" 2>/dev/null)
 			pid=$([[ -n "$prog" ]] && pgrep -f -- "$prog" | head -1)
 			state="system job, ${pid:+running pid $pid}"; [[ -z "$pid" ]] && state+="not running"
@@ -262,8 +262,8 @@ threats() {
 		fi
 		case "$prog" in */sh|*/bash|*/zsh|*/python*|*/osascript|*/perl|*/ruby|*/node|*/bun*)
 			add "runs via interpreter"
-			# 解释器本身总是 Apple 签名的，真正要看的是它执行的脚本/程序；只显示路径，不显示参数内容
-			# 整个参数是路径时直接取；内联命令（sh -c）里取被引号包住的路径
+			# The interpreter itself is always Apple-signed; what matters is the script or program it runs. Show the path only, never the argument contents
+			# Take the whole argument when it is a path; for inline commands (sh -c), take the quoted path
 			paths=$( { grep '^/' <<<"$args"; grep -v '^/' <<<"$args" | grep -oE "['\"]/[^'\"]+['\"]" | tr -d "'\""; } \
 				| grep -vE "^/dev/|token|key|secret|password" | head -2)
 			while IFS= read -r p; do
@@ -318,7 +318,7 @@ threats() {
 	crontab -l 2>/dev/null | grep -v '^#' || echo "no user crontab"
 	for rc in ~/.zshrc ~/.zprofile ~/.zshenv ~/.bash_profile ~/.bashrc ~/.profile; do
 		[[ -f "$rc" ]] || continue
-		# 只报行号和触发词，不打印内容，避免泄露配置里的密钥
+		# Report only the line number and the trigger word, never the content, to avoid leaking secrets from the config
 		grep -nE "curl[^|]*\|\s*(ba|z)?sh|wget[^|]*\|\s*(ba|z)?sh|base64 (-d|--decode)|eval \"?\\\$\(curl|/dev/tcp/|nohup .*&\s*$|osascript -e" "$rc" 2>/dev/null \
 			| awk -F: -v f="$rc" '{print f ":" $1 " matches a download/exec pattern"}'
 	done

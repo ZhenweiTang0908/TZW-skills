@@ -25,5 +25,5 @@ unset _niu_root _niu_file _niu_line _niu_key _niu_val
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
 	if [[ -z "$NIU_SKILLS_CONFIG_LOADED" ]]; then echo "no config file found (copy config.example.env to config.local.env)" >&2; exit 1; fi
 	if [[ $# -gt 0 ]]; then printf '%s\n' "${!1-}"; [[ -n "${!1+x}" ]]; exit; fi
-	for k in WORK_LOG_DIR REMINDER_LIST_WORK REMINDER_LIST_STUDY REMINDER_LIST_ERRANDS PROJECT_DIRS; do printf '%s=%s\n' "$k" "${!k-}"; done
+	for k in WORK_LOG_DIR REMINDER_LIST_WORK REMINDER_LIST_STUDY REMINDER_LIST_ERRANDS PROJECT_DIRS BOSS_NAME COMPANY_NAME; do printf '%s=%s\n' "$k" "${!k-}"; done
 fi

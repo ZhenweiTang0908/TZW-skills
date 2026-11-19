@@ -29,15 +29,15 @@ Goal: spot anything that **could** be malware, adware, a backdoor or unwanted re
 
 Use three levels and always give the reason:
 
-- **可疑 (suspicious)** — needs the user's attention now. Any of:
+- **Suspicious** — needs the user's attention now. Any of:
   - persistence or running code from temp, `/Users/Shared`, Downloads, a hidden folder, or with a random-looking name
   - interpreter-launched job whose payload has download/obfuscation patterns (`curl|sh`, `base64 -d`, `eval`, `/dev/tcp`, `osascript -e`), or the payload sits in an odd place
   - unsigned/ad-hoc binary that is persistent or talks to the network and that the user does not recognise
   - a configuration profile, proxy, DNS server or hosts entry the user did not set
   - a browser extension the user does not recognise, especially one with a generic name ("PDF Converter", "Search Helper"), or a search/homepage hijacker
   - authorization plugins or kernel extensions from unknown vendors
-- **需确认 (needs confirmation)** — plausible but unusual: a self-made or third-party script run by python/sh at login, a leftover job whose program is missing, an empty plist, an unsigned app from a small developer, an outbound connection from an app the user has not opened.
-- **正常 (normal)** — signed by a known vendor and matches software the user uses (Google/Microsoft updaters, Zoom, Arturia, OrbStack, a VPN or proxy the user installed), local proxies the user runs (127.0.0.1 ports belonging to their proxy app), dev builds inside project folders.
+- **Needs confirmation** — plausible but unusual: a self-made or third-party script run by python/sh at login, a leftover job whose program is missing, an empty plist, an unsigned app from a small developer, an outbound connection from an app the user has not opened.
+- **Normal** — signed by a known vendor and matches software the user uses (Google/Microsoft updaters, Zoom, a container runtime, a VPN or proxy the user installed), local proxies the user runs (127.0.0.1 ports belonging to their proxy app), dev builds inside project folders.
 
 Do not raise the level just because something is unsigned or ad-hoc: Homebrew, pip/npm binaries, Godot exports and many open-source apps are ad-hoc signed. Do not lower it just because the name looks familiar: malware imitates names like `com.apple.*`, `com.google.*`, `update`, `helper`. Check that the signing team matches the vendor the name claims (`codesign -dvv <path>`: Authority and TeamIdentifier).
 
