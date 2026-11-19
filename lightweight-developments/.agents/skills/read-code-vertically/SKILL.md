@@ -1,12 +1,12 @@
 ---
-name: feature-tracing
+name: read-code-vertically
 description: Explain how an existing user-visible feature executes across UI, APIs, services, state changes, data writes, jobs, events, and failure paths. Use when the user wants the flow without reading the code themselves.
 metadata:
   author: NiuNiu Tang
   version: "0.1.0"
 ---
 
-# Feature Tracing (NIU)
+# Read Code Vertically (NIU)
 
 Reconstruct the current execution path of a feature from trigger to observable outcome.
 
@@ -15,7 +15,7 @@ Reconstruct the current execution path of a feature from trigger to observable o
 1. Identify the user trigger, entry point, final observable result, and requested scope.
 2. Trace the happy path across modules and service boundaries.
 3. Trace meaningful validation, permission, failure, retry, and asynchronous paths.
-4. Invoke the `state-and-data-modeling` method for entities whose state or persistence explains the feature. Include only models that clarify the trace.
+4. Invoke the `read-state-and-model` method for entities whose state or persistence explains the feature. Include only models that clarify the trace.
 5. Mark transaction boundaries, queues, events, external calls, and idempotency clues.
 6. Support important steps with file and line evidence; do not infer a runtime fact from naming alone.
 
@@ -33,6 +33,6 @@ Always distinguish:
 
 Describe current behavior only. Do not silently convert the trace into a design proposal or implementation plan. Use `diagnose` for an observed incident and `logic-audit` when the user wants adversarial testing of the workflow.
 
-Use [the feature-tracing brief template](assets/feature-tracing-brief-template.md) when saving the result.
+Use [the read-code-vertically brief template](assets/read-code-vertically-brief-template.md) when saving the result.
 
 — NiuNiu Tang

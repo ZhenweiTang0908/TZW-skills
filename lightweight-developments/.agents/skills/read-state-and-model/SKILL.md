@@ -1,12 +1,12 @@
 ---
-name: state-and-data-modeling
+name: read-state-and-model
 description: Explain current entity lifecycles, state transitions, data relationships, persistence, and invariants from an existing codebase. Use for state, schema, and data-flow understanding without changing code.
 metadata:
   author: NiuNiu Tang
   version: "0.1.0"
 ---
 
-# State and Data Modeling (NIU)
+# Read State and Model (NIU)
 
 Build the smallest model that explains how an entity changes and how its data is represented.
 
@@ -26,6 +26,6 @@ Explain the model in plain language first. Use a Mermaid `stateDiagram-v2` for l
 
 This skill describes the current model. Use `logic-audit` to challenge it, `production-database-analysis` to inspect production records, and specification skills to define a desired future model.
 
-Use [the state-and-data brief template](assets/state-and-data-brief-template.md) when saving the result.
+Use [the read-state-and-model brief template](assets/read-state-and-model-brief-template.md) when saving the result.
 
 — NiuNiu Tang

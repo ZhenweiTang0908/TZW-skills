@@ -1,0 +1,5 @@
+interface:
+  display_name: "Excellence Gap (NIU)"
+  short_description: "Show how existing code would look if excellent"
+  brand_color: "#2563EB"
+  default_prompt: "Use $excellence-gap to describe how this code area would look if excellent, with sourced standards, costs, and verdicts."

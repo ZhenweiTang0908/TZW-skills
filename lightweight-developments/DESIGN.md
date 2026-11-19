@@ -70,10 +70,10 @@ Work may escalate from the small path when investigation reveals new states, per
         ├── brief-to-mini-spec/
         ├── diagnose/
         ├── production-database-analysis/
-        ├── explain-system/
-        ├── code-reading/
-        ├── feature-tracing/
-        ├── state-and-data-modeling/
+        ├── read-module/
+        ├── read-code-horizonally/
+        ├── read-code-vertically/
+        ├── read-state-and-model/
         ├── logic-audit/
         ├── verify-change/
         ├── brief-to-spec/
@@ -101,9 +101,9 @@ Work may escalate from the small path when investigation reveals new states, per
 
 Every skill includes usage boundaries, expected inputs, self-inspection, process, output, safety constraints, stop conditions, and routing examples. The descriptions are intentionally narrow because they are the discovery interface.
 
-The observation family is read-only and explanation-first. `explain-system` is the general entry point; `code-reading` explains bounded code areas, `feature-tracing` reconstructs end-to-end behavior, and `state-and-data-modeling` explains lifecycles and relationships. Feature tracing composes state/data modeling when those models are needed to make the flow understandable. These skills favor concise prose plus Mermaid diagrams and distinguish facts, inferences, and unknowns.
+The observation family is read-only and explanation-first. `read-module` is the general entry point; `read-code-horizonally` explains bounded code areas, `read-code-vertically` reconstructs end-to-end behavior, and `read-state-and-model` explains lifecycles and relationships. Feature tracing composes state/data modeling when those models are needed to make the flow understandable. These skills favor concise prose plus Mermaid diagrams and distinguish facts, inferences, and unknowns.
 
-`spec-explainer` is the visual/detail layer for future behavior: it follows the explanatory discipline of `code-reading` and the Pipeline/State Machine reference used by `brief-to-spec`, with special emphasis on stage-by-stage workflow diagrams, checkpoints, retries, and state transitions.
+`spec-explainer` is the visual/detail layer for future behavior: it follows the explanatory discipline of `read-code-horizonally` and the Pipeline/State Machine reference used by `brief-to-spec`, with special emphasis on stage-by-stage workflow diagrams, checkpoints, retries, and state transitions.
 
 `brief-to-spec` uses progressive-disclosure references for model dimensions that apply only to some large features. They are guidance modules rather than independently discoverable skills, so they deepen a selected Spec without adding routing noise or forcing irrelevant sections into every document.
 

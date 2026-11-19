@@ -5,10 +5,11 @@
 | Clarify a small behavior change before coding | `brief-to-mini-spec` | Not debugging or architecture |
 | Investigate unexpected behavior or a failure | `diagnose` | No speculative fix before evidence |
 | Analyze production business data | `production-database-analysis` | No production mutation |
-| Understand an existing system or feature | `explain-system` | Read-only explanation; route to a focused observation skill |
-| Understand a module or repository area | `code-reading` | Not an end-to-end feature trace |
-| Trace a feature from trigger to outcome | `feature-tracing` | Describes current behavior; no implementation plan |
-| Explain entity states or data relationships | `state-and-data-modeling` | Not production data analysis or future design |
+| Understand an existing system or feature | `read-module` | Read-only explanation; route to a focused observation skill |
+| Understand a module or repository area | `read-code-horizonally` | Not an end-to-end feature trace |
+| Trace a feature from trigger to outcome | `read-code-vertically` | Describes current behavior; no implementation plan |
+| Explain entity states or data relationships | `read-state-and-model` | Not production data analysis or future design |
+| Find how existing code would look if excellent, not merely acceptable | `excellence-gap` | Not correctness review; no edits |
 | Design or implement a short-lived API-driven backfill | `backfill-task` | Not ordinary synchronous APIs or long-running migrations |
 | Challenge rules, states, or decisions | `logic-audit` | Not implementation quality review |
 | Verify a local fix or bounded change | `verify-change` | Not whole-feature acceptance |
@@ -28,12 +29,13 @@
 
 - `brief-to-mini-spec` versus `brief-to-spec`: choose based on behavioral and operational complexity, not word count. New states, meaningful schema changes, permissions, external systems, or difficult rollback favor the formal spec.
 - `diagnose` versus `logic-audit`: diagnose explains an observed failure; logic-audit tries to falsify a rule system even when no incident has occurred.
-- `explain-system` versus `diagnose`: explain-system explains current behavior; diagnose investigates an unexpected failure.
-- `code-reading` versus `feature-tracing`: code-reading explains a bounded code area; feature-tracing follows a user-visible behavior across boundaries.
-- `feature-tracing` composes state and data modeling when lifecycle or persistence is needed to explain the flow.
+- `read-module` versus `diagnose`: read-module explains current behavior; diagnose investigates an unexpected failure.
+- `read-code-horizonally` versus `read-code-vertically`: read-code-horizonally explains a bounded code area; read-code-vertically follows a user-visible behavior across boundaries.
+- `read-code-vertically` composes state and data modeling when lifecycle or persistence is needed to explain the flow.
 - `verify-change` versus `verify-spec`: the former tests a Mini Spec or Fix Contract; the latter traces every formal requirement to implementation and evidence.
 - `review-spec` is temporarily disabled and not installed. Route draft-Spec review to `doubt-review`, passing the original brief as the contract.
 - `verify-spec` versus `code-review`: verify-spec asks whether the promised feature exists; code-review asks whether the implementation is sound and maintainable.
+- `code-review` versus `excellence-gap`: code-review asks whether a change is correct and sound enough to accept; excellence-gap observes existing code and describes the excellent design it falls short of, citing the source of each standard.
 - `implement-plan` versus `ship-change`: implementation authority never implies merge, deployment, migration, or production rollout authority.
 - `backfill-task` versus `ship-change`: a backfill design may expose a control API, but it never authorizes starting a production job, deploying it, or mutating production data.
 

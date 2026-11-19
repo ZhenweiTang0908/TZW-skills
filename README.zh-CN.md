@@ -56,10 +56,10 @@ TZW-skills/
 | `brief-to-mini-spec` | 把小需求整理成简短的 Mini Spec 再动手。 |
 | `diagnose` | 先收集证据、验证假设，再给出最小修复。 |
 | `production-database-analysis` | 在强制只读的前提下查询生产数据库，回答统计、异常和运营问题。 |
-| `explain-system` | 解释现有系统的总入口，按问题分派给下面三个 Skill。 |
-| `code-reading` | 讲清某个模块、类或函数的职责与阅读顺序。 |
-| `feature-tracing` | 从界面到 API、服务、数据写入，追踪一个功能的完整执行链路。 |
-| `state-and-data-modeling` | 梳理实体生命周期、状态流转、数据关系和不变量。 |
+| `read-module` | 解释现有系统的总入口，按问题分派给下面三个 Skill。 |
+| `read-code-horizonally` | 讲清某个模块、类或函数的职责与阅读顺序。 |
+| `read-code-vertically` | 从界面到 API、服务、数据写入，追踪一个功能的完整执行链路。 |
+| `read-state-and-model` | 梳理实体生命周期、状态流转、数据关系和不变量。 |
 | `logic-audit` | 找业务规则、分支和状态流转里的反例、矛盾和死角。 |
 | `verify-change` | 用新鲜证据验证小改动或修复是否达标。 |
 | `backfill-task` | 设计可暂停、可恢复、幂等的数据回填任务。 |

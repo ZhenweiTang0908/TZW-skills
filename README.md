@@ -56,10 +56,10 @@ A pack covering requirements, design, implementation, verification, and release.
 | `brief-to-mini-spec` | Turn a small request into a short Mini Spec before coding. |
 | `diagnose` | Gather evidence and test hypotheses before proposing a minimal fix. |
 | `production-database-analysis` | Query production databases under enforced read-only controls to answer statistics, anomaly, and operations questions. |
-| `explain-system` | Entry point for explaining an existing system; routes to the three skills below. |
-| `code-reading` | Explain a module, class, or function: responsibilities and reading order. |
-| `feature-tracing` | Trace a feature end to end through UI, APIs, services, and data writes. |
-| `state-and-data-modeling` | Map entity lifecycles, state transitions, data relationships, and invariants. |
+| `read-module` | Entry point for explaining an existing system; routes to the three skills below. |
+| `read-code-horizonally` | Explain a module, class, or function: responsibilities and reading order. |
+| `read-code-vertically` | Trace a feature end to end through UI, APIs, services, and data writes. |
+| `read-state-and-model` | Map entity lifecycles, state transitions, data relationships, and invariants. |
 | `logic-audit` | Find counterexamples, contradictions, and dead ends in business rules, branches, and state transitions. |
 | `verify-change` | Verify a small change or fix with fresh evidence. |
 | `backfill-task` | Design pausable, resumable, idempotent data backfill jobs. |
