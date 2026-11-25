@@ -15,7 +15,7 @@ TZW-skills/
 │   ├── work-log-sync/                  # 写入、修改、删除每日工作日志
 │   ├── work-log-recall/                # 根据工作日志回答"我做了什么"
 │   └── write-todo-reminder/            # 把工作需求变成 Apple 提醒事项任务
-├── lightweight-developments/           # 软件开发 Skill 包（21 个）
+├── lightweight-developments/           # 软件开发 Skill 包（23 个）
 │   ├── .agents/skills/                 # 各个开发 Skill
 │   ├── catalog.yaml                    # 分类清单
 │   ├── ROUTING.md / DESIGN.md          # 选路规则与设计说明
@@ -82,6 +82,7 @@ TZW-skills/
 | `doubt-review` | 独立、挑刺式地审查规格、方案或改动。 |
 | `code-review` | 审查代码改动（只链接到 Codex，避免和 Claude Code 自带的 `/code-review` 撞名）。 |
 | `session-handoff` | 换会话或换 Agent 时留下简洁的交接记录。 |
+| `transfer-coding-to-pi` | 把计划完整的执行型编码任务交给 Pi（DeepSeek Flash），先卡计划完整性，再独立验收。只在明确要求时使用。 |
 | `ship-change` | 合并、部署、迁移前必须拿到明确授权，并做前后检查和回滚预案。 |
 | `review-spec` | 已停用，功能由 `doubt-review` 代替，暂时保留。 |
 

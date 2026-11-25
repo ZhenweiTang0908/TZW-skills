@@ -1,0 +1,4 @@
+interface:
+  display_name: "Transfer Coding to Pi (NIU)"
+  short_description: "Hand off a well-planned coding task to Pi on DeepSeek Flash"
+  default_prompt: "Use $transfer-coding-to-pi to hand this coding task to Pi. Check that the plan is complete, write the handoff document, run Pi on OpenCode Go DeepSeek Flash at medium thinking, then verify the result yourself instead of trusting its report."

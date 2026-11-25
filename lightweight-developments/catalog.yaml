@@ -29,6 +29,7 @@ categories:
     - "doubt-review"
     - "code-review"
     - "session-handoff"
+    - "transfer-coding-to-pi"
     - "ship-change"
 composition:
   default: "one primary skill, optionally one cross-cutting skill and one review skill"

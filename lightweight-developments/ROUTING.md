@@ -23,6 +23,7 @@
 | Adversarially challenge an artifact or claim | `doubt-review` | No automatic edits |
 | Review completed code changes | `code-review` | Not requirements acceptance |
 | Preserve minimal continuation context | `session-handoff` | Not a transcript or project summary |
+| Hand off a well-planned execution task to Pi | `transfer-coding-to-pi` | Only on explicit request; requires a complete plan |
 | Merge, deploy, migrate, or roll out | `ship-change` | Requires explicit authorization |
 
 ## Important boundaries

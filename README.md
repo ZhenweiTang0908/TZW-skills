@@ -15,7 +15,7 @@ TZW-skills/
 │   ├── work-log-sync/                  # Write, update, or delete daily work log entries
 │   ├── work-log-recall/                # Answer "what did I do" from the work log
 │   └── write-todo-reminder/            # Turn a work request into an Apple Reminders task
-├── lightweight-developments/           # Software development skill pack (21 skills)
+├── lightweight-developments/           # Software development skill pack (23 skills)
 │   ├── .agents/skills/                 # The individual development skills
 │   ├── catalog.yaml                    # Category catalog
 │   ├── ROUTING.md / DESIGN.md          # Routing rules and design notes
@@ -82,6 +82,7 @@ A pack covering requirements, design, implementation, verification, and release.
 | `doubt-review` | Independent, adversarial review of a spec, plan, or change. |
 | `code-review` | Review code changes (linked to Codex only, to avoid clashing with Claude Code's built-in `/code-review`). |
 | `session-handoff` | Leave a compact handoff record when switching sessions or agents. |
+| `transfer-coding-to-pi` | Hand off a well-specified, execution-heavy coding task to the Pi agent on DeepSeek Flash, with a plan-sufficiency gate and independent verification. Use only when explicitly asked. |
 | `ship-change` | Require explicit authorization before merging, deploying, or migrating, with pre/post checks and a rollback plan. |
 | `review-spec` | Disabled; replaced by `doubt-review` and kept for now. |
 
