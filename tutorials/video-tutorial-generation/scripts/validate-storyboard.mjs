@@ -3,11 +3,14 @@ import { readFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import { narrationSegments } from './lib.mjs';
 
-const TYPES = new Set(['move', 'click', 'highlight', 'fill', 'press', 'wait']);
+const TYPES = new Set(['move', 'click', 'highlight', 'fill', 'press', 'wait', 'zoom']);
 const TRANSITIONS = new Set(['cut', 'crossfade', 'slide']);
 const LANGUAGES = new Set(['de', 'en', 'zh', 'auto']);
 const PRESENTATIONS = new Set(['continuous', 'stepwise']);
 const FRAMES = new Set(['browser', 'page']);
+const CAMERA_MODES = new Set(['auto', 'manual']);
+const CAMERA_EASINGS = new Set(['smooth', 'snappy', 'linear']);
+const CAPTION_STYLES = new Set(['bar', 'pill']);
 
 export function validateStoryboard(data) {
   const errors = [];
@@ -22,6 +25,10 @@ export function validateStoryboard(data) {
   if (data.fps !== undefined && (!Number.isInteger(data.fps) || data.fps < 24 || data.fps > 60)) fail('fps', 'must be an integer from 24 through 60');
   if (data.fixtures !== undefined && (!isPlainObject(data.fixtures) || ['window', 'localStorage', 'sessionStorage'].some((key) => data.fixtures[key] !== undefined && !isPlainObject(data.fixtures[key])))) fail('fixtures', 'must be an object with optional window, localStorage, and sessionStorage maps');
   if (data.ttsSpeed !== undefined && (typeof data.ttsSpeed !== 'number' || data.ttsSpeed < 0.5 || data.ttsSpeed > 3)) fail('ttsSpeed', 'must be a number between 0.5 and 3');
+  if (data.taskLabel !== undefined && typeof data.taskLabel !== 'boolean') fail('taskLabel', 'must be a boolean');
+  if (data.camera !== undefined) validateCameraConfig(data.camera, 'camera', fail);
+  if (data.stage !== undefined) validateStageConfig(data.stage, 'stage', fail);
+  if (data.theme !== undefined) validateThemeConfig(data.theme, 'theme', fail);
   if (data.capture !== undefined) validateCaptureTarget(data.capture, 'capture', fail, true);
   if ((data.frame ?? 'browser') === 'browser' && data.capture === undefined) fail('capture', 'is required for browser framing; use mode=background-window');
 
@@ -63,14 +70,67 @@ export function validateStoryboard(data) {
       if (action.duration !== undefined && (typeof action.duration !== 'number' || action.duration < 0)) fail(`${actionPath}.duration`, 'must be a non-negative number');
       const target = typeof action.target === 'string' && action.target.trim();
       const point = Number.isFinite(action.x) && Number.isFinite(action.y);
-      if (action.type !== 'wait' && !target && !point) fail(actionPath, 'requires target or numeric x/y');
+      const isResetZoom = action.type === 'zoom' && action.zoom === 1;
+      if (action.type !== 'wait' && !isResetZoom && !target && !point) fail(actionPath, 'requires target or numeric x/y');
+      if (action.zoom !== undefined && (typeof action.zoom !== 'number' || action.zoom < 1 || action.zoom > 4)) fail(`${actionPath}.zoom`, 'must be a number from 1 through 4');
+      if (action.easing !== undefined && !CAMERA_EASINGS.has(action.easing)) fail(`${actionPath}.easing`, 'must be smooth, snappy, or linear');
       if (['fill', 'press'].includes(action.type) && !target) fail(actionPath, `${action.type} requires target`);
       if (action.type === 'fill' && typeof action.value !== 'string') fail(`${actionPath}.value`, 'must be a string');
       if (action.type === 'press' && (typeof action.key !== 'string' || !action.key)) fail(`${actionPath}.key`, 'must be a non-empty string');
       if (action.syncWith !== undefined && !segmentIds.has(action.syncWith)) fail(`${actionPath}.syncWith`, `does not match a narration segment: ${action.syncWith}`);
     }
+    if (scene.camera !== undefined) validateSceneCamera(scene.camera, `${path}.camera`, segmentIds, actionIds, fail);
   }
   return errors;
+}
+
+function validateCameraConfig(value, path, fail) {
+  if (!isPlainObject(value)) { fail(path, 'must be an object'); return; }
+  if (value.enabled !== undefined && typeof value.enabled !== 'boolean') fail(`${path}.enabled`, 'must be a boolean');
+  if (value.mode !== undefined && !CAMERA_MODES.has(value.mode)) fail(`${path}.mode`, 'must be auto or manual');
+  for (const key of ['defaultZoom', 'minZoom', 'maxZoom']) {
+    if (value[key] !== undefined && (typeof value[key] !== 'number' || value[key] < 1 || value[key] > 4)) fail(`${path}.${key}`, 'must be a number from 1 through 4');
+  }
+  if (value.minZoom !== undefined && value.maxZoom !== undefined && value.minZoom > value.maxZoom) fail(`${path}.minZoom`, 'must not exceed maxZoom');
+  if (value.transitionDuration !== undefined && (typeof value.transitionDuration !== 'number' || value.transitionDuration <= 0)) fail(`${path}.transitionDuration`, 'must be a positive number');
+  if (value.motionBlur !== undefined && (typeof value.motionBlur !== 'number' || value.motionBlur < 0 || value.motionBlur > 1)) fail(`${path}.motionBlur`, 'must be a number from 0 through 1');
+  if (value.clampToViewport !== undefined && typeof value.clampToViewport !== 'boolean') fail(`${path}.clampToViewport`, 'must be a boolean');
+}
+
+function validateStageConfig(value, path, fail) {
+  if (!isPlainObject(value)) { fail(path, 'must be an object'); return; }
+  if (value.enabled !== undefined && typeof value.enabled !== 'boolean') fail(`${path}.enabled`, 'must be a boolean');
+  if (value.padding !== undefined && (typeof value.padding !== 'number' || value.padding < 0)) fail(`${path}.padding`, 'must be a non-negative number');
+  if (value.borderRadius !== undefined && (typeof value.borderRadius !== 'number' || value.borderRadius < 0)) fail(`${path}.borderRadius`, 'must be a non-negative number');
+  if (value.shadow !== undefined && typeof value.shadow !== 'boolean' && typeof value.shadow !== 'string') fail(`${path}.shadow`, 'must be a boolean or CSS shadow string');
+  if (value.background !== undefined && (typeof value.background !== 'string' || !value.background.trim())) fail(`${path}.background`, 'must be a non-empty string');
+  if (value.blobColor !== undefined && (typeof value.blobColor !== 'string' || !value.blobColor.trim())) fail(`${path}.blobColor`, 'must be a non-empty string');
+}
+
+function validateThemeConfig(value, path, fail) {
+  if (!isPlainObject(value)) { fail(path, 'must be an object'); return; }
+  if (value.captionStyle !== undefined && !CAPTION_STYLES.has(value.captionStyle)) fail(`${path}.captionStyle`, 'must be bar or pill');
+  if (value.captionBg !== undefined && (typeof value.captionBg !== 'string' || !value.captionBg.trim())) fail(`${path}.captionBg`, 'must be a non-empty string');
+}
+
+function validateSceneCamera(value, path, segmentIds, actionIds, fail) {
+  const list = Array.isArray(value) ? value : [value];
+  if (Array.isArray(value) && !value.length) { fail(path, 'must not be an empty array'); return; }
+  for (const [index, kf] of list.entries()) {
+    const kfPath = Array.isArray(value) ? `${path}[${index}]` : path;
+    if (!isPlainObject(kf)) { fail(kfPath, 'must be an object'); continue; }
+    if (kf.zoom !== undefined && (typeof kf.zoom !== 'number' || kf.zoom < 1 || kf.zoom > 4)) fail(`${kfPath}.zoom`, 'must be a number from 1 through 4');
+    if (kf.at !== undefined && (typeof kf.at !== 'number' || kf.at < 0)) fail(`${kfPath}.at`, 'must be a non-negative number');
+    if (kf.offset !== undefined && typeof kf.offset !== 'number') fail(`${kfPath}.offset`, 'must be a number');
+    if (kf.duration !== undefined && (typeof kf.duration !== 'number' || kf.duration <= 0)) fail(`${kfPath}.duration`, 'must be a positive number');
+    if (kf.easing !== undefined && !CAMERA_EASINGS.has(kf.easing)) fail(`${kfPath}.easing`, 'must be smooth, snappy, or linear');
+    if (kf.syncWith !== undefined && !segmentIds.has(kf.syncWith)) fail(`${kfPath}.syncWith`, `does not match a narration segment: ${kf.syncWith}`);
+    if (kf.actionId !== undefined && !actionIds.has(kf.actionId)) fail(`${kfPath}.actionId`, `does not match an action id: ${kf.actionId}`);
+    if (kf.target !== undefined && (typeof kf.target !== 'string' || !kf.target.trim())) fail(`${kfPath}.target`, 'must be a non-empty string');
+    if ((kf.x !== undefined) !== (kf.y !== undefined) || (kf.x !== undefined && (!Number.isFinite(kf.x) || !Number.isFinite(kf.y)))) {
+      fail(kfPath, 'requires both finite numeric x and y when coordinates are provided');
+    }
+  }
 }
 
 function validateCaptureTarget(value, path, fail, allowMode) {

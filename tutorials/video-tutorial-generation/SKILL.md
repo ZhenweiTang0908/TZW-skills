@@ -3,7 +3,7 @@ name: video-tutorial-generation
 description: Create reproducible narrated tutorial videos for web applications from real background-captured browser windows, scripted UI interactions, continuous cursor motion, scene-level TTS, subtitles, and deterministic Remotion rendering. Supports default single-take walkthroughs and optional step-by-step presentations. Invoke only when the user explicitly asks for this skill or explicitly asks for a narrated product walkthrough; never select it on your own initiative. Running it authorizes the paid text-to-speech calls it needs.
 metadata:
   author: NiuNiu Tang
-  version: "0.12.3"
+  version: "0.13.0"
 ---
 
 # Video Tutorial Generation (NIU)
@@ -47,6 +47,9 @@ browser_control: chrome-extension
 capture_mode: background-window
 capture_shadow: false
 task_label: true
+camera: disabled
+stage: disabled
+caption_style: bar
 foreground_control: allowed-when-needed
 ```
 
@@ -65,6 +68,18 @@ For this user's tutorial workflow, prefer background DOM control and targeted wi
 - `stepwise` keeps the original segmented presentation: a stable screenshot per scene, per-segment focus targets, optional cursor click cues, and visible scene transitions. Use it only when the user explicitly asks for discrete steps or a slide-like tutorial.
 - Start every narrated tutorial with a brief host greeting before the walkthrough begins. For Chinese tutorials, use Lena as the host and open with: “你好，我是 Lena。在这一份教程中，我会带你使用【产品或功能】完成【教程目标】，并说明如何将结果导出为【目标格式或去向】。” Replace the bracketed phrases with the current tutorial topic; do not keep stale product or format names. For other requested languages, translate this same concise greeting and retain Lena as the host. Add the opening as a narration segment at the start of the first scene, with a matching short task label, without introducing a title card or interrupting the continuous presentation.
 - Scene records still exist in continuous mode as internal state changes. They are not user-facing chapters. Prefer direct cuts between captured UI states to avoid black flashes; use a crossfade only when it blends overlapping footage without exposing black. Never restart the cursor or repeat the same click because a new scene begins.
+
+### Dynamic camera and studio stage (optional)
+
+Keep the default static full-window walkthrough (`camera` and `stage` disabled) unless the user asks for dynamic zoom/pan motion or a SaaS product-demo look (for example smooth zoom-ins on controls, panning between zoomed regions, and zoom-outs to an overview). When requested, layer these additive storyboard options on top of `continuous` (or `stepwise`) without removing pointer continuity:
+
+- **Camera zoom and pan (`camera`)**: Set root `camera: { "enabled": true, "mode": "auto" | "manual", "defaultZoom": 1.85, "transitionDuration": 0.65, "motionBlur": 0.25 }`.
+  - In `auto` mode, the renderer automatically zooms into each click/move target, pans between nearby controls in the same scene, and pulls back to `1.0` on overview scenes or scenes that open with a pause before the first interaction. Override any specific scene with `scene.camera` or any individual action with `action.zoom` (for example `1.0` to pull back or `2.2` for tight detail).
+  - In `manual` mode, author `scene.camera` keyframes (anchored via `syncWith`, `actionId`, or `at` seconds) or `type: "zoom"` actions.
+  - Keep camera transitions purposeful and rhythmic: overview (`1.0×`) when a new page or modal appears → zoom in (`1.6×–2.3×`) on the active menu, drawer, or field → smooth pan across related fields → zoom out (`1.0×`) for completion summaries or major context switches.
+  - The renderer transforms the UI and pointer together in composition coordinates and compensates pointer scale so coordinates never drift and the cursor stays sharp when zoomed.
+- **Studio stage backdrop (`stage`)**: When a clean floating card presentation is desired (typically paired with `frame: "page"`), set root `stage: { "enabled": true, "padding": 48, "borderRadius": 18, "shadow": true, "background": "studio-light" }`. This wraps the captured UI inside a rounded card with soft elevation over a clean gradient backdrop with subtle corner accents.
+- **Clean showcase overlays**: Use `theme.captionStyle: "pill"` (with optional `theme.captionBg` or `theme.accent`) for compact accent-tinted subtitle pills and short clause-level segments. Set root `taskLabel: false` only when the user wants a clean showcase without the upper-left current-task pill; leave `taskLabel` enabled (`true`) for standard tutorials.
 
 ## No flicker
 

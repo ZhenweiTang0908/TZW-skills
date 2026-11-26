@@ -12,9 +12,12 @@ The storyboard is the only authored source of truth. Use JSON, version it, and k
 - `baseUrl`: optional HTTP(S) origin; CLI `--base-url` takes precedence.
 - `fps`: optional integer from 24 through 60; defaults to 30.
 - `ttsSpeed`: optional narration speaking rate from `0.5` through `3`; defaults to `1.0`.
+- `taskLabel`: optional boolean; defaults to `true`. Set `false` to omit the upper-left current-task badge (for example in clean SaaS showcase videos).
+- `camera`: optional virtual camera configuration for dynamic zoom-in, pan, and zoom-out motion (`{ "enabled": true, "mode": "auto" | "manual", "defaultZoom": 1.85, "minZoom": 1.0, "maxZoom": 3.0, "transitionDuration": 0.65, "motionBlur": 0, "clampToViewport": true }`). Disabled by default so standard storyboards stay static.
+- `stage`: optional floating rounded-window stage and studio backdrop (`{ "enabled": true, "padding": 48, "borderRadius": 18, "shadow": true, "background": "studio-light" | "studio-dark" | "aurora" | "<css-background>", "blobColor": "#3b6ef6" }`). Disabled by default.
 - `fixtures`: optional browser-side mock data installed before every page load; see Fixtures.
 - `capture`: background-window settings: `{ "mode": "background-window", "windowPolicy": "new-window", "app": "Google Chrome", "titleIncludes": "aiFind", "includeShadow": false }`. Each run opens one new Chrome window in the existing profile and may manage multiple tabs inside it. A recorded `windowId` identifies the run-owned window after enumeration.
-- `viewport`: positive integer composition pixels. For browser framing, use the exact pixel dimensions reported by `capture-window.mjs`; a 1440×903 logical Retina window commonly produces a 2880×1806 screenshot. Do not force a 16:9 card.
+- `viewport`: positive integer composition pixels. For browser framing, use the exact pixel dimensions reported by `capture-window.mjs`; a 1440×903 logical Retina window commonly produces a 2880×1806 screenshot. Do not force a 16:9 card. For `frame: "page"`, set `deviceScaleFactor` (1 through 3) to capture at that density: with width 2880, height 1806, and `deviceScaleFactor: 2`, Playwright lays out a 1440×903 CSS viewport and screenshots at 2×, so the page stays crisp under camera zoom and is downsampled to 1920 wide at render time. Action and camera coordinates always stay in composition pixels.
 - `scenes`: non-empty ordered array.
 - `scene.task`: short string or language map shown in the upper-left current-task label. Continuous tutorials should provide one phrase per scene, for example `"Open Shortlists"` or a `{ "zh": "打开 Shortlists", "de": "Shortlists öffnen" }` map.
 
@@ -54,6 +57,30 @@ Supported actions:
 - `fill`: selector plus string `value`; sensitive values must come from a safe fixture, never secrets.
 - `press`: selector plus `key`.
 - `wait`: `duration` only.
+- `zoom`: camera-only keyframe action with `zoom` (`1` through `4`), optional `target` or `x`/`y` focal point (omitted when `zoom: 1` to pull back to full view), `duration`, `easing` (`"smooth" | "snappy" | "linear"`), and `syncWith`. Does not move the cursor.
+
+`move`, `click`, and `highlight` actions may also accept an optional `zoom` (`1` through `4`) and `easing` to override camera zoom for that action.
+
+### Scene `camera` keyframes
+
+Each scene may optionally specify `camera` as either a single object (applied at scene start) or an array of keyframes:
+
+```json
+"camera": [
+  { "syncWith": "overview", "zoom": 1.0, "duration": 0.6 },
+  { "syncWith": "open-menu", "x": 1680, "y": 140, "zoom": 2.1, "duration": 0.7, "easing": "smooth" },
+  { "actionId": "choose-csv", "offset": 0.1, "x": 1620, "y": 280, "zoom": 2.1 }
+]
+```
+
+Keyframe fields:
+- `zoom`: number from `1` through `4` (defaults to `camera.defaultZoom`).
+- `x`, `y` or `target`: focal point in composition pixels (or CSS selector resolved during Playwright `page` capture). When `zoom: 1`, omitting coordinates centers the full frame.
+- `syncWith` / `actionId` / `at` + optional `offset`: timing anchor (narration segment ID, action ID, or seconds from scene start; defaults to `at: 0`).
+- `duration`: transition seconds (defaults to `camera.transitionDuration`).
+- `easing`: `"smooth"` (default cubic ease-in-out), `"snappy"` (cubic ease-out), or `"linear"`.
+
+When `camera.mode` is `"auto"` and a scene omits `scene.camera`, the renderer automatically derives smooth zoom-in, pan, and pull-back keyframes from the scene's `actions`.
 
 Use either `target` (a stable selector) or numeric `x` and `y`. Prefer `[data-tutorial='...']`; avoid generated class names and positional selectors.
 
@@ -87,7 +114,7 @@ Fixtures apply to every scene in the storyboard, so keep them small, obvious, an
 
 ## Theme
 
-`theme` may set `accent` (hex colour), `captionPosition` (`top` or `bottom`), `transition` (`cut`, `crossfade`, or `slide`), and `highlightDim` (0 through 0.6, the dim applied outside the focused target in stepwise mode only). Continuous presentation ignores focus dimming and outlines.
+`theme` may set `accent` (hex colour), `captionPosition` (`top` or `bottom`), `captionStyle` (`bar` or `pill`; defaults to `bar`, while `pill` renders compact accent-tinted floating caption pills), `captionBg` (optional CSS colour for caption background), `transition` (`cut`, `crossfade`, or `slide`), and `highlightDim` (0 through 0.6, the dim applied outside the focused target in stepwise mode only). Continuous presentation ignores focus dimming and outlines.
 
 ## Example
 

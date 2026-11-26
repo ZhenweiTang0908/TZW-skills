@@ -17,6 +17,16 @@ Motion must explain the operation, not decorate it. The default presentation is 
 - Captions may stay visible, but they should read as one continuous explanation. Avoid wording such as "now we start step three" unless the user asked for a stepwise tutorial.
 - If a page state changes too abruptly to feel continuous, add a brief narration pause or a short visual dissolve; do not manufacture a second cursor or replay the same click.
 
+## Dynamic camera (zoom & pan)
+
+When a tutorial uses the optional `camera` and `stage` features for a zoomed SaaS-demo style:
+
+- **Follow a clear zoom rhythm**: Start new screens, modals, or summary results at `1.0×` overview so the viewer sees the full context. Zoom in (`1.6×–2.3×`) onto dense menus, forms, dropdowns, or toggle groups when the narration or cursor focuses there, and zoom back out (`1.0×`) before a major layout switch.
+- **Pan instead of bouncing**: When consecutive actions happen in adjacent regions of the same page or drawer (for example moving from left mapping columns to a right-side dropdown, or scrolling down a settings list), stay zoomed in and pan smoothly to the next focal point rather than zooming out and back in between every click.
+- **Keep cursor and camera locked**: Author all `x`/`y` coordinates in unzoomed composition/screenshot pixels. The renderer applies camera transforms around the pointer layer and compensates pointer scale so the arrow never drifts off-target or pixelates.
+- **Use subtle motion softness only during travel**: Keep `camera.motionBlur` between `0` and `0.35`. Resting frames must remain tack-sharp.
+- **Stage framing for page captures**: When using `frame: "page"` without browser chrome, `stage.enabled: true` places the UI inside a rounded elevated card over a light or dark studio backdrop so zoomed edges still read cleanly. Keep default `frame: "browser"` runs edge-to-edge (`stage` disabled) unless the user asks for a staged card.
+
 ## Stepwise presentation
 
 - Use one stable screenshot per scene and keep the original per-segment focus behavior: an accent outline and a shallow dim over the surrounding page.

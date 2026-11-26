@@ -42,12 +42,23 @@ for (const scene of storyboard.scenes) {
         }
       }
     }
-    if (presentation === 'continuous' && !scene.task) pending('missing-task-label', scene.id, 'Set the short current-task phrase.');
+    if (presentation === 'continuous' && storyboard.taskLabel !== false && !scene.task) pending('missing-task-label', scene.id, 'Set the short current-task phrase.');
     for (const [index, action] of scene.actions.entries()) {
-      if (action.type === 'wait') continue;
+      if (action.type === 'wait' || (action.type === 'zoom' && action.zoom === 1)) continue;
       const path = `${scene.id}.actions[${index}]`;
       if (!Number.isFinite(action.x) || !Number.isFinite(action.y)) pending('unresolved-window-action', path, 'Calibrate this action against the captured whole-window image.');
       else if (action.x < 0 || action.y < 0 || action.x >= storyboard.viewport.width || action.y >= storyboard.viewport.height) pending('action-outside-window', path, 'The pointer target must be inside the full window capture.');
+    }
+    const camKeyframes = Array.isArray(scene.camera) ? scene.camera : scene.camera ? [scene.camera] : [];
+    for (const [index, kf] of camKeyframes.entries()) {
+      if (kf.zoom === 1 && !Number.isFinite(kf.x) && !Number.isFinite(kf.y) && !kf.target) continue;
+      if (kf.zoom !== undefined && kf.zoom === 1 && !kf.target && !Number.isFinite(kf.x)) continue;
+      const path = `${scene.id}.camera[${index}]`;
+      if (!Number.isFinite(kf.x) || !Number.isFinite(kf.y)) {
+        if (kf.target || kf.zoom > 1) pending('unresolved-window-camera', path, 'Calibrate this camera focal point against the captured whole-window image.');
+      } else if (kf.x < 0 || kf.y < 0 || kf.x >= storyboard.viewport.width || kf.y >= storyboard.viewport.height) {
+        pending('camera-outside-window', path, 'The camera focal point must be inside the full window capture.');
+      }
     }
   }
   for (const [index, action] of scene.actions.entries()) {
@@ -57,6 +68,15 @@ for (const scene of storyboard.scenes) {
     if (/^\.[A-Za-z0-9_-]+$/.test(action.target)) warnings.push({ code: 'class-only-selector', path, selector: action.target });
     if (/:has-text\(|text=|getByText/.test(action.target)) warnings.push({ code: 'locale-sensitive-selector', path, selector: action.target });
     if (!/data-tutorial|aria-label|role=|#[A-Za-z]/.test(action.target)) warnings.push({ code: 'prefer-stable-attribute', path, selector: action.target });
+  }
+  const camKeyframes = Array.isArray(scene.camera) ? scene.camera : scene.camera ? [scene.camera] : [];
+  for (const [index, kf] of camKeyframes.entries()) {
+    if (!kf.target) continue;
+    const path = `${scene.id}.camera[${index}].target`;
+    if (/nth-(?:child|of-type)|:(?:first|last)-child/.test(kf.target)) warnings.push({ code: 'fragile-positional-selector', path, selector: kf.target });
+    if (/^\.[A-Za-z0-9_-]+$/.test(kf.target)) warnings.push({ code: 'class-only-selector', path, selector: kf.target });
+    if (/:has-text\(|text=|getByText/.test(kf.target)) warnings.push({ code: 'locale-sensitive-selector', path, selector: kf.target });
+    if (!/data-tutorial|aria-label|role=|#[A-Za-z]/.test(kf.target)) warnings.push({ code: 'prefer-stable-attribute', path, selector: kf.target });
   }
 }
 const report = { stage, status: errors.length ? 'error' : warnings.length ? 'warning' : 'ok', captureReady, verifiedAssets, warnings, errors };
