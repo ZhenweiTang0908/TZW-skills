@@ -16,6 +16,17 @@ is_deprecated() {
 
 for target in "$@"; do
 	mkdir -p "$target"
+	# Remove links that point into this pack but whose skill is now deprecated or gone.
+	for link in "$target"/*; do
+		[[ -L "$link" ]] || continue
+		dest="$(readlink "$link")"
+		case "$dest" in "$skills_src"/*) ;; *) continue ;; esac
+		name="$(basename "$link")"
+		if [[ ! -f "$skills_src/$name/SKILL.md" ]] || is_deprecated "$skills_src/$name"; then
+			rm -- "$link"
+			echo "pruned: $link"
+		fi
+	done
 	for dir in "$skills_src"/*/; do
 		name="$(basename "$dir")"
 		[[ -f "$dir/SKILL.md" ]] || continue

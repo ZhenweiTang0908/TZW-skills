@@ -1,6 +1,6 @@
 ---
 name: brief-to-mini-spec
-description: Convert a small, bounded, free-form feature request or behavior change in an existing codebase into a concise Mini Spec before implementation, with an explanatory walkthrough and diagrams when the flow branches. Do not use for debugging, production-data analysis, or architectural features.
+description: Turn a small, bounded behavior change in an existing codebase into a concise Mini Spec before implementation, with a walkthrough and diagrams when the flow branches. Not for debugging, production data, or large features.
 metadata:
   author: NiuNiu Tang
   version: "0.3.0"

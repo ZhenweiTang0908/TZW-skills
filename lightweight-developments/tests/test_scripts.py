@@ -28,7 +28,7 @@ sql_checker = load_module(
 )
 coverage_checker = load_module(
     "coverage_checker",
-    ROOT / ".agents/skills/verify-spec/scripts/check_requirement_coverage.py",
+    ROOT / ".agents/deprecated-skills/verify-spec/scripts/check_requirement_coverage.py",
 )
 packager = load_module("packager", ROOT / "scripts/package_skills.py")
 

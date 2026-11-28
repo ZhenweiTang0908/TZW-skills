@@ -75,14 +75,11 @@ Work may escalate from the small path when investigation reveals new states, per
         ├── session-handoff/
         ├── transfer-job/
         ├── ship-change/
-        └── (deprecated, kept but not linked)
-            brief-to-spec, spec-to-plan, verify-change, verify-spec,
-            review-spec, spec-explainer, doubt-review, logic-audit
 ```
 
 Every active skill includes usage boundaries, expected inputs, self-inspection, process, output, safety constraints, stop conditions, and routing examples. Descriptions are intentionally narrow because they are the discovery interface.
 
-Deprecated skills keep their folders and carry `status: "deprecated"` in their SKILL.md frontmatter plus a banner. `scripts/link_skills.sh` skips them when it installs symlinks into agent skill directories, so they are not linked by default.
+Deprecated skills live in `.agents/deprecated-skills/`, outside the active skills directory, so validation and installation never see them. They keep `status: "deprecated"` in their SKILL.md frontmatter and a banner. `scripts/link_skills.sh` also skips any deprecated skill and prunes stale links to it.
 
 The observation family is read-only and explanation-first. `read-module` is the general entry point; `read-code-horizonally` explains bounded code areas, `read-code-vertically` reconstructs end-to-end behavior, and `read-state-and-model` explains lifecycles and relationships. They favor concise prose plus Mermaid diagrams and distinguish facts, inferences, and unknowns.
 

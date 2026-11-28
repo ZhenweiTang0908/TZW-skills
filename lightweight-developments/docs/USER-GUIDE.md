@@ -4,7 +4,7 @@ Describe the work naturally. The agent picks the smallest workflow that can prod
 
 Active skills (15): `brief-to-mini-spec`, `diagnose`, `production-database-analysis`, `read-module`, `read-code-horizonally`, `read-code-vertically`, `read-state-and-model`, `excellence-gap`, `backfill-task`, `implement-plan`, `engineering-quality`, `code-review`, `session-handoff`, `transfer-job`, `ship-change`.
 
-Deprecated (kept in the repo, not linked, not routed to): `brief-to-spec`, `spec-to-plan`, `verify-change`, `verify-spec`, `review-spec`, `spec-explainer` (folded into `brief-to-mini-spec`), `doubt-review` and `logic-audit` (folded into `code-review`).
+Deprecated (moved to `.agents/deprecated-skills/`, not linked, not routed to): `brief-to-spec`, `spec-to-plan`, `verify-change`, `verify-spec`, `review-spec`, `spec-explainer` (folded into `brief-to-mini-spec`), `doubt-review` and `logic-audit` (folded into `code-review`).
 
 ## Workflow map
 

@@ -1,5 +1,5 @@
 interface:
   display_name: "Code Review (NIU)"
-  short_description: "Review completed code for actionable defects"
+  short_description: "Review changes, challenge contracts, audit decision logic"
   brand_color: "#2563EB"
-  default_prompt: "Use $code-review to inspect this completed change and report concrete implementation defects by severity."
+  default_prompt: "Use $code-review. For a completed change, report concrete defects by severity (Change mode). For a spec, plan, or migration, test it against its contract (Contract mode). For rules or state transitions, look for counterexamples and unnecessary complexity (Decision logic mode). Review only; do not edit."

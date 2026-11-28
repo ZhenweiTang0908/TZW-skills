@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Review code and decision logic for concrete defects. Three modes - review a completed code change for correctness, security and maintainability; adversarially challenge an artifact (spec, plan, migration, claim) against a supplied contract; audit business rules, routing, state transitions or prompts for counterexamples and unnecessary complexity. Report evidenced findings by severity; review only.
+description: Review code changes for concrete defects; challenge a spec, plan, or migration against its contract; audit business rules and state transitions for counterexamples. Review only, reports evidenced findings by severity.
 metadata:
   author: NiuNiu Tang
   version: "0.3.0"
