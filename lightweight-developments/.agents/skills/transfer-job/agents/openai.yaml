@@ -1,0 +1,4 @@
+interface:
+  display_name: "Transfer Job (NIU)"
+  short_description: "Hand token-heavy, planned execution work to Pi on DeepSeek Flash"
+  default_prompt: "Use $transfer-job to hand this planned, token-heavy task to Pi. Write the handoff document, run Pi on OpenCode Go DeepSeek Flash at medium thinking, then verify the result yourself instead of trusting its report."

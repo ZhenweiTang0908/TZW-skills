@@ -24,7 +24,7 @@ Both `opencode-go` and `deepseek` are authenticated (`pi auth check ...` returns
 | `deepseek` | `deepseek-flash` | 1M | Direct API fallback. |
 | `deepseek` | `deepseek-v4-pro` | 1M | Direct API fallback. |
 
-Thinking levels: `off`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`. Default is `low`; raise only for tasks that need multi-step reasoning.
+Thinking levels: `off`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`. The settings default is `medium`; do not use `low` (see caveat above).
 
 ## Commands
 
@@ -80,3 +80,10 @@ MCP servers configured: `chrome-devtools` (connected, 33 tools), `klicktipp` (ne
 Pi has no built-in sandbox or per-call approval. It runs with the launching user's permissions. For unattended work, run it inside a container, a micro-VM, or a disposable git worktree, and keep `cc-safety-net` enabled.
 
 — NiuNiu Tang
+
+## Troubleshooting
+
+- **Pi stops without acting.** DeepSeek sometimes emits a text-format tool call that is not executed. Check the log; rerun with an explicit instruction to use the `bash` tool.
+- **No output for more than ~90 seconds.** Check the thinking level first; `low` is the known trigger. Rerun at `medium` or `off`. Use `--mode json` redirected to a log so a killed run still leaves evidence.
+- **Auth or quota errors.** Run `pi auth check --provider opencode-go --model deepseek-v4.1-flash --json --no-refresh`. Fall back to `--provider deepseek --model deepseek-flash`.
+- **Destructive command blocked.** `cc-safety-net` blocks risky commands and secret-file access. Confirm with the user before asking Pi to work around it; never disable the guard silently.
