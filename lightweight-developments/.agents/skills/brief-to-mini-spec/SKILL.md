@@ -1,14 +1,14 @@
 ---
 name: brief-to-mini-spec
-description: Convert a small, bounded, free-form feature request or behavior change in an existing codebase into a concise Mini Spec before implementation. Do not use for debugging, production-data analysis, or architectural features.
+description: Convert a small, bounded, free-form feature request or behavior change in an existing codebase into a concise Mini Spec before implementation, with an explanatory walkthrough and diagrams when the flow branches. Do not use for debugging, production-data analysis, or architectural features.
 metadata:
   author: NiuNiu Tang
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # Brief to Mini Spec (NIU)
 
-Turn informal input into the smallest useful behavioral contract. Stop after the Mini Spec; do not implement the change under this skill.
+Turn informal input into the smallest useful behavioral contract, then explain it so a reviewer can follow it. Stop after the Mini Spec; do not implement the change under this skill.
 
 ## Use when
 
@@ -19,7 +19,7 @@ Turn informal input into the smallest useful behavioral contract. Stop after the
 
 - An observed bug or failure needs root-cause investigation: use `diagnose`.
 - The request primarily asks questions of production data: use `production-database-analysis`.
-- The change introduces multiple states, modules, permissions, external integrations, or meaningful data-model changes: use `brief-to-spec`.
+- The change introduces multiple states, modules, permissions, external integrations, or meaningful data-model changes. Stop, report that the scope exceeds a Mini Spec, and let the user decide how to proceed. (`brief-to-spec` is deprecated.)
 
 ## Expected input
 
@@ -41,8 +41,9 @@ Do not ask for information that the repository can answer. Ask only when an unre
 1. Restate the behavioral outcome in one or two sentences.
 2. Identify the smallest user-visible success path and preservation constraints.
 3. Separate exclusions from unknowns. Do not invent broad edge-case catalogs.
-4. If hidden complexity appears, recommend escalation to `brief-to-spec` and explain the concrete trigger.
-5. Produce a short Mini Spec.
+4. If hidden complexity appears (multiple states, permissions, async stages, external systems), stop and escalate as described under "Do not use when".
+5. Produce the Mini Spec.
+6. Explain it. If the behavior has branches, multiple actors, stages, statuses, retries, or failure paths, add the walkthrough and diagrams described below. A purely linear change needs only a short walkthrough.
 
 ## Output
 
@@ -50,6 +51,8 @@ Do not ask for information that the repository can answer. Ask only when an unre
 ## Goal
 
 ## Expected Behavior
+
+## Walkthrough
 
 ## Constraints / Out of Scope
 
@@ -62,16 +65,36 @@ Omit empty prose, but retain `Open Questions` with `None` when the contract is i
 
 When saving the artifact, start from [the Mini Spec template](assets/mini-spec-template.md).
 
+## Walkthrough and diagrams
+
+Write the `Walkthrough` section as numbered normal and alternate paths in plain language. Define unfamiliar terms once. Add a diagram only where it removes ambiguity:
+
+- `flowchart` for branching decisions and business rules;
+- `sequenceDiagram` for cross-actor or cross-service calls;
+- `stateDiagram-v2` for lifecycle and status transitions.
+
+Rules:
+
+- One diagram answers one question. Keep processing order (flowchart), legal durable states (state diagram), and who calls whom (sequence diagram) separate. Never use a sequence diagram as the state contract.
+- Each diagram gets a short prose interpretation and must not introduce behavior absent from the requirements.
+- Show failure, retry, timeout, or cancellation paths only when they affect correctness or user expectations.
+- Do not use a diagram to hide ambiguity. Show two plausible readings as an open question instead.
+- Tie examples to requirement IDs where practical (for example `R1`), and add Given/When/Then examples for the normal path and the riskiest alternate path.
+- Keep diagrams readable: use meaningful node names, and split unrelated flows.
+- If Mermaid cannot be rendered, keep the Mermaid source and add a concise text fallback.
+
 ## Safety and stopping conditions
 
 - Do not modify code, data, infrastructure, or external systems.
 - Do not convert words such as "maybe", "could", or "for example" into mandatory behavior.
 - Stop and request a decision when two plausible interpretations create materially different behavior.
+- Do not silently resolve product choices.
 
 ## Routing examples
 
 - Use: "Keep candidate attachments downloadable after the source email is deleted; do not change filtering."
+- Use: "Send rejected candidates to a review queue; explain the branch with a flowchart and a rejection example."
 - Do not use: "Why were two contacts created? Investigate first." (`diagnose`)
-- Borderline: A local setting becomes a new role-based state shared across services; escalate to `brief-to-spec`.
+- Borderline: A local setting becomes a new role-based state shared across services; stop and report that it exceeds a Mini Spec.
 
 — NiuNiu Tang

@@ -1,12 +1,15 @@
 ---
 name: review-spec
-description: Independently review a draft formal feature specification against the original brief and existing-system context for omissions, contradictions, ambiguity, hidden assumptions, unverifiable requirements, conflicts, and unnecessary scope. Do not implement or rewrite the feature by default.
+description: "DEPRECATED. Independently review a draft formal feature specification against the original brief and existing-system context for omissions, contradictions, ambiguity, hidden assumptions, unverifiable requirements, conflicts, and unnecessary scope. Do not implement or rewrite the feature by default."
 metadata:
+  status: "deprecated"
   author: NiuNiu Tang
   version: "0.2.0"
 ---
 
 # Review Spec (NIU)
+
+> **已弃用**：已弃用（此前也未安装）。规格审查请改用 `code-review` 的 Contract 模式。
 
 Find concrete defects that would cause two reasonable implementers to build different systems or make the result impossible to verify.
 

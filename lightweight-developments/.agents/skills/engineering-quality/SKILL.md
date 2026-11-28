@@ -65,7 +65,7 @@ Stop when the minimal correct change conflicts with the approved contract or pla
 ## Routing examples
 
 - Use: Alongside implementing an approved attachment-storage Mini Spec.
-- Do not use: To decide whether the attachment requirement is correct. (`brief-to-mini-spec` or `logic-audit`)
+- Do not use: To decide whether the attachment requirement is correct. (`brief-to-mini-spec` or `code-review` (Decision logic mode))
 - Borderline: A tiny implementation reveals duplicated code; deduplicate only when required for the change's clarity and low risk, otherwise report it separately.
 
 — NiuNiu Tang

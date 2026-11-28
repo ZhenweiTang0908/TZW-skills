@@ -1,12 +1,15 @@
 ---
 name: spec-explainer
-description: Enrich a Mini Spec or formal Spec with detailed Pipeline and Workflow explanations, concrete scenarios, and Mermaid diagrams for stages, branches, state transitions, retries, and failure paths. Use alongside Spec-writing when the process is difficult to understand from prose alone.
+description: "DEPRECATED. Enrich a Mini Spec or formal Spec with detailed Pipeline and Workflow explanations, concrete scenarios, and Mermaid diagrams for stages, branches, state transitions, retries, and failure paths. Use alongside Spec-writing when the process is difficult to understand from prose alone."
 metadata:
+  status: "deprecated"
   author: NiuNiu Tang
   version: "0.1.0"
 ---
 
 # Spec Explainer (NIU)
+
+> **已弃用**：已并入 `brief-to-mini-spec`（Walkthrough 与图示部分），不再作为独立 Skill 使用。
 
 Make a Spec easy to review by explaining not only what the system must do, but also how a Pipeline or Workflow unfolds from a user's, service's, or operator's perspective. This skill supplements `brief-to-mini-spec` or `brief-to-spec`; it does not turn requirements into an implementation plan.
 

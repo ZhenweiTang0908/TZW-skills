@@ -18,7 +18,7 @@ There is an observed failure, anomaly, regression, performance problem, integrat
 
 - The user is requesting a known behavior change rather than reporting unexpected behavior.
 - The task is solely a production-data question with no application fault to localize; use `production-database-analysis`.
-- The artifact is a rule system being challenged without an observed incident; use `logic-audit`.
+- The artifact is a rule system being challenged without an observed incident; use `code-review` (Decision logic mode).
 
 ## Expected input
 
@@ -55,7 +55,7 @@ Read repository instructions, errors and stack traces in full, relevant code and
 ## Verification
 ```
 
-A Fix Contract is the Mini Spec for a defect. It states the confirmed cause it addresses, the expected behavior after the fix, the behavior that must remain unchanged, and the regression check, which must fail on the unfixed code and pass after the fix. Write it once the root cause is supported, even when no fix is authorized yet; omit it while only ranked hypotheses remain. `verify-change` verifies the fix against this contract.
+A Fix Contract is the Mini Spec for a defect. It states the confirmed cause it addresses, the expected behavior after the fix, the behavior that must remain unchanged, and the regression check, which must fail on the unfixed code and pass after the fix. Write it once the root cause is supported, even when no fix is authorized yet; omit it while only ranked hypotheses remain. a focused verification step checks the fix against this contract.
 
 Separate facts, inferences, and unknowns. Include reproduction or query details that another engineer can repeat safely.
 

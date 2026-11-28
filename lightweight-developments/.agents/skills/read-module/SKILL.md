@@ -33,6 +33,6 @@ Use [the read-module brief template](assets/read-module-brief-template.md) when 
 
 ## Boundaries
 
-Read Module describes current behavior. Use `diagnose` for an observed failure, `logic-audit` to challenge rules or transitions, `production-database-analysis` for production business data, and specification/planning skills when the user wants to define or change behavior.
+Read Module describes current behavior. Use `diagnose` for an observed failure, `code-review` (Decision logic mode) to challenge rules or transitions, `production-database-analysis` for production business data, and specification/planning skills when the user wants to define or change behavior.
 
 — NiuNiu Tang

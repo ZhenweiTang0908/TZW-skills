@@ -31,7 +31,7 @@ Always distinguish:
 
 ## Boundaries
 
-Describe current behavior only. Do not silently convert the trace into a design proposal or implementation plan. Use `diagnose` for an observed incident and `logic-audit` when the user wants adversarial testing of the workflow.
+Describe current behavior only. Do not silently convert the trace into a design proposal or implementation plan. Use `diagnose` for an observed incident and `code-review` (Decision logic mode) when the user wants adversarial testing of the workflow.
 
 Use [the read-code-vertically brief template](assets/read-code-vertically-brief-template.md) when saving the result.
 

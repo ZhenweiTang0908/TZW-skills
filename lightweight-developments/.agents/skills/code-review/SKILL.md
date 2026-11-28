@@ -1,34 +1,35 @@
 ---
 name: code-review
-description: Review completed code changes for concrete correctness, maintainability, readability, security, complexity, duplication, error handling, hidden coupling, and architectural consistency. Report actionable findings by severity; do not expand into unrelated refactoring or formal-spec acceptance.
+description: Review code and decision logic for concrete defects. Three modes - review a completed code change for correctness, security and maintainability; adversarially challenge an artifact (spec, plan, migration, claim) against a supplied contract; audit business rules, routing, state transitions or prompts for counterexamples and unnecessary complexity. Report evidenced findings by severity; review only.
 metadata:
   author: NiuNiu Tang
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # Code Review (NIU)
 
-Find implementation defects and meaningful maintenance risks in a completed change. Prefer a few evidenced findings to a catalog of generic best practices.
+Find concrete defects and meaningful risks. Prefer a few evidenced findings to a catalog of generic best practices. Review only: do not edit code, data, or infrastructure unless the user explicitly asks for fixes.
 
-## Use when
+## Pick a mode
 
-There is a diff, branch, commit range, or completed implementation to review after or during development.
+| Mode | Use when | Target | Output template |
+|---|---|---|---|
+| **Change** (default) | A diff, branch, commit range, or completed implementation needs review | The code change | [code review template](assets/code-review-template.md) |
+| **Contract** | An important artifact (spec, plan, architecture decision, migration, business claim) needs an independent challenge against a contract | ARTIFACT + CONTRACT | [code review template](assets/code-review-template.md) |
+| **Decision logic** | Rules, routing, classification, state transitions, prompts, or conditional code need falsification, even without an incident | The rule system, plus anything that feeds it or consumes it | [code review template](assets/code-review-template.md) |
+
+Choose the mode from the target. If the user's request does not make it clear, pick the mode that fits the artifact and say which one you used.
 
 ## Do not use when
 
-- The user asks whether the feature satisfies every formal requirement: use `verify-spec`.
+- The user asks whether the feature satisfies every formal requirement. Say acceptance against a spec is outside this skill.
 - The user asks why a failure occurs: use `diagnose`.
-- The artifact is a spec or plan rather than code.
+- The user wants an artifact drafted or changed rather than challenged.
+- The user wants to understand existing behavior without judging it: use `read-module`, `read-code-vertically`, or `read-state-and-model`.
 
-## Expected input
+## Mode: Change
 
-The review target, behavioral contract or task context, repository instructions, and relevant base revision. Clarify the diff boundary when it cannot be inferred safely.
-
-## Inspect first
-
-Read the contract and repository guidance, then inspect the complete relevant diff plus enough surrounding code, tests, callers, types, data flows, and error paths to judge impact. Account for unrelated pre-existing worktree changes and do not attribute them to the target.
-
-## Process
+Inspect the complete relevant diff plus enough surrounding code, tests, callers, types, data flows, and error paths to judge impact. Account for unrelated pre-existing worktree changes and do not attribute them to the target.
 
 Review for:
 
@@ -42,34 +43,47 @@ Review for:
 
 Validate suspected findings against the actual execution path. Rank by user or operational impact. Do not request unrelated modernization merely because nearby code is imperfect.
 
+## Mode: Contract
+
+Read the contract before the artifact. Inspect referenced evidence directly when available. Omit the author's defense and conclusions when possible.
+
+1. Construct contract violations and counterexamples.
+2. Test hidden assumptions about identity, ordering, timing, permissions, failure, scale, compatibility, rollback, and observability, as relevant.
+3. Look for internal contradictions, missing cases, unsafe operations, hidden coupling, and claims without evidence.
+4. Separate confirmed defects from plausible concerns and from questions needing an owner's decision.
+5. Prioritize by consequence and likelihood. Do not manufacture objections to look adversarial.
+
+Each finding names the violated contract term, the triggering condition, and the likely impact. State when the contract is too vague to judge. Do not resolve product, legal, security, or operational ownership by assumption.
+
+## Mode: Decision logic
+
+1. State the decision's inputs, outputs, invariants, and precedence rules.
+2. List assumptions: nullability, ordering, timing, identity, exclusivity.
+3. Construct counterexamples at boundaries, overlaps, missing values, reordered events, and conflicting rules.
+4. Check for contradictory outcomes, unreachable or uncovered states, duplicated decisions, and hidden coupling. For a prompt plus deterministic post-processing, audit both and their interaction.
+5. Compare complexity to the behavioral distinctions actually required.
+6. Propose the smallest simplification that preserves confirmed behavior, and say what would change if behavior is not identical. Allow the conclusion that no change is warranted.
+
+Use small truth tables or state-transition tables only when they clarify real relationships. Label value judgments or uncertain product intent as potential issues. Request a product decision when correctness depends on an unstated policy.
+
 ## Output
 
-List findings first, ordered by severity. Each finding includes location, triggering condition, impact, evidence, and a focused remediation direction. Then include:
+List findings first, ordered by severity. Each finding includes location or rule path, triggering condition, impact, evidence, and a focused remediation direction. Then include the sections of the mode's template, always ending with a residual-risk or no-change note. If nothing actionable remains, say so and name the important areas not verified.
 
-```markdown
-## Questions / Assumptions
-
-## Residual Risk
-
-## Review Summary
-```
-
-If no actionable findings remain, say so and name the important areas not verified.
-
-When saving the review, start from [the code review template](assets/code-review-template.md).
-
-## Permissions and safety
-
-Review is read-only by default. Do not edit code or broaden scope unless the user explicitly requests fixes. Do not claim feature acceptance solely from code inspection.
+Do not claim feature acceptance solely from code inspection or from a review pass.
 
 ## Stop or escalate
 
-Report when generated files, missing dependencies, unavailable history, or environment constraints prevent reliable review. Escalate critical security or data-loss risk immediately and avoid executing a proof that could cause harm.
+- Report when generated files, missing dependencies, unavailable history, or environment constraints prevent reliable review.
+- Escalate critical security or data-loss risk immediately, and do not execute a proof that could cause harm.
+- Route deeper root-cause work to `diagnose`.
 
 ## Routing examples
 
-- Use: Review the completed attachment-persistence diff for correctness and maintainability.
-- Do not use: Determine whether all product requirements were implemented. (`verify-change` or `verify-spec`)
-- Borderline: A review reveals an apparent bug but the cause spans runtime state; report it and route deeper investigation to `diagnose`.
+- Change: "Review the completed attachment-persistence diff for correctness and maintainability."
+- Contract: "Challenge this migration plan against the zero-data-loss and rollback requirements in the brief."
+- Decision logic: "Is this classification logic too strict? Find counterexamples and a simpler equivalent."
+- Do not use: "Classification started failing after yesterday's deploy." (`diagnose`)
+- Borderline: A change-mode review reveals an apparent bug whose cause spans runtime state; report it and route deeper investigation to `diagnose`.
 
 — NiuNiu Tang

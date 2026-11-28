@@ -1,12 +1,15 @@
 ---
 name: doubt-review
-description: Perform an independent adversarial review of an important spec, plan, architecture decision, diff, migration, business rule, or technical claim against a supplied contract. Use to expose hidden assumptions and unsafe gaps; review only and avoid the author's reasoning when independence matters.
+description: "DEPRECATED. Perform an independent adversarial review of an important spec, plan, architecture decision, diff, migration, business rule, or technical claim against a supplied contract. Use to expose hidden assumptions and unsafe gaps; review only and avoid the author's reasoning when independence matters."
 metadata:
+  status: "deprecated"
   author: NiuNiu Tang
   version: "0.2.0"
 ---
 
 # Doubt Review (NIU)
+
+> **已弃用**：已并入 `code-review`（Contract 模式）。
 
 Try to show that an important artifact is wrong, incomplete, unsafe, or unsupported. Independence is more valuable than agreement.
 

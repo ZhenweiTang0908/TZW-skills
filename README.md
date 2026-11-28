@@ -15,7 +15,7 @@ TZW-skills/
 │   ├── work-log-sync/                  # Write, update, or delete daily work log entries
 │   ├── work-log-recall/                # Answer "what did I do" from the work log
 │   └── write-todo-reminder/            # Turn a work request into an Apple Reminders task
-├── lightweight-developments/           # Software development skill pack (23 skills)
+├── lightweight-developments/           # Software development skill pack (15 active skills; 8 deprecated)
 │   ├── .agents/skills/                 # The individual development skills
 │   ├── catalog.yaml                    # Category catalog
 │   ├── ROUTING.md / DESIGN.md          # Routing rules and design notes
@@ -53,38 +53,30 @@ A pack covering requirements, design, implementation, verification, and release.
 
 | Skill | Purpose |
 | --- | --- |
-| `brief-to-mini-spec` | Turn a small request into a short Mini Spec before coding. |
+| `brief-to-mini-spec` | Turn a small request into a Mini Spec; for branching flows, add a walkthrough and Mermaid diagrams (spec-explainer is folded in). |
 | `diagnose` | Gather evidence and test hypotheses before proposing a minimal fix. |
 | `production-database-analysis` | Query production databases under enforced read-only controls to answer statistics, anomaly, and operations questions. |
 | `read-module` | Entry point for explaining an existing system; routes to the three skills below. |
 | `read-code-horizonally` | Explain a module, class, or function: responsibilities and reading order. |
 | `read-code-vertically` | Trace a feature end to end through UI, APIs, services, and data writes. |
 | `read-state-and-model` | Map entity lifecycles, state transitions, data relationships, and invariants. |
-| `logic-audit` | Find counterexamples, contradictions, and dead ends in business rules, branches, and state transitions. |
-| `verify-change` | Verify a small change or fix with fresh evidence. |
 | `backfill-task` | Design pausable, resumable, idempotent data backfill jobs. |
 
 **Large features**
 
 | Skill | Purpose |
 | --- | --- |
-| `brief-to-spec` | Turn a large request into a formal behavioral specification. |
-| `spec-explainer` | Add workflow explanations, concrete scenarios, and Mermaid diagrams to a spec. |
-| `spec-to-plan` | Break an approved spec into a verifiable implementation plan. |
 | `implement-plan` | Implement an approved plan task by task. |
-| `verify-spec` | Run final acceptance against every requirement in the spec. |
 
 **Quality and delivery**
 
 | Skill | Purpose |
 | --- | --- |
 | `engineering-quality` | General quality constraints to follow while writing code. |
-| `doubt-review` | Independent, adversarial review of a spec, plan, or change. |
-| `code-review` | Review code changes (linked to Codex only, to avoid clashing with Claude Code's built-in `/code-review`). |
+| `code-review` | Three modes: review code changes; challenge a spec, plan, or migration against its contract; audit business rules and state transitions for counterexamples. Linked to Codex only, to avoid clashing with Claude Code's built-in `/code-review`. |
 | `session-handoff` | Leave a compact handoff record when switching sessions or agents. |
-| `transfer-coding-to-pi` | Hand off a well-specified, execution-heavy coding task to the Pi agent on DeepSeek Flash, with a plan-sufficiency gate and independent verification. Use only when explicitly asked. |
+| `transfer-job` | Hand token-heavy, already-planned execution work to the Pi agent on DeepSeek Flash, then verify independently. Use only when explicitly asked. |
 | `ship-change` | Require explicit authorization before merging, deploying, or migrating, with pre/post checks and a rollback plan. |
-| `review-spec` | Disabled; replaced by `doubt-review` and kept for now. |
 
 ### Computer maintenance (`computer/`)
 
@@ -110,14 +102,13 @@ Both skills run only when explicitly named.
 
 ## Installation
 
-Each skill is installed by symlinking it into the global skill directories, one for Claude Code and one for Codex:
+Skills are installed by symlinking them into the global skill directories. Use the script, which skips deprecated skills:
 
 ```bash
-ln -s "$PWD/work/write-todo-reminder" ~/.claude/skills/write-todo-reminder
-ln -s "$PWD/work/write-todo-reminder" ~/.codex/skills/write-todo-reminder
+bash lightweight-developments/scripts/link_skills.sh ~/.claude/skills ~/.codex/skills
 ```
 
-The link name must match the `name` in SKILL.md. After moving or renaming a skill, update the links in both directories.
+Skills marked `status: "deprecated"` in their SKILL.md frontmatter are never linked. Do not link them by hand. The link name is the skill's directory name. After moving or renaming a skill, rerun the script and remove stale links.
 
 ### Personal settings
 

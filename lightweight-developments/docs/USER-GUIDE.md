@@ -1,6 +1,10 @@
 # Lightweight Developments User Guide
 
-Use this skill pack by describing the work naturally. Codex should select the smallest workflow that can produce reliable evidence. Invoke a skill explicitly with `$skill-name` only when you want to force or correct routing.
+Describe the work naturally. The agent picks the smallest workflow that can produce reliable evidence. Invoke a skill with `$skill-name` only to force or correct routing.
+
+Active skills (15): `brief-to-mini-spec`, `diagnose`, `production-database-analysis`, `read-module`, `read-code-horizonally`, `read-code-vertically`, `read-state-and-model`, `excellence-gap`, `backfill-task`, `implement-plan`, `engineering-quality`, `code-review`, `session-handoff`, `transfer-job`, `ship-change`.
+
+Deprecated (kept in the repo, not linked, not routed to): `brief-to-spec`, `spec-to-plan`, `verify-change`, `verify-spec`, `review-spec`, `spec-explainer` (folded into `brief-to-mini-spec`), `doubt-review` and `logic-audit` (folded into `code-review`).
 
 ## Workflow map
 
@@ -8,35 +12,18 @@ Use this skill pack by describing the work naturally. Codex should select the sm
 Natural-language request
 │
 ├─ 1. Change existing product behavior?
-│  │
-│  ├─ Small and bounded
-│  │    $brief-to-mini-spec
-│  │      → Mini Spec
-│  │      → direct implementation or native Plan Mode
-│  │      → + $engineering-quality while changing code
-│  │      → $verify-change when focused verification is needed
-│  │
-│  └─ Large, multi-module, stateful, or high-risk
-│       $brief-to-spec
-│         → load only relevant modeling references
-│         → Formal Spec
-│       review step temporarily omitted for the lightweight workflow
-│         → human approval
-│       $spec-to-plan
-│         → Implementation Plan
-│       $implement-plan + $engineering-quality
-│         → implementation and developer self-check
-│       $verify-spec [optionally + $code-review]
-│         → requirement-by-requirement acceptance
-│       $ship-change
-│         → only after explicit merge/deploy/migration authorization
+│    $brief-to-mini-spec
+│      → Mini Spec (+ walkthrough and diagrams when the flow branches)
+│      → direct implementation, with $engineering-quality while editing code
+│      → $code-review (Change) on the completed diff when independent review helps
+│      → if scope grows past a Mini Spec: stop and discuss with the user
 │
 ├─ 2. Something is broken or unexpected?
 │    $diagnose
 │      → facts → localization → hypotheses → root cause
 │      → Fix Contract
 │      → authorized fix + $engineering-quality
-│      → $verify-change
+│      → focused regression check
 │
 ├─ 3. Question about production business data?
 │    $production-database-analysis
@@ -46,100 +33,71 @@ Natural-language request
 │      ✕ never repair or mutate production data
 │
 ├─ 4. Are rules or decisions too strict or complex?
-│    $logic-audit
+│    $code-review (Decision logic mode)
 │      → assumptions → counterexamples → contradictions
 │      → simplification opportunities
 │      ├─ no change needed → stop
-│      └─ change chosen → $brief-to-mini-spec or $brief-to-spec
+│      └─ change chosen → $brief-to-mini-spec
 │
-├─ 5. Is this a short-lived data backfill or reprocessing job?
+├─ 5. Short-lived data backfill or reprocessing job?
 │    $backfill-task
-│      → compact job contract
-│      → doubt/discussion
+│      → compact job contract (challenge it with $code-review, Contract mode)
 │      → isolated API-driven worker
 │      → pause/resume + durable idempotency
 │      → focused verification
-│      ✕ no normal X API/JWT, no automatic production run
+│      ✕ no automatic production run
 │
-└─ 6. Supporting actions
+├─ 6. Approved implementation plan exists?
+│    $implement-plan + $engineering-quality
+│      → execute tasks without changing the approved requirements
+│      → task-level self-checks, report deviations
+│
+└─ 7. Supporting actions
      $session-handoff  → preserve minimal continuation context at any stage
-     $doubt-review     → independently challenge an important artifact
-     $code-review      → review completed implementation quality
+     $code-review      → review a diff, challenge an artifact, or audit rules
      $ship-change      → perform an explicitly authorized delivery action
+     $transfer-job     → hand planned, token-heavy execution to Pi (explicit request only)
 ```
 
 ## Choose a branch
 
 | Starting intent | Start with | Primary result |
 |---|---|---|
-| Change one bounded behavior | `$brief-to-mini-spec` | Mini Spec |
-| Design a substantial feature or subsystem | `$brief-to-spec` | Formal Spec |
+| Change one bounded behavior | `$brief-to-mini-spec` | Mini Spec with walkthrough |
 | Explain an observed bug or failure | `$diagnose` | Root cause or ranked hypotheses |
 | Analyze production records or operations | `$production-database-analysis` | Read-only analysis report |
-| Design or implement a bounded backfill job | `$backfill-task` | Restartable API-driven job contract and implementation guidance |
-| Challenge business or decision logic | `$logic-audit` | Counterexamples and simplification assessment |
-| Verify a local fix or small feature | `$verify-change` | Passed, Failed, and Not Verified results |
-| Verify an entire formal feature | `$verify-spec` | Requirement-to-evidence acceptance matrix |
+| Design or implement a bounded backfill job | `$backfill-task` | Restartable job contract and guidance |
+| Review a completed change | `$code-review` (Change) | Findings by severity |
+| Challenge a spec, plan, or migration | `$code-review` (Contract) | Defects, counterexamples, verdict |
+| Challenge business or decision logic | `$code-review` (Decision logic) | Counterexamples and simplification |
+| Execute an approved plan | `$implement-plan` | Implemented tasks and self-check report |
 | Continue work in another session | `$session-handoff` | Minimal handoff record |
 | Merge, deploy, migrate, or roll out | `$ship-change` | Controlled delivery and post-check report |
 
-## Branch 1A: small or bounded change
-
-Purpose: modify an existing flow without manufacturing a large design process.
+## Branch 1: small or bounded change
 
 ```text
 $brief-to-mini-spec
   1. Inspect relevant code, tests, and documentation.
   2. Separate requested behavior, current behavior, proposals, and assumptions.
-  3. Ask only behavior-changing questions that the repository cannot answer.
-  4. Produce Goal, Expected Behavior, Constraints, Open Questions,
-     and Verification Target.
+  3. Ask only behavior-changing questions the repository cannot answer.
+  4. Produce Goal, Expected Behavior, Walkthrough, Constraints,
+     Open Questions, and Verification Target.
 
 Implementation
   5. Implement directly or use native Plan Mode when useful.
-  6. Apply $engineering-quality during code changes.
-  7. Perform the developer self-check.
+  6. Apply $engineering-quality while changing code.
+  7. Perform the developer self-check and a focused verification.
 
-$verify-change
-  8. Verify the Mini Spec with fresh evidence and focused regression checks.
+Optional
+  8. $code-review (Change mode) on the diff.
 ```
 
 Example: "Keep candidate attachments downloadable after the source email is deleted. Do not change filtering."
 
-Escalate to the large-feature branch if implementation reveals new states, permissions, schema changes, external systems, difficult migration, or broad rollback risk.
-
-## Branch 1B: substantial feature
-
-Purpose: preserve a clear separation between intended behavior, implementation approach, code, and acceptance evidence.
-
-```text
-$brief-to-spec
-  1. Inspect the current system and original brief.
-  2. Select only relevant modeling references.
-  3. Define requirements, boundaries, examples, exclusions, and open questions.
-
-Review step (temporarily omitted)
-  4. This review step is temporarily omitted to keep the workflow lightweight.
-  5. Obtain human approval for the Spec.
-
-$spec-to-plan
-  6. Map requirements to meaningful implementation tasks and verification.
-
-$implement-plan + $engineering-quality
-  7. Execute approved tasks without changing the Spec for convenience.
-  8. Run task-level self-checks and report deviations.
-
-$verify-spec
-  9. Assign PASS, FAIL, or NOT VERIFIED to every requirement using fresh evidence.
-```
-
-`$brief-to-spec` can load these dimensions only when relevant: database data modeling, Pipeline and State Machine, failure recovery, permissions, external integrations, concurrency and idempotency, observability, migration and compatibility, and scale and performance.
-
-Add `$doubt-review` for high-risk design or migration decisions. Add `$code-review` after implementation when an independent quality review is valuable. Neither substitutes for `$verify-spec`.
+Stop and discuss with the user if implementation reveals new states, permissions, schema changes, external systems, difficult migration, or broad rollback risk. No replacement skill for large formal specs is active; the decision on how to scope that work is the user's.
 
 ## Branch 2: diagnosis and fix
-
-Purpose: explain an observed failure before changing business behavior.
 
 ```text
 $diagnose
@@ -152,14 +110,12 @@ $diagnose
 
 If the user authorized a fix
   7. Implement the smallest causal fix with $engineering-quality.
-  8. Use $verify-change to reproduce and close the regression.
+  8. Reproduce the failure, then confirm the regression is closed.
 ```
 
 "Investigate" or "find out why" authorizes diagnosis, not an automatic fix.
 
 ## Branch 3: production data analysis
-
-Purpose: answer business and operational questions without making production mutation available.
 
 ```text
 $production-database-analysis
@@ -174,14 +130,12 @@ $production-database-analysis
   7. Report queries, findings, anomalies, explanations, and limitations.
 ```
 
-The bundled SQL checker is only a conservative static preflight. Passing it does not replace database-enforced controls. Credentials discovered in `.local_only_data` likewise do not prove that an account is read-only.
+The bundled SQL checker is only a conservative static preflight. Database-enforced controls are what make the analysis read-only.
 
-## Branch 4: logic audit
-
-Purpose: attempt to prove that a rule system, classifier, prompt, state transition, or decision pipeline is wrong or unnecessarily complex.
+## Branch 4: rules and decision logic
 
 ```text
-$logic-audit
+$code-review (Decision logic mode)
   1. Identify inputs, outputs, invariants, assumptions, and precedence.
   2. Construct boundary, overlap, null, timing, and ordering counterexamples.
   3. Find contradictions, unreachable states, duplication, and hidden coupling.
@@ -189,40 +143,37 @@ $logic-audit
   5. Identify no-change areas.
 ```
 
-The valid result may be "no change is needed." If a change is selected, create a Mini Spec or Formal Spec before implementation.
+"No change is needed" is a valid result. If a change is chosen, write a Mini Spec before implementing it.
 
 ## Cross-cutting and auxiliary skills
 
 - `$engineering-quality` applies only while modifying code. It keeps changes minimal, explicit, typed, testable, and free from unrelated refactoring.
-- `$doubt-review` independently attacks an artifact against a supplied contract. It reviews but does not edit.
-- `$code-review` finds implementation defects and maintenance risks. It does not decide full Spec compliance.
+- `$code-review` has three modes: Change (diff review), Contract (challenge an artifact against a supplied contract), and Decision logic (counterexamples for rules and state transitions). It reviews only and does not edit.
 - `$session-handoff` can be used at any pause or context boundary. It records only verified continuation context.
 - `$ship-change` requires explicit authorization for the exact version, action, and environment. Implementation completion never grants deployment permission.
 
 ## Natural-language use
 
-Explicit skill names are optional. These requests should route naturally:
+Explicit skill names are optional:
 
 ```text
 "Turn this small request into a short contract before coding."
 "Find out why the same contact was created twice; investigate only."
 "Using the production profile, group waiting contacts by campaign."
 "Is this classification logic too strict? Find counterexamples."
-"Draft a formal Spec for this new multi-state response subsystem."
-"Verify every requirement in this approved Spec against the implementation."
+"Challenge this migration plan against the zero-data-loss requirement."
 ```
 
 To force a route:
 
 ```text
 Use $diagnose to investigate this issue without modifying business code.
-Use $brief-to-spec to turn this brief into a formal feature Spec.
 Use $session-handoff to save the minimum context needed to continue tomorrow.
 ```
 
 ## Artifact templates
 
-Each skill links to an `assets/` template for its normal output. Use the template when a persistent artifact is useful; do not create a document for trivial work merely to satisfy the pack. Modeling guidance for formal Specs lives under `brief-to-spec/references/` and is loaded progressively.
+Each skill links to an `assets/` template for its normal output. Use the template when a persistent artifact is useful; do not create a document for trivial work merely to satisfy the pack.
 
 ## Safety summary
 
@@ -230,7 +181,7 @@ Each skill links to an `assets/` template for its normal output. Use the templat
 - Production analysis never authorizes data repair or mutation.
 - Plans cannot redefine approved requirements.
 - Tests and implementation completion do not authorize shipping.
-- Verification reports failed and unavailable evidence honestly.
+- Review findings and unavailable evidence are reported honestly.
 - `$ship-change` is the only delivery workflow, and it still requires explicit authorization.
 
 — NiuNiu Tang

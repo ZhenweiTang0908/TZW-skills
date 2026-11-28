@@ -16,9 +16,9 @@ The user names a code area and asks whether it is well designed, what an excelle
 
 ## Do not use when
 
-- The question is whether code is correct, safe, or acceptable: use `code-review` for a change, `logic-audit` for rules, `diagnose` for failures.
+- The question is whether code is correct, safe, or acceptable: use `code-review` for a change, `code-review` (Decision logic mode) for rules, `diagnose` for failures.
 - The user only wants to understand current behavior: use `read-module` or its focused skills.
-- The user wants the improvement implemented: route an approved direction through `brief-to-mini-spec` or `brief-to-spec`.
+- The user wants the improvement implemented: route an approved direction through `brief-to-mini-spec` or a formal spec (`brief-to-spec` is deprecated).
 
 ## Inspect first
 

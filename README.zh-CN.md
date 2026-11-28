@@ -15,7 +15,7 @@ TZW-skills/
 │   ├── work-log-sync/                  # 写入、修改、删除每日工作日志
 │   ├── work-log-recall/                # 根据工作日志回答"我做了什么"
 │   └── write-todo-reminder/            # 把工作需求变成 Apple 提醒事项任务
-├── lightweight-developments/           # 软件开发 Skill 包（23 个）
+├── lightweight-developments/           # 软件开发 Skill 包（15 个在用，8 个已弃用）
 │   ├── .agents/skills/                 # 各个开发 Skill
 │   ├── catalog.yaml                    # 分类清单
 │   ├── ROUTING.md / DESIGN.md          # 选路规则与设计说明
@@ -53,38 +53,30 @@ TZW-skills/
 
 | Skill | 用途 |
 | --- | --- |
-| `brief-to-mini-spec` | 把小需求整理成简短的 Mini Spec 再动手。 |
+| `brief-to-mini-spec` | 把小需求整理成 Mini Spec；分支复杂时附流程说明和 Mermaid 图，不再单独使用 spec-explainer。 |
 | `diagnose` | 先收集证据、验证假设，再给出最小修复。 |
 | `production-database-analysis` | 在强制只读的前提下查询生产数据库，回答统计、异常和运营问题。 |
 | `read-module` | 解释现有系统的总入口，按问题分派给下面三个 Skill。 |
 | `read-code-horizonally` | 讲清某个模块、类或函数的职责与阅读顺序。 |
 | `read-code-vertically` | 从界面到 API、服务、数据写入，追踪一个功能的完整执行链路。 |
 | `read-state-and-model` | 梳理实体生命周期、状态流转、数据关系和不变量。 |
-| `logic-audit` | 找业务规则、分支和状态流转里的反例、矛盾和死角。 |
-| `verify-change` | 用新鲜证据验证小改动或修复是否达标。 |
 | `backfill-task` | 设计可暂停、可恢复、幂等的数据回填任务。 |
 
 **大功能**
 
 | Skill | 用途 |
 | --- | --- |
-| `brief-to-spec` | 把大需求整理成正式的行为规格说明。 |
-| `spec-explainer` | 给规格补充流程说明、具体场景和 Mermaid 图。 |
-| `spec-to-plan` | 把审批过的规格拆成可验证的实现计划。 |
 | `implement-plan` | 按审批过的计划逐项实现。 |
-| `verify-spec` | 逐条对照规格做最终验收。 |
 
 **质量与交付**
 
 | Skill | 用途 |
 | --- | --- |
 | `engineering-quality` | 写代码时遵守的通用质量约束。 |
-| `doubt-review` | 独立、挑刺式地审查规格、方案或改动。 |
-| `code-review` | 审查代码改动（只链接到 Codex，避免和 Claude Code 自带的 `/code-review` 撞名）。 |
+| `code-review` | 三种模式：审查代码改动；对照契约挑刺规格、方案或迁移；审计业务规则和状态流转的反例。只链接到 Codex，避免和 Claude Code 自带的 `/code-review` 撞名。 |
 | `session-handoff` | 换会话或换 Agent 时留下简洁的交接记录。 |
-| `transfer-coding-to-pi` | 把计划完整的执行型编码任务交给 Pi（DeepSeek Flash），先卡计划完整性，再独立验收。只在明确要求时使用。 |
+| `transfer-job` | 把已定好计划、token 消耗大的重复执行工作交给 Pi（DeepSeek Flash），交回后独立验收。只在明确要求时使用。 |
 | `ship-change` | 合并、部署、迁移前必须拿到明确授权，并做前后检查和回滚预案。 |
-| `review-spec` | 已停用，功能由 `doubt-review` 代替，暂时保留。 |
 
 ### 电脑维护（`computer/`）
 
@@ -110,14 +102,13 @@ TZW-skills/
 
 ## 安装
 
-每个 Skill 通过软链接安装到全局目录，Claude Code 和 Codex 各一份：
+用脚本把 Skill 软链接到全局目录（Claude Code、Codex 等），脚本会跳过已弃用的 Skill：
 
 ```bash
-ln -s "$PWD/work/write-todo-reminder" ~/.claude/skills/write-todo-reminder
-ln -s "$PWD/work/write-todo-reminder" ~/.codex/skills/write-todo-reminder
+bash lightweight-developments/scripts/link_skills.sh ~/.claude/skills ~/.codex/skills
 ```
 
-链接名必须和 SKILL.md 里的 `name` 一致。移动或改名 Skill 后，要同时更新这两个目录里的链接。
+SKILL.md frontmatter 里标了 `status: "deprecated"` 的 Skill 不会被链接，不要手动链接。链接名就是 Skill 的目录名。移动或改名后，重跑脚本并删掉失效的旧链接。
 
 ### 个人配置
 

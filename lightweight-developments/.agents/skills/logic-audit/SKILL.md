@@ -1,12 +1,15 @@
 ---
 name: logic-audit
-description: Adversarially examine business rules, routing, classification, state transitions, prompts, conditional code, or decision pipelines for counterexamples, contradictions, unreachable states, hidden coupling, and avoidable complexity. Review only; do not automatically change code.
+description: "DEPRECATED. Adversarially examine business rules, routing, classification, state transitions, prompts, conditional code, or decision pipelines for counterexamples, contradictions, unreachable states, hidden coupling, and avoidable complexity. Review only; do not automatically change code."
 metadata:
+  status: "deprecated"
   author: NiuNiu Tang
   version: "0.2.0"
 ---
 
 # Logic Audit (NIU)
+
+> **已弃用**：已并入 `code-review`（Decision logic 模式）。
 
 Try to falsify a decision system before recommending that it change.
 

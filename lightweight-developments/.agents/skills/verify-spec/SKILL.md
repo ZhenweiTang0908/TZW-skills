@@ -1,12 +1,15 @@
 ---
 name: verify-spec
-description: Perform final acceptance of a completed large feature by tracing every formal-spec requirement to implementation and fresh observable evidence, while identifying omissions, regressions, and out-of-scope behavior. Do not substitute code quality or plan completion for spec compliance.
+description: "DEPRECATED. Perform final acceptance of a completed large feature by tracing every formal-spec requirement to implementation and fresh observable evidence, while identifying omissions, regressions, and out-of-scope behavior. Do not substitute code quality or plan completion for spec compliance."
 metadata:
+  status: "deprecated"
   author: NiuNiu Tang
   version: "0.2.0"
 ---
 
 # Verify Spec (NIU)
+
+> **已弃用**：暂无直接替代。
 
 Independently determine whether the implemented feature satisfies the complete approved specification.
 

@@ -1,10 +1,10 @@
-# Lightweight Developments: Design Draft
+# Lightweight Developments: Design
 
 ## Intent
 
 The user should be able to describe work naturally. The agent first learns enough from the repository and available evidence to distinguish requested behavior from current behavior, proposed solutions, and assumptions. It then chooses the lightest workflow that protects correctness.
 
-The system deliberately separates four artifacts when scale requires them:
+Specification, plan, implementation, and verification are conceptually separate:
 
 ```text
 Specification -> intended system behavior
@@ -13,7 +13,7 @@ Implementation-> actual repository changes
 Verification  -> evidence that behavior satisfies the contract
 ```
 
-Small work does not need all four as saved documents. A Mini Spec or Fix Contract may be held in the conversation, followed by direct implementation and focused verification.
+Small work does not need these as saved documents. A Mini Spec or Fix Contract may live in the conversation, followed by direct implementation and focused verification.
 
 ## Workflow tiers
 
@@ -21,40 +21,32 @@ Small work does not need all four as saved documents. A Mini Spec or Fix Contrac
 
 ```text
 free-form brief
-  -> brief-to-mini-spec
+  -> brief-to-mini-spec (walkthrough and diagrams when the flow branches)
   -> direct implementation or native plan mode
-  -> developer self-check
-  -> verify-change when independent or explicit verification is useful
+  -> developer self-check and focused verification
+  -> code-review (Change) when independent review is useful
 ```
 
-### Feature
+### Larger work
 
-```text
-free-form brief
-  -> brief-to-spec
-  -> spec-explainer when the workflow needs it
-  -> doubt-review (review-spec is temporarily disabled)
-  -> human approval
-  -> spec-to-plan
-  -> implement-plan + engineering-quality
-  -> verify-spec
-```
+The formal Spec path (`brief-to-spec`, `spec-to-plan`, `verify-spec`) is deprecated and no longer routed to. Work that exceeds a Mini Spec is stopped and discussed with the user. Once a plan has been approved by the user, `implement-plan` executes it.
 
-### Architectural or high risk
+### Risk review
 
-Use the feature workflow, then add `doubt-review`, `code-review`, and explicitly authorized `ship-change` where their separate judgments reduce risk.
+Use `code-review` in Contract mode to challenge a plan, migration, or design against its contract before execution. Use it in Change mode after implementation. The two judgments are separate.
 
 ### Investigation paths
 
-- Unexpected behavior: `diagnose`, then create a Fix Contract before any authorized fix.
+- Unexpected behavior: `diagnose`, then a Fix Contract before any authorized fix.
 - Production business data: `production-database-analysis`, with read-only controls and no data repair.
-- Rules or decision logic: `logic-audit`; if a change is chosen, route the decision into `brief-to-mini-spec` or `brief-to-spec`.
+- Rules or decision logic: `code-review` in Decision logic mode; if a change is chosen, write a Mini Spec.
+- Observation of existing code: the `read-*` family, read-only.
 
 ## Composition
 
 Prefer one primary workflow skill. Add `engineering-quality` only while changing code. Add one review skill when an independent challenge is valuable. Do not activate a chain of skills merely because all of them are available.
 
-Work may escalate from the small path when investigation reveals new states, permissions, schema changes, integrations, irreversible operations, or broad regression risk. Do not manufacture additional process when the task becomes simpler.
+Work may escalate from the small path when investigation reveals new states, permissions, schema changes, integrations, irreversible operations, or broad regression risk. Do not manufacture extra process when the task becomes simpler.
 
 ## Skill layout
 
@@ -62,64 +54,51 @@ Work may escalate from the small path when investigation reveals new states, per
 .                           # Skill-pack project
 ├── docs/
 │   └── USER-GUIDE.md       # Practical manual and workflow tree
-├── scripts/                # Validation, routing audit, and packaging
+├── scripts/                # Validation, packaging, link installation, SQL preflight
 ├── tests/                  # Deterministic helper tests
-├── catalog.yaml            # Machine-readable skill inventory
+├── catalog.yaml            # Machine-readable skill inventory (incl. deprecated list)
+├── ROUTING.md              # Routing table and boundaries
 └── .agents/
     └── skills/
-        ├── brief-to-mini-spec/
+        ├── brief-to-mini-spec/     # includes walkthrough and diagram guidance
+        ├── code-review/            # Change, Contract, and Decision logic modes
         ├── diagnose/
         ├── production-database-analysis/
         ├── read-module/
         ├── read-code-horizonally/
         ├── read-code-vertically/
         ├── read-state-and-model/
-        ├── logic-audit/
-        ├── verify-change/
-        ├── brief-to-spec/
-        ├── spec-explainer/
-        │   └── references/
-        │       ├── database-data-modeling.md
-        │       ├── pipeline-and-state-machine.md
-        │       ├── failure-recovery.md
-        │       ├── permissions-and-trust-boundaries.md
-        │       ├── external-integrations.md
-        │       ├── concurrency-idempotency-and-ordering.md
-        │       ├── observability-and-auditability.md
-        │       ├── migration-and-compatibility.md
-        │       └── scale-and-performance.md
-        ├── review-spec/
-        ├── spec-to-plan/
+        ├── excellence-gap/
+        ├── backfill-task/
         ├── implement-plan/
-        ├── verify-spec/
         ├── engineering-quality/
-        ├── doubt-review/
-        ├── code-review/
         ├── session-handoff/
-        └── ship-change/
+        ├── transfer-job/
+        ├── ship-change/
+        └── (deprecated, kept but not linked)
+            brief-to-spec, spec-to-plan, verify-change, verify-spec,
+            review-spec, spec-explainer, doubt-review, logic-audit
 ```
 
-Every skill includes usage boundaries, expected inputs, self-inspection, process, output, safety constraints, stop conditions, and routing examples. The descriptions are intentionally narrow because they are the discovery interface.
+Every active skill includes usage boundaries, expected inputs, self-inspection, process, output, safety constraints, stop conditions, and routing examples. Descriptions are intentionally narrow because they are the discovery interface.
 
-The observation family is read-only and explanation-first. `read-module` is the general entry point; `read-code-horizonally` explains bounded code areas, `read-code-vertically` reconstructs end-to-end behavior, and `read-state-and-model` explains lifecycles and relationships. Feature tracing composes state/data modeling when those models are needed to make the flow understandable. These skills favor concise prose plus Mermaid diagrams and distinguish facts, inferences, and unknowns.
+Deprecated skills keep their folders and carry `status: "deprecated"` in their SKILL.md frontmatter plus a banner. `scripts/link_skills.sh` skips them when it installs symlinks into agent skill directories, so they are not linked by default.
 
-`spec-explainer` is the visual/detail layer for future behavior: it follows the explanatory discipline of `read-code-horizonally` and the Pipeline/State Machine reference used by `brief-to-spec`, with special emphasis on stage-by-stage workflow diagrams, checkpoints, retries, and state transitions.
+The observation family is read-only and explanation-first. `read-module` is the general entry point; `read-code-horizonally` explains bounded code areas, `read-code-vertically` reconstructs end-to-end behavior, and `read-state-and-model` explains lifecycles and relationships. They favor concise prose plus Mermaid diagrams and distinguish facts, inferences, and unknowns.
 
-`brief-to-spec` uses progressive-disclosure references for model dimensions that apply only to some large features. They are guidance modules rather than independently discoverable skills, so they deepen a selected Spec without adding routing noise or forcing irrelevant sections into every document.
-
-Every skill also includes:
+Every active skill also includes:
 
 - `agents/openai.yaml` for user-facing discovery metadata and a skill-specific invocation prompt;
 - `assets/` with a concrete report, contract, checklist, or progress template referenced by its `SKILL.md`;
 - `scripts/` only when a repeated deterministic check materially improves the workflow.
 
-The pack root contains a catalog, structural validator, description-overlap audit, deterministic packager, and tests. Packaging infrastructure stays outside individual skills; domain-specific helpers stay with the skill that owns their safety boundary.
+The pack root contains a catalog, a structural validator, a description-overlap audit, a deterministic packager, and tests. Packaging and linking infrastructure stays outside individual skills; domain-specific helpers stay with the skill that owns their safety boundary.
 
 ## Deliberate omissions
 
 There is no router skill, oral-input skill, generic brainstorming skill, generic planner, generic executor, generic testing skill, or separate spec-compliance skill. Native agent capabilities cover those concerns; duplicating them would increase routing ambiguity and context cost.
 
-There are no generic planning, implementation, or testing scripts. The included scripts check pack structure, packaging, SQL static safety signals, and requirement-status coverage; none replaces agent judgment, database controls, or behavioral verification.
+There are no generic planning, implementation, or testing scripts. The included scripts check pack structure, packaging, symlink installation, and SQL static safety signals; none replaces agent judgment, database controls, or behavioral verification.
 
 ## Maintenance rule
 

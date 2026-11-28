@@ -26,7 +26,7 @@ Treat the request as a bounded backfill job, not as an ordinary API call and not
 
 ## Mandatory discussion before implementation
 
-First restate the backfill contract and challenge it with `doubt-review` behavior. Ask or infer only the minimum missing decisions, and explicitly discuss:
+First restate the backfill contract and challenge it with `code-review` Contract mode. Ask or infer only the minimum missing decisions, and explicitly discuss:
 
 - target records and selection snapshot;
 - what counts as successfully completed;

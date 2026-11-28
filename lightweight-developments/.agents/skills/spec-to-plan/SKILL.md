@@ -1,12 +1,15 @@
 ---
 name: spec-to-plan
-description: Convert a human-approved formal specification into an implementation plan of independently meaningful, verifiable tasks tied to requirement identifiers. Use after spec review and approval; do not redefine requirements or use for a small change that needs only native planning.
+description: "DEPRECATED. Convert a human-approved formal specification into an implementation plan of independently meaningful, verifiable tasks tied to requirement identifiers. Use after spec review and approval; do not redefine requirements or use for a small change that needs only native planning."
 metadata:
+  status: "deprecated"
   author: NiuNiu Tang
   version: "0.2.0"
 ---
 
 # Spec to Plan (NIU)
+
+> **已弃用**：暂无直接替代。
 
 Describe how this repository should implement an approved specification. The spec remains the authority on behavior.
 

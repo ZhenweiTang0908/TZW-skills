@@ -1,12 +1,15 @@
 ---
 name: verify-change
-description: Verify a completed small feature, local behavior change, or bug fix against its Mini Spec or Fix Contract using fresh observable evidence and focused regression checks. Do not use for full formal-spec acceptance or as permission to rewrite confirmed requirements.
+description: "DEPRECATED. Verify a completed small feature, local behavior change, or bug fix against its Mini Spec or Fix Contract using fresh observable evidence and focused regression checks. Do not use for full formal-spec acceptance or as permission to rewrite confirmed requirements."
 metadata:
+  status: "deprecated"
   author: NiuNiu Tang
   version: "0.2.0"
 ---
 
 # Verify Change (NIU)
+
+> **已弃用**：暂无直接替代。
 
 Determine whether a bounded change works against its behavioral contract. The contract—not the implementation plan—is authoritative.
 

@@ -1,12 +1,15 @@
 ---
 name: brief-to-spec
-description: Convert an informal, large-feature brief into a formal behavioral specification through repository research and focused requirement clarification. Use for new subsystems, multiple states or modules, permissions, data-model changes, or external integrations; do not use for bounded local changes.
+description: "DEPRECATED. Convert an informal, large-feature brief into a formal behavioral specification through repository research and focused requirement clarification. Use for new subsystems, multiple states or modules, permissions, data-model changes, or external integrations; do not use for bounded local changes."
 metadata:
+  status: "deprecated"
   author: NiuNiu Tang
   version: "0.2.0"
 ---
 
 # Brief to Spec (NIU)
+
+> **已弃用**：暂无直接替代：小改动用 `brief-to-mini-spec`；范围超出时停下来，与用户讨论如何处理。
 
 Turn natural-language product intent into a formal description of what the system should do, without prematurely deciding how to implement it.
 

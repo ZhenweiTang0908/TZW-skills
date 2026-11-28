@@ -12,27 +12,27 @@ categories:
     - "read-code-vertically"
     - "read-state-and-model"
     - "excellence-gap"
-    - "logic-audit"
-    - "verify-change"
     - "backfill-task"
   feature:
+    - "implement-plan"
+  cross_cutting:
+    - "engineering-quality"
+  auxiliary:
+    - "code-review"
+    - "session-handoff"
+    - "transfer-job"
+    - "ship-change"
+  deprecated:
     - "brief-to-spec"
     - "spec-explainer"
     - "spec-to-plan"
-    - "implement-plan"
+    - "verify-change"
     - "verify-spec"
-  cross_cutting:
-    - "engineering-quality"
-  disabled:
     - "review-spec"
-  auxiliary:
     - "doubt-review"
-    - "code-review"
-    - "session-handoff"
-    - "transfer-coding-to-pi"
-    - "ship-change"
+    - "logic-audit"
 composition:
-  default: "one primary skill, optionally one cross-cutting skill and one review skill"
+  default: "one primary skill, optionally one cross-cutting skill and one review skill (code-review)"
   implementation_quality: "engineering-quality"
   production_mutation: "ship-change with explicit authorization"
 

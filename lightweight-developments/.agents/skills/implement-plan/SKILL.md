@@ -54,7 +54,7 @@ Continuously compare implementation to the spec. The plan may guide method but c
 ## Remaining Work / Risks
 ```
 
-Do not claim the full feature satisfies the spec; that judgment belongs to `verify-spec`.
+Do not claim the full feature satisfies the spec; that judgment belongs to a final acceptance check.
 
 For multi-session execution, maintain [the implementation progress template](assets/implementation-progress-template.md).
 
@@ -69,7 +69,7 @@ Stop on spec-plan conflict, hidden product decisions, destructive operations, mi
 ## Routing examples
 
 - Use: Execute Tasks 1-5 of the approved response-subsystem plan.
-- Do not use: "Build something like a response tool" with no spec. (`brief-to-spec`)
+- Do not use: "Build something like a response tool" with no spec. (a formal spec (`brief-to-spec` is deprecated))
 - Borderline: A task is obsolete because the repository already provides the behavior; verify that evidence and propose a plan update rather than adding duplicate code.
 
 — NiuNiu Tang
