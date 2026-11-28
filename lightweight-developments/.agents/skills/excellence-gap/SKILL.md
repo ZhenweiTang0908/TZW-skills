@@ -3,7 +3,7 @@ name: excellence-gap
 description: Observe an existing module, feature, data model, or repository area and describe how it would look if it were excellent rather than merely acceptable, in structure, abstractions, design patterns, code expression, API and data-model design, citing the source of each standard. Use when the user wants the gap to excellent design; do not use to find bugs, review diffs, or check basic correctness.
 metadata:
   author: NiuNiu Tang
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Excellence Gap (NIU)
@@ -18,7 +18,7 @@ The user names a code area and asks whether it is well designed, what an excelle
 
 - The question is whether code is correct, safe, or acceptable: use `code-review` for a change, `code-review` (Decision logic mode) for rules, `diagnose` for failures.
 - The user only wants to understand current behavior: use `read-module` or its focused skills.
-- The user wants the improvement implemented: route an approved direction through `brief-to-mini-spec` or a formal spec (`brief-to-spec` is deprecated).
+- The user wants the improvement implemented: route an approved direction through `brief-to-mini-spec`.
 
 ## Inspect first
 

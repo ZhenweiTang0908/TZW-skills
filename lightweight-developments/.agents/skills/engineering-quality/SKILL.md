@@ -12,7 +12,7 @@ Use this cross-cutting skill during code changes. Correctness and clarity outran
 
 ## Use when
 
-Implementing a feature, fix, refactor explicitly within scope, migration code, or a necessary verification test. Compose it with `implement-plan`, an authorized post-`diagnose` fix, or direct implementation of a Mini Spec.
+Implementing a feature, fix, refactor explicitly within scope, migration code, or a necessary verification test. Compose it with an authorized post-`diagnose` fix or direct implementation of a Mini Spec.
 
 ## Do not use when
 

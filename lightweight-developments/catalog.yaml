@@ -14,7 +14,6 @@ categories:
     - "excellence-gap"
     - "backfill-task"
   feature:
-    - "implement-plan"
   cross_cutting:
     - "engineering-quality"
   auxiliary:
@@ -23,6 +22,7 @@ categories:
     - "transfer-job"
     - "ship-change"
   deprecated:
+    - "implement-plan"
     - "brief-to-spec"
     - "spec-explainer"
     - "spec-to-plan"

@@ -3,7 +3,7 @@ name: read-module
 description: Explain an existing system, code area, feature flow, state lifecycle, or data relationship with concise prose and useful diagrams. Use for understanding current behavior without changing code; route to read-code-horizonally, read-code-vertically, or read-state-and-model as appropriate.
 metadata:
   author: NiuNiu Tang
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Read Module (NIU)
@@ -33,6 +33,6 @@ Use [the read-module brief template](assets/read-module-brief-template.md) when 
 
 ## Boundaries
 
-Read Module describes current behavior. Use `diagnose` for an observed failure, `code-review` (Decision logic mode) to challenge rules or transitions, `production-database-analysis` for production business data, and specification/planning skills when the user wants to define or change behavior.
+Read Module describes current behavior. Use `diagnose` for an observed failure, `code-review` (Decision logic mode) to challenge rules or transitions, `production-database-analysis` for production business data, and `brief-to-mini-spec` when the user wants to define or change behavior.
 
 — NiuNiu Tang

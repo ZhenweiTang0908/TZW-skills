@@ -2,7 +2,7 @@
 
 Describe the work naturally. The agent picks the smallest workflow that can produce reliable evidence. Invoke a skill with `$skill-name` only to force or correct routing.
 
-Active skills (15): `brief-to-mini-spec`, `diagnose`, `production-database-analysis`, `read-module`, `read-code-horizonally`, `read-code-vertically`, `read-state-and-model`, `excellence-gap`, `backfill-task`, `implement-plan`, `engineering-quality`, `code-review`, `session-handoff`, `transfer-job`, `ship-change`.
+Active skills (14): `brief-to-mini-spec`, `diagnose`, `production-database-analysis`, `read-module`, `read-code-horizonally`, `read-code-vertically`, `read-state-and-model`, `excellence-gap`, `backfill-task`, `engineering-quality`, `code-review`, `session-handoff`, `transfer-job`, `ship-change`.
 
 Deprecated (moved to `.agents/deprecated-skills/`, not linked, not routed to): `brief-to-spec`, `spec-to-plan`, `verify-change`, `verify-spec`, `review-spec`, `spec-explainer` (folded into `brief-to-mini-spec`), `doubt-review` and `logic-audit` (folded into `code-review`).
 
@@ -47,10 +47,10 @@ Natural-language request
 │      → focused verification
 │      ✕ no automatic production run
 │
-├─ 6. Approved implementation plan exists?
-│    $implement-plan + $engineering-quality
-│      → execute tasks without changing the approved requirements
-│      → task-level self-checks, report deviations
+├─ 6. Approved small change ready to build?
+│    direct implementation + $engineering-quality
+│      → implement only the Mini Spec scope
+│      → developer self-check and focused verification
 │
 └─ 7. Supporting actions
      $session-handoff  → preserve minimal continuation context at any stage
@@ -70,7 +70,6 @@ Natural-language request
 | Review a completed change | `$code-review` (Change) | Findings by severity |
 | Challenge a spec, plan, or migration | `$code-review` (Contract) | Defects, counterexamples, verdict |
 | Challenge business or decision logic | `$code-review` (Decision logic) | Counterexamples and simplification |
-| Execute an approved plan | `$implement-plan` | Implemented tasks and self-check report |
 | Continue work in another session | `$session-handoff` | Minimal handoff record |
 | Merge, deploy, migrate, or roll out | `$ship-change` | Controlled delivery and post-check report |
 

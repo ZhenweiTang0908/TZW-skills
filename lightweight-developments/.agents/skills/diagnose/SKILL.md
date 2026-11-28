@@ -55,7 +55,7 @@ Read repository instructions, errors and stack traces in full, relevant code and
 ## Verification
 ```
 
-A Fix Contract is the Mini Spec for a defect. It states the confirmed cause it addresses, the expected behavior after the fix, the behavior that must remain unchanged, and the regression check, which must fail on the unfixed code and pass after the fix. Write it once the root cause is supported, even when no fix is authorized yet; omit it while only ranked hypotheses remain. a focused verification step checks the fix against this contract.
+A Fix Contract is the Mini Spec for a defect. It states the confirmed cause it addresses, the expected behavior after the fix, the behavior that must remain unchanged, and the regression check, which must fail on the unfixed code and pass after the fix. Write it once the root cause is supported, even when no fix is authorized yet; omit it while only ranked hypotheses remain. Verify the fix against this contract with a focused regression check.
 
 Separate facts, inferences, and unknowns. Include reproduction or query details that another engineer can repeat safely.
 

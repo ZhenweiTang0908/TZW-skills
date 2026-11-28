@@ -3,12 +3,20 @@ name: read-state-and-model
 description: Explain current entity lifecycles, state transitions, data relationships, persistence, and invariants from an existing codebase. Use for state, schema, and data-flow understanding without changing code.
 metadata:
   author: NiuNiu Tang
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Read State and Model (NIU)
 
 Build the smallest model that explains how an entity changes and how its data is represented.
+
+## Use when
+
+- Entity lifecycles, state transitions, persistence, or invariants need explaining.
+
+## Do not use when
+
+- The question is a single code area's responsibilities (use `read-code-horizonally`) or production records (use `production-database-analysis`).
 
 ## Process
 
@@ -24,7 +32,7 @@ Explain the model in plain language first. Use a Mermaid `stateDiagram-v2` for l
 
 ## Boundaries
 
-This skill describes the current model. Use `code-review` (Decision logic mode) to challenge it, `production-database-analysis` to inspect production records, and specification skills to define a desired future model.
+This skill describes the current model. Use `code-review` (Decision logic mode) to challenge it, `production-database-analysis` to inspect production records, and `brief-to-mini-spec` to define a desired future model.
 
 Use [the read-state-and-model brief template](assets/read-state-and-model-brief-template.md) when saving the result.
 

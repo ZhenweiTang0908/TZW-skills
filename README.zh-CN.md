@@ -15,7 +15,7 @@ TZW-skills/
 │   ├── work-log-sync/                  # 写入、修改、删除每日工作日志
 │   ├── work-log-recall/                # 根据工作日志回答"我做了什么"
 │   └── write-todo-reminder/            # 把工作需求变成 Apple 提醒事项任务
-├── lightweight-developments/           # 软件开发 Skill 包（15 个在用，8 个已弃用）
+├── lightweight-developments/           # 软件开发 Skill 包（14 个在用，9 个已弃用）
 │   ├── .agents/skills/                 # 各个开发 Skill
 │   ├── catalog.yaml                    # 分类清单
 │   ├── ROUTING.md / DESIGN.md          # 选路规则与设计说明
@@ -61,12 +61,6 @@ TZW-skills/
 | `read-code-vertically` | 从界面到 API、服务、数据写入，追踪一个功能的完整执行链路。 |
 | `read-state-and-model` | 梳理实体生命周期、状态流转、数据关系和不变量。 |
 | `backfill-task` | 设计可暂停、可恢复、幂等的数据回填任务。 |
-
-**大功能**
-
-| Skill | 用途 |
-| --- | --- |
-| `implement-plan` | 按审批过的计划逐项实现。 |
 
 **质量与交付**
 

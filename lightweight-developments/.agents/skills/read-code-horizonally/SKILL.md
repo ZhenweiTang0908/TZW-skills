@@ -10,6 +10,14 @@ metadata:
 
 Turn a code area into a usable mental model for someone who does not want to read every file.
 
+## Use when
+
+- A module, class, function, or repository area needs a mental model.
+
+## Do not use when
+
+- The question is about one end-to-end feature flow (use `read-code-vertically`) or about state or schema (use `read-state-and-model`).
+
 ## Process
 
 1. Establish the requested scope and inspect repository instructions.

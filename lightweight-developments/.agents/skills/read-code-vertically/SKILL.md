@@ -10,6 +10,14 @@ metadata:
 
 Reconstruct the current execution path of a feature from trigger to observable outcome.
 
+## Use when
+
+- A user-visible feature needs its current execution path explained, from trigger to outcome.
+
+## Do not use when
+
+- The task is a code-area overview (use `read-code-horizonally`) or an observed failure (use `diagnose`).
+
 ## Process
 
 1. Identify the user trigger, entry point, final observable result, and requested scope.

@@ -29,7 +29,7 @@ free-form brief
 
 ### Larger work
 
-The formal Spec path (`brief-to-spec`, `spec-to-plan`, `verify-spec`) is deprecated and no longer routed to. Work that exceeds a Mini Spec is stopped and discussed with the user. Once a plan has been approved by the user, `implement-plan` executes it.
+The formal Spec path (`brief-to-spec`, `spec-to-plan`, `verify-spec`) is deprecated and no longer routed to. Work that exceeds a Mini Spec is stopped and discussed with the user. Approved plans are executed directly with `engineering-quality`; there is no active plan-execution skill.
 
 ### Risk review
 
@@ -70,7 +70,6 @@ Work may escalate from the small path when investigation reveals new states, per
         ├── read-state-and-model/
         ├── excellence-gap/
         ├── backfill-task/
-        ├── implement-plan/
         ├── engineering-quality/
         ├── session-handoff/
         ├── transfer-job/

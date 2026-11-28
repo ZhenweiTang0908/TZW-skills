@@ -14,13 +14,12 @@
 | Review a completed code change | `code-review` (Change mode) | Not requirements acceptance |
 | Challenge a spec, plan, migration, or claim against its contract | `code-review` (Contract mode) | Review only; not drafting |
 | Audit business rules, routing, state transitions, or prompts for counterexamples | `code-review` (Decision logic mode) | Not an incident explanation; no automatic edits |
-| Execute an approved implementation plan | `implement-plan` | Not for discovery or unapproved scope |
 | Apply implementation quality constraints | `engineering-quality` | Cross-cutting; not a primary workflow |
 | Preserve minimal continuation context | `session-handoff` | Not a transcript or project summary |
 | Hand off token-heavy, planned execution work to Pi | `transfer-job` | Only on explicit request; Claude plans, Pi executes |
 | Merge, deploy, migrate, or roll out | `ship-change` | Requires explicit authorization |
 
-Deprecated and not routed to: `brief-to-spec`, `spec-explainer` (folded into `brief-to-mini-spec`), `spec-to-plan`, `verify-change`, `verify-spec`, `review-spec`, `doubt-review` (folded into `code-review`), `logic-audit` (folded into `code-review`).
+Deprecated and not routed to: `brief-to-spec`, `spec-explainer` (folded into `brief-to-mini-spec`), `spec-to-plan`, `verify-change`, `verify-spec`, `review-spec`, `implement-plan`, `doubt-review` (folded into `code-review`), `logic-audit` (folded into `code-review`).
 
 ## Important boundaries
 
@@ -30,7 +29,7 @@ Deprecated and not routed to: `brief-to-spec`, `spec-explainer` (folded into `br
 - `read-code-horizonally` versus `read-code-vertically`: read-code-horizonally explains a bounded code area; read-code-vertically follows a user-visible behavior across boundaries.
 - `read-code-vertically` composes state and data modeling when lifecycle or persistence is needed to explain the flow.
 - `code-review` (Change) versus `excellence-gap`: Change mode asks whether a change is correct and sound enough to accept; excellence-gap observes existing code and describes the excellent design it falls short of, citing the source of each standard.
-- `implement-plan` versus `ship-change`: implementation authority never implies merge, deployment, migration, or production rollout authority.
+- Implementation authority never implies merge, deployment, migration, or production rollout authority (`ship-change` requires explicit authorization).
 - `backfill-task` versus `ship-change`: a backfill design may expose a control API, but it never authorizes starting a production job, deploying it, or mutating production data.
 
 ## Composition examples
@@ -45,7 +44,7 @@ code-review (Change)
 brief-to-mini-spec   (includes walkthrough and diagrams)
 code-review (Contract) on the Mini Spec, with the brief as contract
 explicit user approval
-implement-plan + engineering-quality
+engineering-quality + direct implementation
 code-review (Change)
 ```
 

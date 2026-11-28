@@ -1,12 +1,15 @@
 ---
 name: implement-plan
-description: Execute a human-approved implementation plan against its approved formal specification, completing meaningful tasks with developer self-checks and reporting plan-to-repository conflicts. Use for planned large features; do not use for unapproved plans, discovery, or deployment.
+description: "DEPRECATED. Execute a human-approved implementation plan against its approved formal specification, completing meaningful tasks with developer self-checks and reporting plan-to-repository conflicts. Use for planned large features; do not use for unapproved plans, discovery, or deployment."
 metadata:
   author: NiuNiu Tang
   version: "0.2.0"
+  status: "deprecated"
 ---
 
 # Implement Plan (NIU)
+
+> **已弃用**：依赖已弃用的规格与计划流程，暂无直接替代。小改动直接按 Mini Spec 实现并配合 `engineering-quality`。
 
 Implement the approved plan while preserving the approved spec and repository reality. Compose with `engineering-quality`.
 

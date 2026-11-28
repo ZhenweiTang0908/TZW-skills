@@ -15,7 +15,7 @@ TZW-skills/
 │   ├── work-log-sync/                  # Write, update, or delete daily work log entries
 │   ├── work-log-recall/                # Answer "what did I do" from the work log
 │   └── write-todo-reminder/            # Turn a work request into an Apple Reminders task
-├── lightweight-developments/           # Software development skill pack (15 active skills; 8 deprecated)
+├── lightweight-developments/           # Software development skill pack (14 active skills; 9 deprecated)
 │   ├── .agents/skills/                 # The individual development skills
 │   ├── catalog.yaml                    # Category catalog
 │   ├── ROUTING.md / DESIGN.md          # Routing rules and design notes
@@ -61,12 +61,6 @@ A pack covering requirements, design, implementation, verification, and release.
 | `read-code-vertically` | Trace a feature end to end through UI, APIs, services, and data writes. |
 | `read-state-and-model` | Map entity lifecycles, state transitions, data relationships, and invariants. |
 | `backfill-task` | Design pausable, resumable, idempotent data backfill jobs. |
-
-**Large features**
-
-| Skill | Purpose |
-| --- | --- |
-| `implement-plan` | Implement an approved plan task by task. |
 
 **Quality and delivery**
 
