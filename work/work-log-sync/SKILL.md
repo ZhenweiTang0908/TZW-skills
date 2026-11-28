@@ -1,6 +1,6 @@
 ---
 name: work-log-sync
-description: Record, update, or delete work items in the user's local daily Markdown work log. Use when the user asks to log, sync, change, or remove something they did; do not use for report generation or weekly summaries.
+description: Record, update, or delete work items in the user's local daily Markdown work log. Use when the user asks to log, sync, change, or remove something they did; do not use for report generation or weekly summaries. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.1.1"

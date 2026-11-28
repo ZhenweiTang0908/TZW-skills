@@ -65,7 +65,7 @@ Work may escalate from the small path when investigation reveals new states, per
         ├── diagnose/
         ├── production-database-analysis/
         ├── read-module/
-        ├── read-code-horizonally/
+        ├── read-code-horizontally/
         ├── read-code-vertically/
         ├── read-state-and-model/
         ├── excellence-gap/
@@ -80,7 +80,7 @@ Every active skill includes usage boundaries, expected inputs, self-inspection, 
 
 Deprecated skills live in `.agents/deprecated-skills/`, outside the active skills directory, so validation and installation never see them. They keep `status: "deprecated"` in their SKILL.md frontmatter and a banner. `scripts/link_skills.sh` also skips any deprecated skill and prunes stale links to it.
 
-The observation family is read-only and explanation-first. `read-module` is the general entry point; `read-code-horizonally` explains bounded code areas, `read-code-vertically` reconstructs end-to-end behavior, and `read-state-and-model` explains lifecycles and relationships. They favor concise prose plus Mermaid diagrams and distinguish facts, inferences, and unknowns.
+The observation family is read-only and explanation-first. `read-module` is the general entry point; `read-code-horizontally` explains bounded code areas, `read-code-vertically` reconstructs end-to-end behavior, and `read-state-and-model` explains lifecycles and relationships. They favor concise prose plus Mermaid diagrams and distinguish facts, inferences, and unknowns.
 
 Every active skill also includes:
 

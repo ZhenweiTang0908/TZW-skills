@@ -1,6 +1,6 @@
 ---
 name: write-todo-reminder
-description: Turn a work, study, or personal errand request (a Teams message, an email, or a short description from a colleague or boss, plus the user's own notes and attachments) into one Apple Reminders task in the matching list (the work, study, or errands list configured in `config.local.env`) with a short title and notes holding the original text, a Chinese translation, and an AI explanation, and archive the source material locally. Use when the user wants to record, capture, or add a work, study, or errand to-do or task to Reminders; do not use for reading, completing, or editing existing reminders.
+description: Turn a work, study, or personal errand request (a Teams message, an email, or a short description from a colleague or boss, plus the user's own notes and attachments) into one Apple Reminders task in the matching list (the work, study, or errands list configured in `config.local.env`) with a short title and notes holding the original text, a Chinese translation, and an AI explanation, and archive the source material locally. Use when the user wants to record, capture, or add a work, study, or errand to-do or task to Reminders; do not use for reading, completing, or editing existing reminders. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.2.0"

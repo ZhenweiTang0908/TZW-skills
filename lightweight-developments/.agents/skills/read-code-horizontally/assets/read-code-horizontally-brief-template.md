@@ -1,4 +1,4 @@
-# Read Code Horizonally: <code area>
+# Read Code Horizontally: <code area>
 
 <What this area does and the recommended reading order.>
 

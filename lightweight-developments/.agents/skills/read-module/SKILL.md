@@ -1,6 +1,6 @@
 ---
 name: read-module
-description: Explain an existing system, code area, feature flow, state lifecycle, or data relationship with concise prose and useful diagrams. Use for understanding current behavior without changing code; route to read-code-horizonally, read-code-vertically, or read-state-and-model as appropriate.
+description: Explain an existing system, code area, feature flow, state lifecycle, or data relationship with concise prose and useful diagrams. Use for understanding current behavior without changing code; route to read-code-horizontally, read-code-vertically, or read-state-and-model as appropriate. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.2.0"
@@ -12,7 +12,7 @@ Build an evidence-based explanation of the current system. This is a read-only u
 
 ## Route
 
-- Use `read-code-horizonally` when the user wants to understand a module, class, function, or repository area.
+- Use `read-code-horizontally` when the user wants to understand a module, class, function, or repository area.
 - Use `read-code-vertically` when the user asks how a feature executes from trigger to outcome.
 - Use `read-state-and-model` when the main question concerns lifecycle states, entities, tables, relationships, or invariants.
 - For a feature trace, also perform the relevant state and data modeling rather than stopping at a call graph.

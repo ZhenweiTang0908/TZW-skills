@@ -4,7 +4,7 @@ English | [简体中文](README.zh-CN.md)
 
 NiuNiu Tang's personal agent skills, shared by Claude Code and Codex. They cover daily work records, the full software development lifecycle, computer maintenance, hard-problem research, and product tutorial production.
 
-Every skill's display name ends with `(NIU)` to distinguish it from third-party skills.
+Every skill's display name ends with `(NIU)`, and every `description` ends with `[NIU]`, to distinguish it from third-party skills. Codex shows the display name; Claude Code shows only `name` and `description`, so the description tag is what marks a skill as ours there.
 
 ## Directory structure
 
@@ -25,6 +25,8 @@ TZW-skills/
 ├── computer/                           # Computer maintenance (read-only checks)
 │   ├── computer-health-check/          # Checkup: heat, slowness, battery, suspicious programs
 │   └── computer-software-audit/        # Installed-software inventory and cleanup candidates
+├── study/
+│   └── anki-add-words/                 # Complete ad hoc German words and import them into Anki
 ├── research/
 │   └── web-troubleshoot/               # Deep web research for hard problems
 ├── tutorials/                          # Product tutorials
@@ -57,7 +59,7 @@ A pack covering requirements, design, implementation, verification, and release.
 | `diagnose` | Gather evidence and test hypotheses before proposing a minimal fix. |
 | `production-database-analysis` | Query production databases under enforced read-only controls to answer statistics, anomaly, and operations questions. |
 | `read-module` | Entry point for explaining an existing system; routes to the three skills below. |
-| `read-code-horizonally` | Explain a module, class, or function: responsibilities and reading order. |
+| `read-code-horizontally` | Explain a module, class, or function: responsibilities and reading order. |
 | `read-code-vertically` | Trace a feature end to end through UI, APIs, services, and data writes. |
 | `read-state-and-model` | Map entity lifecycles, state transitions, data relationships, and invariants. |
 | `backfill-task` | Design pausable, resumable, idempotent data backfill jobs. |
@@ -78,6 +80,12 @@ A pack covering requirements, design, implementation, verification, and release.
 | --- | --- |
 | `computer-health-check` | macOS checkup: CPU, memory, heat, battery, disk, background jobs, dev processes, security settings, suspicious programs. Read-only; any fix needs per-item confirmation. |
 | `computer-software-audit` | Inventory installed apps, CLI tools, runtimes, and leftover data to find cleanup candidates. Read-only; never uninstalls anything. |
+
+### Study (`study/`)
+
+| Skill | Purpose |
+| --- | --- |
+| `anki-add-words` | Complete German words the user supplies (article, plural, verb forms, Chinese meaning, A2 example sentence), generate audio, and import them into the Anki deck `AI-German-Words`. Needs Anki with AnkiConnect running. |
 
 ### Research (`research/`)
 
@@ -123,7 +131,7 @@ Then edit the values. Run `bash config.sh` to print the resolved settings. An en
 ## Conventions
 
 1. **Naming**: The folder name matches `name`; all lowercase, words joined by hyphens, never underscores.
-2. **Metadata**: Every SKILL.md frontmatter has `metadata.author` and `metadata.version`. The SKILL.md title and the `agents/openai.yaml` display name both end in `(NIU)`.
+2. **Metadata**: Every SKILL.md frontmatter has `metadata.author` and `metadata.version`. The SKILL.md title and the `agents/openai.yaml` display name both end in `(NIU)`; the frontmatter `description` ends with ` [NIU]` (at the end, never at the start: a leading `[` makes YAML parse the value as a list).
 3. **Artifact isolation**: Generated PDFs, videos, audio, and screenshots go to `Temp/` or the skill's own temporary folder, never into version control.
 4. **Secrets**: API keys and TTS keys live only in local `ENV` or `.env` files and are never committed.
 5. **No personal paths**: Never write `/Users/<name>/...` into a skill; use `~`, `$HOME`, or a key in `config.local.env`.

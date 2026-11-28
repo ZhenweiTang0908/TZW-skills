@@ -1,6 +1,6 @@
 ---
 name: engineering-quality
-description: "Apply lightweight, consistent code-quality constraints while implementing or modifying code: clarity, minimal scope, explicit errors, type safety, existing conventions, and no speculative abstraction. Use alongside an implementation skill, not as a standalone planning or review workflow."
+description: "Apply lightweight, consistent code-quality constraints while implementing or modifying code: clarity, minimal scope, explicit errors, type safety, existing conventions, and no speculative abstraction. Use alongside an implementation skill, not as a standalone planning or review workflow. [NIU]"
 metadata:
   author: NiuNiu Tang
   version: "0.2.0"

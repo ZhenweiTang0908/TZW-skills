@@ -1,6 +1,6 @@
 ---
 name: video-tutorial-generation
-description: Create reproducible narrated tutorial videos for web applications from real background-captured browser windows, scripted UI interactions, continuous cursor motion, scene-level TTS, subtitles, and deterministic Remotion rendering. Supports default single-take walkthroughs and optional step-by-step presentations. Invoke only when the user explicitly asks for this skill or explicitly asks for a narrated product walkthrough; never select it on your own initiative. Running it authorizes the paid text-to-speech calls it needs.
+description: Create reproducible narrated tutorial videos for web applications from real background-captured browser windows, scripted UI interactions, continuous cursor motion, scene-level TTS, subtitles, and deterministic Remotion rendering. Supports default single-take walkthroughs and optional step-by-step presentations. Invoke only when the user explicitly asks for this skill or explicitly asks for a narrated product walkthrough; never select it on your own initiative. Running it authorizes the paid text-to-speech calls it needs. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.13.0"

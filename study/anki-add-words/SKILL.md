@@ -1,6 +1,6 @@
 ---
 name: anki-add-words
-description: Complete German vocabulary the user supplies ad hoc (words from German class, a pasted word list, a photo, or notes) with article, plural, verb forms, Chinese meaning, and an example sentence, generate audio, and import the cards into the Anki deck AI-German-Words. Use when the user says things like "add these words to Anki", "put these few words in", or "add the words from class"; do not use to delete words.
+description: Complete German vocabulary the user supplies ad hoc (words from German class, a pasted word list, a photo, or notes) with article, plural, verb forms, Chinese meaning, and an example sentence, generate audio, and import the cards into the Anki deck AI-German-Words. Use when the user says things like "add these words to Anki", "put these few words in", or "add the words from class"; do not use to delete words. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.1.0"

@@ -30,7 +30,7 @@ Make a Spec easy to review by explaining not only what the system must do, but a
 ## Process
 
 1. Read the existing brief or Spec and preserve its requirements, scope, and unresolved questions.
-2. If the Spec explains existing code or uses repository evidence, follow the presentation discipline of `read-code-horizonally`: start with a short mental model, show one useful relationship diagram, and label claims as Fact, Inferred, or Unknown. For future behavior, distinguish requirements from repository facts.
+2. If the Spec explains existing code or uses repository evidence, follow the presentation discipline of `read-code-horizontally`: start with a short mental model, show one useful relationship diagram, and label claims as Fact, Inferred, or Unknown. For future behavior, distinguish requirements from repository facts.
 3. When stages, queues, statuses, approvals, or long-running work are present, read [Pipeline and State Machine](../brief-to-spec/references/pipeline-and-state-machine.md) and model both the processing flow and the durable state contract where both matter.
 4. Identify the smallest set of concepts that need explanation: actors, triggers, stages, inputs/outputs, states, decisions, checkpoints, ownership changes, external boundaries, and failure paths.
 5. Add a short plain-language walkthrough before or alongside each complex section. Define unfamiliar terms once.

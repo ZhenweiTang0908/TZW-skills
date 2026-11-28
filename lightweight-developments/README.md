@@ -18,7 +18,7 @@ Natural request
 ├─ substantial feature   ─→ brief-to-spec ─→ spec-explainer ─→ approval ─→ spec-to-plan
 │                          └→ implement-plan + engineering-quality ─→ verify-spec ─→ optional ship-change
 ├─ bug or incident       ─→ diagnose ─→ Fix Contract ─→ authorized fix ─→ verify-change
-├─ system understanding ─→ read-module / read-code-horizonally / read-code-vertically / read-state-and-model
+├─ system understanding ─→ read-module / read-code-horizontally / read-code-vertically / read-state-and-model
 ├─ design quality gap   ─→ excellence-gap ─→ gap report, no edits
 ├─ production data      ─→ production-database-analysis ─→ read-only findings
 ├─ rules or decisions   ─→ logic-audit ─→ no change, Mini Spec, or Formal Spec
@@ -34,7 +34,7 @@ See the [complete user guide](docs/USER-GUIDE.md) for branch purposes, steps, ex
 - `ROUTING.md` is the compact selection guide and overlap audit.
 - `AGENTS.md` supplies a minimal engineering baseline for repositories using the pack.
 
-The `brief-to-spec` skill also contains on-demand reference modules for data modeling, Pipeline and State Machine design, failure recovery, permissions, integrations, concurrency, observability, compatibility, and scale. They are loaded only when the feature needs that dimension. `spec-explainer` builds on that Pipeline guidance and the explanatory style of `read-code-horizonally`, then enriches the draft with stage-by-stage walkthroughs, checkpoints, edge cases, and Mermaid diagrams without turning requirements into an implementation plan.
+The `brief-to-spec` skill also contains on-demand reference modules for data modeling, Pipeline and State Machine design, failure recovery, permissions, integrations, concurrency, observability, compatibility, and scale. They are loaded only when the feature needs that dimension. `spec-explainer` builds on that Pipeline guidance and the explanatory style of `read-code-horizontally`, then enriches the draft with stage-by-stage walkthroughs, checkpoints, edge cases, and Mermaid diagrams without turning requirements into an implementation plan.
 
 `review-spec` is retained in the repository for now, but is temporarily not used in the lightweight workflow and is not installed as a global GPT Skill.
 

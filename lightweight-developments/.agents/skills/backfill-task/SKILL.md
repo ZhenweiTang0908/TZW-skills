@@ -1,6 +1,6 @@
 ---
 name: backfill-task
-description: Design and implement short-lived, externally controlled backfill jobs with pause/resume recovery, durable idempotency, structured observability, and isolated request authentication. Use when a user asks to backfill, reprocess, repair, or populate existing data through a bounded API-driven job; do not use for ordinary synchronous endpoints, irreversible bulk migrations, or long-running workflow orchestration.
+description: Design and implement short-lived, externally controlled backfill jobs with pause/resume recovery, durable idempotency, structured observability, and isolated request authentication. Use when a user asks to backfill, reprocess, repair, or populate existing data through a bounded API-driven job; do not use for ordinary synchronous endpoints, irreversible bulk migrations, or long-running workflow orchestration. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.1.1"

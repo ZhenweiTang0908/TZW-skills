@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Review code changes for concrete defects; challenge a spec, plan, or migration against its contract; audit business rules and state transitions for counterexamples. Review only, reports evidenced findings by severity.
+description: Review code changes for concrete defects; challenge a spec, plan, or migration against its contract; audit business rules and state transitions for counterexamples. Review only, reports evidenced findings by severity. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.3.0"

@@ -1,6 +1,6 @@
 ---
 name: ship-change
-description: Merge, deploy, execute migrations, roll out, or verify a release only after explicit user authorization for the exact target and environment. Use for production-affecting delivery with prechecks, postchecks, and recovery planning; implementation or passing tests never imply shipping permission.
+description: Merge, deploy, execute migrations, roll out, or verify a release only after explicit user authorization for the exact target and environment. Use for production-affecting delivery with prechecks, postchecks, and recovery planning; implementation or passing tests never imply shipping permission. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.2.0"

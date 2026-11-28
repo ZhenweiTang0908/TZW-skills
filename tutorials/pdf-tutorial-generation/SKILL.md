@@ -1,6 +1,6 @@
 ---
 name: pdf-tutorial-generation
-description: Create polished, screenshot-led PDF tutorials that explain complete sequential workflows, annotate UI targets, and handle conditional branches. Invoke only when the user explicitly requests $pdf-tutorial-generation or names PDF Tutorial Generation; never select it implicitly.
+description: Create polished, screenshot-led PDF tutorials that explain complete sequential workflows, annotate UI targets, and handle conditional branches. Invoke only when the user explicitly requests $pdf-tutorial-generation or names PDF Tutorial Generation; never select it implicitly. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.1.0"

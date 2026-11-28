@@ -25,6 +25,15 @@ class LinkSkillsTests(unittest.TestCase):
             self.assertTrue((target / "diagnose").is_symlink())
             self.assertTrue((target / "code-review").is_symlink())
 
+    def test_skips_claude_builtin_names_in_claude_dir(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / ".claude" / "skills"
+            target.mkdir(parents=True)
+            os.symlink(ROOT / ".agents" / "skills" / "code-review", target / "code-review")
+            self.run_script(str(target))
+            self.assertFalse((target / "code-review").exists())
+            self.assertTrue((target / "diagnose").is_symlink())
+
 
 if __name__ == "__main__":
     unittest.main()

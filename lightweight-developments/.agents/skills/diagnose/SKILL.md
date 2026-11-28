@@ -1,6 +1,6 @@
 ---
 name: diagnose
-description: Investigate bugs, incidents, test failures, and unexpected system behavior by gathering evidence, localizing the fault, and testing hypotheses before proposing a minimal fix. Use for troubleshooting; do not use for ordinary feature design or code changes without investigation.
+description: Investigate bugs, incidents, test failures, and unexpected system behavior by gathering evidence, localizing the fault, and testing hypotheses before proposing a minimal fix. Use for troubleshooting; do not use for ordinary feature design or code changes without investigation. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.2.0"

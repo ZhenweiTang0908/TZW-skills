@@ -1,6 +1,6 @@
 ---
 name: session-handoff
-description: Create a compact continuation record when pausing work, changing sessions, switching agents, or approaching context limits. Preserve only decisions, evidence, files, status, blockers, and the next action; do not copy the conversation or create a general project summary.
+description: Create a compact continuation record when pausing work, changing sessions, switching agents, or approaching context limits. Preserve only decisions, evidence, files, status, blockers, and the next action; do not copy the conversation or create a general project summary. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.2.0"

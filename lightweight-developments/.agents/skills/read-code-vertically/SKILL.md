@@ -1,6 +1,6 @@
 ---
 name: read-code-vertically
-description: Explain how an existing user-visible feature executes across UI, APIs, services, state changes, data writes, jobs, events, and failure paths. Use when the user wants the flow without reading the code themselves.
+description: Explain how an existing user-visible feature executes across UI, APIs, services, state changes, data writes, jobs, events, and failure paths. Use when the user wants the flow without reading the code themselves. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.1.0"
@@ -16,7 +16,7 @@ Reconstruct the current execution path of a feature from trigger to observable o
 
 ## Do not use when
 
-- The task is a code-area overview (use `read-code-horizonally`) or an observed failure (use `diagnose`).
+- The task is a code-area overview (use `read-code-horizontally`) or an observed failure (use `diagnose`).
 
 ## Process
 

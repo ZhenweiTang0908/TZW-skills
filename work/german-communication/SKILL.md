@@ -1,6 +1,6 @@
 ---
 name: german-communication
-description: Draft or revise concise German internal messages for familiar startup colleagues. Use for status updates, questions, coordination, and quick feedback in an informal team context; do not use for customer facing, legal, HR, or other formal communication.
+description: Draft or revise concise German internal messages for familiar startup colleagues. Use for status updates, questions, coordination, and quick feedback in an informal team context; do not use for customer facing, legal, HR, or other formal communication. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.1.0"

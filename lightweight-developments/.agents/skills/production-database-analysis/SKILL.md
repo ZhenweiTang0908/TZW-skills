@@ -1,6 +1,6 @@
 ---
 name: production-database-analysis
-description: Perform read-only investigation of production business data for statistics, anomalies, operational questions, and troubleshooting support. Use only with an explicitly selected production profile and enforced read-only database controls; never use it to repair or mutate data.
+description: Perform read-only investigation of production business data for statistics, anomalies, operational questions, and troubleshooting support. Use only with an explicitly selected production profile and enforced read-only database controls; never use it to repair or mutate data. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.2.1"

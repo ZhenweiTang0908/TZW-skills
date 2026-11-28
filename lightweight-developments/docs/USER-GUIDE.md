@@ -2,7 +2,7 @@
 
 Describe the work naturally. The agent picks the smallest workflow that can produce reliable evidence. Invoke a skill with `$skill-name` only to force or correct routing.
 
-Active skills (14): `brief-to-mini-spec`, `diagnose`, `production-database-analysis`, `read-module`, `read-code-horizonally`, `read-code-vertically`, `read-state-and-model`, `excellence-gap`, `backfill-task`, `engineering-quality`, `code-review`, `session-handoff`, `transfer-job`, `ship-change`.
+Active skills (14): `brief-to-mini-spec`, `diagnose`, `production-database-analysis`, `read-module`, `read-code-horizontally`, `read-code-vertically`, `read-state-and-model`, `excellence-gap`, `backfill-task`, `engineering-quality`, `code-review`, `session-handoff`, `transfer-job`, `ship-change`.
 
 Deprecated (moved to `.agents/deprecated-skills/`, not linked, not routed to): `brief-to-spec`, `spec-to-plan`, `verify-change`, `verify-spec`, `review-spec`, `spec-explainer` (folded into `brief-to-mini-spec`), `doubt-review` and `logic-audit` (folded into `code-review`).
 

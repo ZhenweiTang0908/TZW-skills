@@ -1,12 +1,12 @@
 ---
-name: read-code-horizonally
-description: Help understand an existing module, class, function, or repository area by reconstructing responsibilities, reading order, dependencies, side effects, and evidence. Use for explanation only, not for changing code.
+name: read-code-horizontally
+description: Help understand an existing module, class, function, or repository area by reconstructing responsibilities, reading order, dependencies, side effects, and evidence. Use for explanation only, not for changing code. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.1.0"
 ---
 
-# Read Code Horizonally (NIU)
+# Read Code Horizontally (NIU)
 
 Turn a code area into a usable mental model for someone who does not want to read every file.
 
@@ -34,6 +34,6 @@ Start with a short explanation of what the area does and how to read it. Add one
 
 Do not propose or implement changes unless separately requested. For an end-to-end user-visible feature, route to `read-code-vertically`; for lifecycle or schema questions, route to `read-state-and-model`.
 
-Use [the read-code-horizonally brief template](assets/read-code-horizonally-brief-template.md) when saving the result.
+Use [the read-code-horizontally brief template](assets/read-code-horizontally-brief-template.md) when saving the result.
 
 — NiuNiu Tang

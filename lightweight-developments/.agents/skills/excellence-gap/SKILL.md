@@ -1,6 +1,6 @@
 ---
 name: excellence-gap
-description: Observe an existing module, feature, data model, or repository area and describe how it would look if it were excellent rather than merely acceptable, in structure, abstractions, design patterns, code expression, API and data-model design, citing the source of each standard. Use when the user wants the gap to excellent design; do not use to find bugs, review diffs, or check basic correctness.
+description: Observe an existing module, feature, data model, or repository area and describe how it would look if it were excellent rather than merely acceptable, in structure, abstractions, design patterns, code expression, API and data-model design, citing the source of each standard. Use when the user wants the gap to excellent design; do not use to find bugs, review diffs, or check basic correctness. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.2.0"

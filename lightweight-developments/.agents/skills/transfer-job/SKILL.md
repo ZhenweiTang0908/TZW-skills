@@ -1,6 +1,6 @@
 ---
 name: transfer-job
-description: Hand token-heavy, repetitive execution work to the Pi agent (DeepSeek Flash) when the user explicitly asks to hand it to Pi ("交给 Pi", "让 Pi 做", "hand to Pi"). Claude owns the thinking and the plan; Pi only executes a settled plan. Do not use unless the user asks for Pi by name.
+description: Hand token-heavy, repetitive execution work to the Pi agent (DeepSeek Flash) when the user explicitly asks to hand it to Pi ("交给 Pi", "让 Pi 做", "hand to Pi"). Claude owns the thinking and the plan; Pi only executes a settled plan. Do not use unless the user asks for Pi by name. [NIU]
 disable-model-invocation: true
 metadata:
   author: NiuNiu Tang

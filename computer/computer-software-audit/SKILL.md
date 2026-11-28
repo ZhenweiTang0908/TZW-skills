@@ -1,6 +1,6 @@
 ---
 name: computer-software-audit
-description: Perform a deep, read-only audit of locally installed software, CLI tools, AI coding agents, package libraries, runtimes, background services, duplicate installations, and leftover data. Use when the user wants to inspect computer clutter, unused-tool candidates, or potential disk savings; never uninstall, clean, disable, or repair anything.
+description: Perform a deep, read-only audit of locally installed software, CLI tools, AI coding agents, package libraries, runtimes, background services, duplicate installations, and leftover data. Use when the user wants to inspect computer clutter, unused-tool candidates, or potential disk savings; never uninstall, clean, disable, or repair anything. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.1.0"

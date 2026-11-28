@@ -1,6 +1,6 @@
 ---
 name: work-log-recall
-description: Read the user's local daily work log and answer what they did during a requested period. Use for recall questions such as what did I do today, this week, or on a project; do not write or modify the log.
+description: Read the user's local daily work log and answer what they did during a requested period. Use for recall questions such as what did I do today, this week, or on a project; do not write or modify the log. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.1.1"

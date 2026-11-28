@@ -1,6 +1,6 @@
 ---
 name: read-state-and-model
-description: Explain current entity lifecycles, state transitions, data relationships, persistence, and invariants from an existing codebase. Use for state, schema, and data-flow understanding without changing code.
+description: Explain current entity lifecycles, state transitions, data relationships, persistence, and invariants from an existing codebase. Use for state, schema, and data-flow understanding without changing code. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.2.0"
@@ -16,7 +16,7 @@ Build the smallest model that explains how an entity changes and how its data is
 
 ## Do not use when
 
-- The question is a single code area's responsibilities (use `read-code-horizonally`) or production records (use `production-database-analysis`).
+- The question is a single code area's responsibilities (use `read-code-horizontally`) or production records (use `production-database-analysis`).
 
 ## Process
 

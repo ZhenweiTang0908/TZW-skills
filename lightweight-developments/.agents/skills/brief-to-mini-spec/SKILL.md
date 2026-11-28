@@ -1,6 +1,6 @@
 ---
 name: brief-to-mini-spec
-description: Turn a small, bounded behavior change in an existing codebase into a concise Mini Spec before implementation, with a walkthrough and diagrams when the flow branches. Not for debugging, production data, or large features.
+description: Turn a small, bounded behavior change in an existing codebase into a concise Mini Spec before implementation, with a walkthrough and diagrams when the flow branches. Not for debugging, production data, or large features. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.3.0"

@@ -6,7 +6,7 @@
 | Investigate unexpected behavior or a failure | `diagnose` | No speculative fix before evidence |
 | Analyze production business data | `production-database-analysis` | No production mutation |
 | Understand an existing system or feature | `read-module` | Read-only explanation; route to a focused observation skill |
-| Understand a module or repository area | `read-code-horizonally` | Not an end-to-end feature trace |
+| Understand a module or repository area | `read-code-horizontally` | Not an end-to-end feature trace |
 | Trace a feature from trigger to outcome | `read-code-vertically` | Describes current behavior; no implementation plan |
 | Explain entity states or data relationships | `read-state-and-model` | Not production data analysis or future design |
 | Find how existing code would look if excellent, not merely acceptable | `excellence-gap` | Not correctness review; no edits |
@@ -26,7 +26,7 @@ Deprecated and not routed to: `brief-to-spec`, `spec-explainer` (folded into `br
 - `brief-to-mini-spec` versus a larger scope: if new states, meaningful schema changes, permissions, external systems, or difficult rollback appear, stop and report that the scope exceeds a Mini Spec. Do not choose a replacement skill; the user decides.
 - `diagnose` versus `code-review` (Decision logic): diagnose explains an observed failure; decision-logic review tries to falsify a rule system even when no incident has occurred.
 - `read-module` versus `diagnose`: read-module explains current behavior; diagnose investigates an unexpected failure.
-- `read-code-horizonally` versus `read-code-vertically`: read-code-horizonally explains a bounded code area; read-code-vertically follows a user-visible behavior across boundaries.
+- `read-code-horizontally` versus `read-code-vertically`: read-code-horizontally explains a bounded code area; read-code-vertically follows a user-visible behavior across boundaries.
 - `read-code-vertically` composes state and data modeling when lifecycle or persistence is needed to explain the flow.
 - `code-review` (Change) versus `excellence-gap`: Change mode asks whether a change is correct and sound enough to accept; excellence-gap observes existing code and describes the excellent design it falls short of, citing the source of each standard.
 - Implementation authority never implies merge, deployment, migration, or production rollout authority (`ship-change` requires explicit authorization).

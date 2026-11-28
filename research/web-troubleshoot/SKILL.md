@@ -1,6 +1,6 @@
 ---
 name: web-troubleshoot
-description: Investigate difficult problems through broad and deep web research, firsthand cases, source tracing, and comparison with local evidence. Use for production and cloud incidents, elusive bugs, integration failures, or other hard-to-resolve problems where external experience can reveal missing conditions or next steps; not for simple lookups or local-only debugging.
+description: Investigate difficult problems through broad and deep web research, firsthand cases, source tracing, and comparison with local evidence. Use for production and cloud incidents, elusive bugs, integration failures, or other hard-to-resolve problems where external experience can reveal missing conditions or next steps; not for simple lookups or local-only debugging. [NIU]
 metadata:
   author: NiuNiu Tang
   version: "0.1.0"

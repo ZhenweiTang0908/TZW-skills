@@ -4,7 +4,7 @@
 
 NiuNiu Tang 的个人 Agent Skill 合集，同时供 Claude Code 和 Codex 使用。涵盖日常工作记录、软件开发全流程、电脑维护、疑难问题调研和产品教程制作。
 
-所有 Skill 的显示名都带 `(NIU)` 后缀，用来和第三方 Skill 区分。
+所有 Skill 的显示名都带 `(NIU)` 后缀，`description` 末尾都带 `[NIU]`，用来和第三方 Skill 区分。Codex 显示的是显示名；Claude Code 只显示 `name` 和 `description`，所以在 Claude Code 里靠 description 末尾的标记来识别。
 
 ## 目录结构
 
@@ -25,6 +25,8 @@ TZW-skills/
 ├── computer/                           # 电脑维护（只读检查）
 │   ├── computer-health-check/          # 电脑体检：发热、卡顿、耗电、可疑程序
 │   └── computer-software-audit/        # 已安装软件盘点与清理建议
+├── study/
+│   └── anki-add-words/                 # 补全临时补充的德语单词并导入 Anki
 ├── research/
 │   └── web-troubleshoot/               # 疑难问题的深度网络调研
 ├── tutorials/                          # 产品教程制作
@@ -57,7 +59,7 @@ TZW-skills/
 | `diagnose` | 先收集证据、验证假设，再给出最小修复。 |
 | `production-database-analysis` | 在强制只读的前提下查询生产数据库，回答统计、异常和运营问题。 |
 | `read-module` | 解释现有系统的总入口，按问题分派给下面三个 Skill。 |
-| `read-code-horizonally` | 讲清某个模块、类或函数的职责与阅读顺序。 |
+| `read-code-horizontally` | 讲清某个模块、类或函数的职责与阅读顺序。 |
 | `read-code-vertically` | 从界面到 API、服务、数据写入，追踪一个功能的完整执行链路。 |
 | `read-state-and-model` | 梳理实体生命周期、状态流转、数据关系和不变量。 |
 | `backfill-task` | 设计可暂停、可恢复、幂等的数据回填任务。 |
@@ -78,6 +80,12 @@ TZW-skills/
 | --- | --- |
 | `computer-health-check` | macOS 体检：CPU、内存、发热、电池、磁盘、后台任务、开发进程、安全设置、可疑程序。只读，任何处理都要逐项确认。 |
 | `computer-software-audit` | 盘点已安装的软件、命令行工具、运行时和残留数据，找出可清理的候选项。只读，不卸载任何东西。 |
+
+### 学习（`study/`）
+
+| Skill | 用途 |
+| --- | --- |
+| `anki-add-words` | 补全用户给的德语单词（冠词、复数、动词变化、中文释义、A2 例句），生成音频，导入 Anki 牌组 `AI-German-Words`。需要 Anki 和 AnkiConnect 在运行。 |
 
 ### 调研（`research/`）
 
@@ -123,7 +131,7 @@ cp config.example.env config.local.env
 ## 约定
 
 1. **命名**：文件夹名和 `name` 一致，全部小写，单词之间用短杠，不用下划线。
-2. **元信息**：每个 SKILL.md 的 frontmatter 都写 `metadata.author` 和 `metadata.version`；SKILL.md 的标题和 `agents/openai.yaml` 的显示名都以 `(NIU)` 结尾。
+2. **元信息**：每个 SKILL.md 的 frontmatter 都写 `metadata.author` 和 `metadata.version`；SKILL.md 的标题和 `agents/openai.yaml` 的显示名都以 `(NIU)` 结尾；frontmatter 的 `description` 以 ` [NIU]` 结尾（放末尾，不放开头：开头是 `[` 时 YAML 会把整个值解析成列表）。
 3. **产物隔离**：生成的 PDF、视频、音频、截图等一律放在 `Temp/` 或对应 Skill 自己的临时目录，不进版本库。
 4. **密钥**：API Key、TTS Key 等只放在本地的 `ENV` 或 `.env` 文件里，不提交。
 5. **不写个人路径**：Skill 里不要出现 `/Users/<用户名>/...`，改用 `~`、`$HOME` 或 `config.local.env` 里的配置项。
